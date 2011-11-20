@@ -453,7 +453,7 @@
 ;; Load xcscope
 (add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope")
 (require 'xcscope)
-(add-hook 'java-mode-hook (function cscope:hook))
+;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; * Keybindings:
 ;;
 ;; All keybindings use the "C-c s" prefix, but are usable only while
