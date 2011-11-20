@@ -1,0 +1,951 @@
+;;------------------------------------------------------------------------;;
+;; Profile
+(setq user-full-name "Chris Zheng | 郑 栋")
+(setq user-mail-address "chris.d.cheng@gmail.com")
+;; Add path
+(setenv "PATH"
+        (concat
+         "/usr/local/bin"
+         ":"
+         (getenv "PATH")))
+;; Add cscope-indexer execute path
+(setq exec-path (append exec-path '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/")))
+;; Set dotemacs file mode to lisp-mode
+(add-to-list 'auto-mode-alist '("dotemacs" . emacs-lisp-mode))
+;; Set pac files mode to javascript-mode
+(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
+;; Set log files mode to auto-reverse-tail-mode
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+;; Add .site-lisp and site-lisp in home directory to load path   
+(setq load-path (nconc '( "~/Dropbox/Emacs/emacs.d/site-lisp" ) load-path))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Functions
+(defun bounce-sexp ()
+  "Will bounce between matching parens"
+  (interactive)
+  (let ((prev-char (char-to-string (preceding-char)))
+	    (next-char (char-to-string (following-char))))
+     (cond 
+       ((string-match "[[{(<]" next-char) (forward-sexp 1))
+       ((string-match "[\]})>]" prev-char) (backward-sexp 1))
+       (t (error "%s" "Not on a paren, brace, or bracket")))))
+(global-set-key (kbd "M-=") 'bounce-sexp)
+
+
+;; Add a line and jump to it
+(defun add-and-goto-that-line()
+  "Add a new line and move to that line"
+  (interactive)
+  (end-of-line)
+  (if (not (eobp))
+      (forward-char 1))
+  (newline)
+  (previous-line))
+(global-set-key "\M-\r" 'add-and-goto-that-line)
+
+
+;; Count words in buffer
+(defun count-words-buffer ()
+  "Count the number of words in current the buffer, print in the minibuffer"
+  (interactive)
+  (save-excursion
+    (let ((count 0))
+      (goto-char (point-min))
+      (while (< (point) (point-max))
+        (forward-word 1)
+        (setq count (1+ count)))
+      (message "buffer contains %d words." count))))
+
+
+;; Compute the length of the marked region 
+(defun region-length ()
+  "length of a region"
+  (interactive)
+  (message (format "%d" (- (region-end) (region-beginning)))))
+
+
+;; Buffer-switching methods
+(defun buffer-ignored (str)
+  (or
+    ;;buffers I don't want to switch to 
+	(string-match "^\\*Buffer List\\*$" str)
+    (string-match "^\\*GNU Emacs\\*$" str)
+	(string-match "^TAGS" str)
+	(string-match "^\\*Messages\\*$" str)
+	(string-match "^\\*Completions\\*$" str)
+	(string-match "^\\*scratch\\*$" str)
+	(string-match "^\\*ESS\\*$" str)
+	(string-match "^ " str)
+	(string-match "Mew message" str)
+	(string-match "output\\*$" str)
+	(string-match "^\\*TeX silent\\*$" str)
+    (string-match "^\\*\[e|E\]diff.*\\*$" str)
+    (string-match "^\\*Help\\*$" str)
+    (with-current-buffer (get-buffer str)
+      (eq major-mode 'dired-mode))
+    ;;Test to see if the window is visible on an existing visible frame.
+    ;;Because I can always ALT-TAB to that visible frame, I never want to 
+    ;;Ctrl-TAB to that buffer in the current frame.  That would cause 
+    ;;a duplicate top-level buffer inside two frames.
+    (memq str                
+      (mapcar 
+        (lambda (x) 
+          (buffer-name 
+            (window-buffer 
+              (frame-selected-window x))))
+        (visible-frame-list)))))
+(defun next-buffer (ls)
+  "Switch to next buffer in ls skipping unwanted ones."
+  (let* ((ptr ls) bf bn go)
+    (while (and ptr (null go))
+      (setq bf (car ptr)  bn (buffer-name bf))
+      ;; Skip over
+      (if (null (buffer-ignored bn))
+        (setq go bf)
+        (setq ptr (cdr ptr))))
+    (if go (switch-to-buffer go))))
+(defun prev-use-buffer ()
+  "Switch to previous buffer in current window."
+  (interactive)
+  (next-buffer (reverse (buffer-list))))
+(defun next-use-buffer ()
+  "Switch to the other buffer (2nd in list-buffer) in current window."
+  (interactive)
+  (bury-buffer (current-buffer))
+  (next-buffer (buffer-list)))
+(global-set-key "\M-`" 'next-use-buffer)
+(global-set-key "\M-~" 'prev-use-buffer)
+
+
+;; Show ascii table
+(defun ascii-table ()
+  "Print the ascii table"
+  (interactive)
+  (switch-to-buffer "*ASCII*")
+  (erase-buffer)
+  (insert (format "ASCII characters up to number %d.\n" 254))
+  (let ((i 0))
+    (while (< i 254)
+      (setq i (+ i 1))
+      (insert (format "%4d %c\n" i i))))
+  (beginning-of-buffer))
+
+
+;; Insert date into buffer
+(defun insert-date ()
+  "Insert date at point"
+  (interactive)
+  (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
+
+
+;; Convert a buffer from dos ^M end of lines to unix end of lines
+(defun dos2unix ()
+  (interactive)
+    (goto-char (point-min))
+      (while (search-forward "\r" nil t) (replace-match "")))
+;; vice versa
+(defun unix2dos ()
+  (interactive)
+    (goto-char (point-min))
+      (while (search-forward "\n" nil t) (replace-match "\r\n")))
+
+
+(defun move-line (&optional n)
+  "Move current line N (1) lines up/down leaving point in place."
+  (interactive "p")
+  (when (null n)
+    (setq n 1))
+  (let ((col (current-column)))
+    (beginning-of-line)
+    (next-line 1)
+    (transpose-lines n)
+    (previous-line 1)
+    (forward-char col)))
+(defun move-line-up (n)
+  "Moves current line N (1) lines up leaving point in place."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n)))) 
+(defun move-line-down (n)
+  "Moves current line N (1) lines down leaving point in place."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
+(global-set-key [M-up] 'move-line-up)
+(global-set-key [M-down] 'move-line-down)
+
+
+;; A no-op function to bind to if you want to set a keystroke to null
+(defun void ()
+  "this is a no-op"
+  (interactive))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; UI settings
+;; Using this method to guarantee that font in speedbar is same size as buffer
+(setq default-frame-alist
+  (append
+    '((left . 50) 
+      (top . 0)
+      (width . 100) 
+      (height . 40)
+      ) 
+    default-frame-alist))
+(add-to-list 'default-frame-alist 
+             '(font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
+
+;; Font zoom out  C-x C-=
+;; Font zoom in   C-x C--
+;; Font reset     C-x C-0
+
+;; Frame transparant
+;;(add-to-list 'default-frame-alist (cons 'alpha (list 90 50)))
+
+;; Slow down the mouse wheel acceleration
+;; (when (boundp 'mouse-wheel-scroll-amount)
+;;   (setq mouse-wheel-scroll-amount '(0.01)))
+
+;; Hide the tool bar
+(when (fboundp 'tool-bar-mode)
+  (tool-bar-mode 0))
+;; Show menu bar only for mac osx
+(if (window-system) (menu-bar-mode nil))
+(when (boundp 'mac-command-modifier)
+  (if (window-system) (menu-bar-mode t)))
+;; Show time
+(display-time-mode 1)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Miscellaneous
+;; Show paren, brace, and curly brace "partners" at all times
+(show-paren-mode t)
+;; Show column and line number on mode line
+(setq column-number-mode t)
+(setq line-number-mode t)
+;; Big buffer pool
+(setq kill-ring-max 200)
+;; TAB set
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+;; Save bookmarks to default file
+(setq bookmark-save-flag 1)
+;; Column to 80
+(setq default-fill-column 80)
+;; Syntax highlight
+(global-font-lock-mode t)
+(setq transient-mark-mode t)
+;; Wrap line
+(set-default 'truncate-partial-width-windows (not truncate-partial-width-windows))
+;; Allow paste between emacs and external application
+(setq x-select-enable-clipboard t)
+;; Stop creating those backup~ files
+(setq make-backup-files nil)
+;; Stop creating those #***# files
+(setq auto-save-default nil)
+;; Add new line to file end
+(setq require-final-newline t)
+;; No new lines when you press the "arrow-down key" at end of the buffer
+(setq next-line-add-newlines nil)
+;; Make the y or n suffice for a yes or no question
+(fset 'yes-or-no-p 'y-or-n-p)
+;; Kill whole if curson is at line beginning using ctrl+k
+(setq kill-whole-line t)
+;; Hightlight C/C++ warning
+(global-cwarn-mode 1)
+;; Compile command
+(setq compile-command "make -C ") 
+;; Display current buffer file path to frame title
+(setq frame-title-format 
+  '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; Emacs gurus don't need no stinking scroll bars
+(when (fboundp 'toggle-scroll-bar)
+  (toggle-scroll-bar -1))
+;; Prevent the annoying beep on errors, use flash instead
+(setq visible-bell t)
+;;   No warnings
+(setq ring-bell-function 'ignore)
+;; Make sure all backup files only live in one place
+;;(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+;; For emacsclient
+;;(server-start)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; key bindings
+;; f1 
+;; f2(viss-bookmark-toggle)
+;;   S-f2 next C-f2 prev C-S-f2 clear all
+(global-set-key [f3] 'bookmark-jump)
+(global-set-key [S-f3] 'bookmark-set)
+;; f4 f5 f6
+;; f8 is used for highlight-symbol
+
+;; Compiling
+(global-set-key "\M-6" 'compile)
+(global-set-key "\M-^" 'next-error)
+(global-set-key (kbd "C-6") 'kill-compilation)
+
+(global-set-key "\M-7" 'shell-current-directory)
+(global-set-key "\M-8" 'grep-find)
+
+;; Indexing using cscope
+(global-set-key "\M-9" 'cscope-find-global-definition)
+(global-set-key "\M-(" 'cscope-pop-mark)
+(global-set-key (kbd "C-9") 'cscope-find-functions-calling-this-function)
+
+(global-set-key [S-left] 'other-window)
+(global-set-key [C-delete] 'kill-word)
+(global-set-key [C-backspace] 'backward-kill-word)
+(global-set-key [home] 'beginning-of-buffer)
+(global-set-key [end] 'end-of-buffer)
+(global-set-key [C-left] 'enlarge-window-horizontally)
+(global-set-key [C-right] 'shrink-window-horizontally)
+(global-set-key [C-up] 'enlarge-window)
+(global-set-key [C-down] 'shrink-window)
+
+(global-set-key "\C-s" 'isearch-forward-regexp)
+(global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key (kbd "C--") 'undo)
+(global-set-key "\C-x\C-b" 'ibuffer)
+(global-set-key "\M-s" 'save-buffer)
+
+;; Map the window manipulation keys to meta 0, 1, 2, o
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-2") 'split-window-vertically)
+(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-0") 'delete-window)
+(global-set-key (kbd "M-o") 'other-window)
+;; Replace dired's M-o
+(add-hook 'dired-mode-hook 
+          (lambda () 
+            (define-key dired-mode-map (kbd "M-o") 'other-window)))
+;; Replace ibuffer's M-o
+(add-hook 'ibuffer-mode-hook 
+          (lambda () 
+            (define-key ibuffer-mode-map (kbd "M-o") 'other-window)))
+(global-set-key "\M-k" 'kill-this-buffer)
+(global-set-key "\M-l" 'goto-line)
+(global-set-key "\M-u" 
+                '(lambda () 
+                   (interactive) (backward-word 1) (upcase-word 1)))
+
+;; Reverse buffer
+(global-set-key "\M-r" 'revert-buffer)
+
+;; For Mac OS X meta key
+(when (boundp 'mac-command-modifier)
+  (setq mac-command-modifier 'meta))
+;; Mac OS X conventions
+(global-set-key (kbd "M-a") 'mark-whole-buffer)
+
+;; Cheat sheet for key bindings
+;; M-^ move current line to the end of prev line
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; mode settings
+;;
+;; c/c++ mode
+;; set up my tab length as a variable
+(defun get-my-tab-length () 4)
+(defun my-c-mode-hook ()
+  (local-set-key "\M-f" 'c-forward-into-nomenclature)
+  (local-set-key "\M-b" 'c-backward-into-nomenclature)
+  ;; Set C code mode to Kernighan and Ritchie mode
+  (c-set-style "K&R")
+  ;; Set tab width and c offset
+  (setq tab-width (get-my-tab-length))
+  (setq c-basic-offset (get-my-tab-length))
+  (setq standard-indent (get-my-tab-length))
+  ;; Make style variables gloable
+  (setq c-style-variables-are-local-p nil)
+  ;; Brace that opens a substatement block, indent to zero
+  (c-set-offset 'substatement-open 0)
+  ;; Switch/case: make each case line indent from switch
+  (c-set-offset 'case-label '+)
+  ;; Make open-braces after a case: statement indent to 0 (default was '+)
+  (c-set-offset 'statement-case-open 0)
+  ;; Make the ENTER key indent next line properly
+  (local-set-key "\C-m" 'newline-and-indent)
+  ;; Make DEL take all previous whitespace with it
+  (setq c-hungry-delete-key t)
+  ;; Show in which function
+  (which-function-mode t)
+  ;; Make a #define be left-aligned 
+  (setq c-electric-pound-behavior (quote (alignleft)))
+  ;; High light line minor mode
+  (hl-line-mode t)
+  ;; Line number minor mode
+  (linum-mode t)
+  ;; Setting for auto-complete
+  (define-key c-mode-base-map "\M-/" 'ac-complete-clang)
+)
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () 
+            (hl-line-mode)
+            (linum-mode)))
+
+(add-hook 'java-mode-hook
+          (lambda ()
+            (hl-line-mode)
+            (linum-mode)))
+
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            (hl-line-mode)
+            (linum-mode)))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; php mode
+(require 'php-mode)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load color-theme
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/color-theme-6.6.0")
+(require 'color-theme)
+(color-theme-initialize)
+;;(color-theme-tomorrow-night)
+(color-theme-blackboard)
+;;(color-theme-billw)
+;;(my-color-theme)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load auto-complete
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/auto-complete-1.3")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/Dropbox/Emacs/emacs.d/auto-complete-1.3/ac-dict")
+(ac-config-default)
+(setq ac-modes
+      (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+                                  change-log-mode text-mode
+                                  makefile-gmake-mode makefile-bsdmake-mo
+                                  autoconf-mode makefile-automake-mode)))
+
+(require 'auto-complete-clang)
+;; If you want to add a compiler flag (most of time is the include path), 
+;; just create a file call .clang-completion-config.el under the directory you put your source in. 
+;; With the content like this:
+;; (setq clang-completion-flags (split-string "-pthread -I/usr/include/gtk-2.0 
+;; -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 
+;; -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ 
+;; -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 
+;; -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load xcscope
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope")
+(require 'xcscope)
+(add-hook 'java-mode-hook (function cscope:hook))
+;; * Keybindings:
+;;
+;; All keybindings use the "C-c s" prefix, but are usable only while
+;; editing a source file, or in the cscope results buffer:
+;;
+;;      C-c s s         Find symbol. *********
+;;      C-c s d         Find global definition.
+;;      C-c s g         Find global definition (alternate binding).
+;;      C-c s G         Find global definition without prompting.
+;;      C-c s c         Find functions calling a function. *********
+;;      C-c s C         Find called functions (list functions called
+;;                      from a function). *********
+;;      C-c s t         Find text string.
+;;      C-c s e         Find egrep pattern.
+;;      C-c s f         Find a file.
+;;      C-c s i         Find files #including a file.
+;;
+;; These pertain to navigation through the search results:
+;;
+;;      C-c s b         Display *cscope* buffer.
+;;      C-c s B         Auto display *cscope* buffer toggle.
+;;      C-c s n         Next symbol.
+;;      C-c s N         Next file.
+;;      C-c s p         Previous symbol.
+;;      C-c s P         Previous file.
+;;      C-c s u         Pop mark.
+;;
+;; These pertain to setting and unsetting the variable,
+;; `cscope-initial-directory', (location searched for the cscope database
+;;  directory):
+;;
+;;      C-c s a         Set initial directory. *********
+;;      C-c s A         Unset initial directory.
+;;
+;; These pertain to cscope database maintenance:
+;;
+;;      C-c s L         Create list of files to index. *********
+;;      C-c s I         Create list and index.
+;;      C-c s E         Edit list of files to index.
+;;      C-c s W         Locate this buffer's cscope directory
+;;                      ("W" --> "where").
+;;      C-c s S         Locate this buffer's cscope directory.
+;;                      (alternate binding: "S" --> "show").
+;;      C-c s T         Locate this buffer's cscope directory.
+;;                      (alternate binding: "T" --> "tell").
+;;      C-c s D         Dired this buffer's directory.
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load org-mode
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.7/lisp")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.7/contrib/lisp")
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+;; MobileOrg
+(setq org-directory "~/Dropbox/Documents/org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
+(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org"
+                              "~/Dropbox/Documents/org/todo.org"
+                              "~/Dropbox/Documents/org/refile.org")))
+(setq org-mobile-force-id-on-agenda-items nil)
+;; Task
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
+              (sequence "WAITING(w@/@)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("STARTED" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+(setq org-agenda-files (quote ("~/Dropbox/Documents/org")))
+(setq org-use-fast-todo-selection t)
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t))
+              ("HOLD" ("WAITING" . t) ("HOLD" . t))
+              (done ("WAITING") ("HOLD"))
+              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("STARTED" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+;; (setq org-hierarchical-todo-statistics t)
+;; ;; Enable clock when done
+;; (setq org-log-done t)
+;; Capture
+(setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
+(global-set-key "\C-cc" 'org-capture)
+(setq org-capture-templates
+      (quote (("t" "todo" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* TODO %?\n%U\n%a\n  %i" :clock-in t :clock-resume t)
+              ("n" "note" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* %? :NOTE:\n%U\n%a\n  %i" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree "~/Dropbox/Documents/org/refile.org")
+               "* %?\n%U\n  %i" :clock-in t :clock-resume t)
+              ("w" "org-protocol" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* TODO Review %c\n%U\n  %i" :immediate-finish t)
+              ("p" "Phone call" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+              ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
+
+;; '(org-capture-templates 
+;;   (quote (
+;;           ("a" "Appointment" entry (file+headline 
+;;                                     "c:/charles/My Dropbox/GTD/taskdiary.org" "Calendar") 
+;;            "* APPT %^{Description} %^g
+;; %?
+;; Added: %U") 
+;;           ("n" "Notes" entry (file+datetree 
+;;                               "c:/charles/My Dropbox/GTD/taskdiary.org") 
+;;            "* %^{Description} %^g %? 
+;; Added: %U") 
+;;           ("t" "Task Diary" entry (file+datetree 
+;;                                    "c:/charles/My Dropbox/GTD/taskdiary.org") 
+;;            "* TODO %^{Description}  %^g
+;; %?
+;; Added: %U") 
+;;           ("j" "Journal" entry (file+datetree 
+;;                                 "c:/charles/My Dropbox/GTD/workjournal.org") 
+;;            "** %^{Heading}")  
+;;           ("l" "Log Time" entry (file+datetree 
+;;                                  "c:/charles/My Dropbox/GTD/timelog.org" ) 
+;;            "** %U - %^{Activity}  :TIME:")
+;;           )))
+
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+;; Agenda
+(setq org-agenda-dim-blocked-tasks nil)
+(setq org-agenda-custom-commands
+      (quote (("N""Notes" tags "NOTE"
+               ((org-agenda-overriding-header "Notes")
+                (org-tags-match-list-sublevels t)))
+              ("h""Habits" tags-todo "STYLE=\"habit\""
+               ((org-agenda-overriding-header "Habits")
+                (org-agenda-sorting-strategy
+                 '(todo-state-down effort-up category-keep))))
+              (" ""Agenda"
+               ((agenda "" nil)
+                (tags "REFILE"
+                      ((org-agenda-overriding-header "Notes and Tasks to Refile")
+                       (org-agenda-overriding-header "Tasks to Refile")))
+                (tags-todo "-CANCELLED/!"
+                           ((org-agenda-overriding-header "Stuck Projects")
+                            (org-tags-match-list-sublevels 'indented)
+                            (org-agenda-skip-function 'bh/skip-non-stuck-projects)))
+                (tags-todo "-WAITING-CANCELLED/!NEXT|STARTED"
+                           ((org-agenda-overriding-header "Next Tasks")
+                            (org-agenda-skip-function 'bh/skip-projects-and-habits)
+                            (org-agenda-todo-ignore-scheduled t)
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
+                (tags-todo "-REFILE-CANCELLED/!-NEXT-STARTED-WAITING"
+                           ((org-agenda-overriding-header "Tasks")
+                            (org-agenda-skip-function 'bh/skip-projects-and-habits)
+                            (org-tags-match-list-sublevels 'indented)
+                            (org-agenda-todo-ignore-scheduled t)
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (tags-todo "-CANCELLED/!"
+                           ((org-agenda-overriding-header "Projects")
+                            (org-agenda-skip-function 'bh/skip-non-projects)
+                            (org-tags-match-list-sublevels 'indented)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (todo "WAITING|HOLD"
+                      ((org-agenda-overriding-header "Waiting and Postponed tasks")
+                       (org-agenda-skip-function 'bh/skip-projects-and-habits)))
+                (tags "-REFILE/"
+                      ((org-agenda-overriding-header "Tasks to Archive")
+                       (org-agenda-skip-function 'bh/skip-non-archivable-tasks))))
+               nil)
+              ("r""Tasks to Refile" tags "REFILE"
+               ((org-agenda-overriding-header "Notes and Tasks to Refile")
+                (org-agenda-overriding-header "Tasks to Refile")))
+              ("#""Stuck Projects" tags-todo "-CANCELLED/!"
+               ((org-agenda-overriding-header "Stuck Projects")
+                (org-tags-match-list-sublevels 'indented)
+                (org-agenda-skip-function 'bh/skip-non-stuck-projects)))
+              ("n""Next Tasks" tags-todo "-WAITING-CANCELLED/!NEXT|STARTED"
+               ((org-agenda-overriding-header "Next Tasks")
+                (org-agenda-skip-function 'bh/skip-projects-and-habits)
+                (org-agenda-todo-ignore-scheduled t)
+                (org-agenda-todo-ignore-deadlines t)
+                (org-tags-match-list-sublevels t)
+                (org-agenda-sorting-strategy
+                 '(todo-state-down effort-up category-keep))))
+              ("R""Tasks" tags-todo "-REFILE-CANCELLED/!-NEXT-STARTED-WAITING"
+               ((org-agenda-overriding-header "Tasks")
+                (org-agenda-skip-function 'bh/skip-projects-and-habits)
+                (org-tags-match-list-sublevels 'indented)
+                (org-agenda-sorting-strategy
+                 '(category-keep))))
+              ("p""Projects" tags-todo "-CANCELLED/!"
+               ((org-agenda-overriding-header "Projects")
+                (org-agenda-skip-function 'bh/skip-non-projects)
+                (org-tags-match-list-sublevels 'indented)
+                (org-agenda-sorting-strategy
+                 '(category-keep))))
+              ("w""Waiting Tasks" todo "WAITING|HOLD"
+               ((org-agenda-overriding-header "Waiting and Postponed tasks"))
+               (org-agenda-skip-function 'bh/skip-projects-and-habits))
+              ("A""Tasks to Archive" tags "-REFILE/"
+               ((org-agenda-overriding-header "Tasks to Archive")
+                (org-agenda-skip-function 'bh/skip-non-archivable-tasks))))))
+(add-hook 'org-mode-hook 
+          (lambda () (setq truncate-lines nil)))
+
+;; ---------
+;; Custom Key Bindings
+;; (global-set-key (kbd "<f12>") 'org-agenda)
+;; (global-set-key (kbd "<f5>") 'bh/org-todo)
+;; (global-set-key (kbd "<S-f5>") 'bh/widen)
+;; (global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
+;; (global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
+;; (global-set-key (kbd "<f9> b") 'bbdb)
+;; (global-set-key (kbd "<f9> c") 'calendar)
+;; (global-set-key (kbd "<f9> f") 'boxquote-insert-file)
+;; (global-set-key (kbd "<f9> g") 'gnus)
+;; (global-set-key (kbd "<f9> h") 'bh/hide-other)
+;; (global-set-key (kbd "<f9> i") 'info)
+
+;; (global-set-key (kbd "<f9> I") 'bh/punch-in)
+;; (global-set-key (kbd "<f9> O") 'bh/punch-out)
+
+;; (global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
+
+;; (global-set-key (kbd "<f9> r") 'boxquote-region)
+;; (global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
+
+;; (global-set-key (kbd "<f9> t") 'bh/insert-inactive-timestamp)
+;; (global-set-key (kbd "<f9> T") 'tabify)
+;; (global-set-key (kbd "<f9> U") 'untabify)
+
+;; (global-set-key (kbd "<f9> v") 'visible-mode)
+;; (global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
+;; (global-set-key (kbd "C-<f9>") 'previous-buffer)
+;; (global-set-key (kbd "C-x n r") 'narrow-to-region)
+;; (global-set-key (kbd "C-<f10>") 'next-buffer)
+;; (global-set-key (kbd "<f11>") 'org-clock-goto)
+;; (global-set-key (kbd "C-<f11>") 'org-clock-in)
+;; (global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
+;; (global-set-key (kbd "C-M-r") 'org-capture)
+;; (global-set-key (kbd "C-c r") 'org-capture)
+
+;; (defun bh/hide-other ()
+;;   (interactive)
+;;   (save-excursion
+;;     (org-back-to-heading)
+;;     (org-shifttab)
+;;     (org-reveal)
+;;     (org-cycle)))
+
+;; (defun bh/set-truncate-lines ()
+;;   "Toggle value of truncate-lines and refresh window display."
+;;   (interactive)
+;;   (setq truncate-lines (not truncate-lines))
+;;   ;; now refresh window display (an idiom from simple.el):
+;;   (save-excursion
+;;     (set-window-start (selected-window)
+;;                       (window-start (selected-window)))))
+
+;; (defun bh/make-org-scratch ()
+;;   (interactive)
+;;   (find-file "/tmp/publish/scratch.org")
+;;   (gnus-make-directory "/tmp/publish"))
+
+;; (defun bh/switch-to-scratch ()
+;;   (interactive)
+;;   (switch-to-buffer "*scratch*"))
+
+
+
+
+;; ; Stop using paths for refile targets - we file directly with IDO
+;; (setq org-refile-use-outline-path nil)
+
+;; ; Targets complete directly with IDO
+;; (setq org-outline-path-complete-in-steps nil)
+
+
+;; ; Use IDO for both buffer and file completion and ido-everywhere to t
+;; (setq org-completion-use-ido t)
+;; (setq ido-everywhere t)
+;; (setq ido-max-directory-size 100000)
+;; (ido-mode (quote both))
+
+;; ;;;; Refile settings
+;; ; Exclude DONE state tasks from refile targets
+;; (defun bh/verify-refile-target ()
+;;   "Exclude todo keywords with a done state from refile targets"
+;;   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+;; (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+;; ---------
+
+;; Set more state in TODO keywords
+;; (setq org-todo-keywords '((type "TODO" "NEXT" "WAITING" "DONE")))
+;; (setq org-todo-keywords
+;;        '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+;; (setq org-todo-keywords '((type "Fred" "Sara" "Lucy" "|" "DONE")))
+;; TAB - Subtree cycling  S-TAB - Global cycling
+;; M-RET - Insert same level heading  M-S-RET Insert TODO entry 
+;; M-left/right - Promote/Demote current heading by one level
+;; M-S-left/right - Promote/Demote current subtree by one level
+;; M-S-up/down - Move subtree up/down
+;; C-c C-t - Rotate TODO state 
+;; C-c C-s - Schedule  C-c C-d - Deadline
+;; C-c a t - Show the global TODO list
+;; S-M-RET Insert a new TODO entry
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load yasnippet
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c")
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c/snippets")
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Enable highlight symbol
+(require 'highlight-symbol)
+(global-set-key [f8] 'highlight-symbol-at-point)
+(global-set-key [S-f8] 'highlight-symbol-next)
+(global-set-key [C-f8] 'highlight-symbol-prev)
+(global-set-key [C-S-f8] 'highlight-symbol-remove-all)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Enable cursor style
+(require 'cursor-chg)  ; Load this library
+(change-cursor-mode 1) ; On for overwrite/read-only/input mode
+(toggle-cursor-type-when-idle 1) ; On when idle
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;;Enable ido-mode
+(require 'ido)
+(ido-mode t)
+;; Enable fuzzy matching
+(setq ido-enable-flex-matching t)
+;;------------------------------------------------------------------------;;
+
+;;------------------------------------------------------------------------;;
+;; Enable auto pair, paris () {} "" etc.
+(require 'autopair)
+(autopair-global-mode) ;; enable autopair in all buffers 
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Pinyin input
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/eim")
+(autoload 'eim-use-package "eim" "Another emacs input method")
+;; Tooltip is not good for use
+(setq eim-use-tooltip nil)
+(register-input-method
+ "eim-py" "euc-cn" 'eim-use-package
+ "拼音" "汉字拼音输入法" "py.txt")
+;; Use ; to input English
+(require 'eim-extra)
+(global-set-key ";" 'eim-insert-ascii)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Reverse all out of date buffers
+(require 'revbufs)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; (autoload 'flymake-find-file-hook "flymake" "" t)
+;; (add-hook 'find-file-hook 'flymake-find-file-hook)
+(setq flymake-gui-warnings-enabled nil)
+(setq flymake-log-level 0)
+;; Show error message in mini buffer
+(defun my-flymake-show-help ()
+   (when (get-char-property (point) 'flymake-overlay)
+     (let ((help (get-char-property (point) 'help-echo)))
+       (if help (message "%s" help)))))
+(add-hook 'post-command-hook 'my-flymake-show-help)
+;; Add to Makefile:
+;; .PHONY: check-syntax
+;; check-syntax:
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org2blog/")
+(require 'org2blog)
+(setq org2blog-blog-alist
+      '(("zd"
+         :url "http://zhengdong.me/xmlrpc.php"
+         :username "admin")))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(when (file-exists-p "/usr/local/share/emacs/site-lisp/auctex.el")
+  (load "/usr/local/share/emacs/site-lisp/auctex.el" nil t t)
+  (load "/usr/local/share/emacs/site-lisp/preview-latex.el" nil t t))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(add-to-list 'load-path 
+             "~/Dropbox/Emacs/emacs.d/magit-0.8.2/share/emacs/site-lisp")
+(require 'magit);
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/anything-config")
+;;(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/anything-config/extensions")
+(require 'anything-config)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Enable multiple shells
+(require 'shell-current-directory);
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'protobuf-mode)
+;;------------------------------------------------------------------------;;
+
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
+  ;; Exclude .svn .git TAGS from grep-find path
+ '(grep-find-command "find . -name .svn -prune -o -name TAGS -prune -o -name .git -prune -o -type f -print0 | xargs -0 grep -nHE "))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; Tips
+;; sudo edit
+;;   C-c C-f /sudo::/path/to/file
+;; follow-mode
+;;   Show same buffer in two windows but scroll as one.
+;; Games
+;;   tetris
+;; Compile
+;;   emacs -batch -f batch-byte-compile *.el
+;; align-regexp
+;; occur
+;;   search for regex match lines in file, shows in other buffer
+;; re-builder
+;;   search lines match and mark
+;; anything
+;;   like quicksivler
+;; tramp
+;;   /sudo::/, /user@site:/, /user@site#port:/
+;; rectangle
+;;   cut: C-x r k -> C-x r y
+;;   add with space: C-x r o
+;;   replace with space: C-x r c
+;;   delete: C-x r d
+;;   replace with char: C-x r t, then input chars
+;; wdired-change-to-wdired-mode
+;;   edit dir like file
+;; multi-occur-in-matching-buffers
+;; apropos
+;;   search for emacs commands with regex
+;; follow-mode
