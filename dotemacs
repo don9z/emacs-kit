@@ -321,6 +321,7 @@
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-+") 'balance-windows)
 ;; Replace dired's M-o
 (add-hook 'dired-mode-hook 
           (lambda () 
