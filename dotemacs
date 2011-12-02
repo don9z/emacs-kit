@@ -516,7 +516,6 @@
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
 (setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org"
-                              "~/Dropbox/Documents/org/todo.org"
                               "~/Dropbox/Documents/org/refile.org")))
 (setq org-mobile-force-id-on-agenda-items nil)
 ;; Task
@@ -555,7 +554,7 @@
               ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
                "* NEXT %?\n%U\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
 ;; Agenda
-(setq org-agenda-files (quote ("~/Dropbox/Documents/org")))
+(setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-agenda-dim-blocked-tasks nil)
 (add-hook 'org-mode-hook 
           (lambda () (setq truncate-lines nil)))
