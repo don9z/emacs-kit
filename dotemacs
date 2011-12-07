@@ -518,6 +518,8 @@
 (setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org"
                               "~/Dropbox/Documents/org/refile.org")))
 (setq org-mobile-force-id-on-agenda-items nil)
+(add-hook 'after-init-hook 'org-mobile-pull)
+(add-hook 'kill-emacs-hook 'org-mobile-push)
 ;; Task
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
