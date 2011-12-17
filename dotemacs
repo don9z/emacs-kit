@@ -267,10 +267,13 @@
   (toggle-scroll-bar -1))
 ;; Prevent the annoying beep on errors, use flash instead
 (setq visible-bell t)
-;;   No warnings
+;; No warnings
 (setq ring-bell-function 'ignore)
 ;; For emacsclient
 (server-start)
+;; Set to use bash as Shell
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
 ;;------------------------------------------------------------------------;;
 
 
