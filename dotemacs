@@ -406,6 +406,14 @@
           (lambda ()
             (hl-line-mode)
             (linum-mode)))
+
+(add-hook 'python-mode
+          (lambda ()
+            (linum-mode)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (flyspell-mode 1)))
 ;;------------------------------------------------------------------------;;
 
 
@@ -653,6 +661,13 @@
 ;; Add to Makefile:
 ;; .PHONY: check-syntax
 ;; check-syntax:
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Set aspell as spell check tool
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra"))
 ;;------------------------------------------------------------------------;;
 
 
