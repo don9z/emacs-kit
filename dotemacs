@@ -511,8 +511,8 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load org-mode
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.7/lisp")
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.7/contrib/lisp")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.8.02/lisp")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.8.02/contrib/lisp")
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
