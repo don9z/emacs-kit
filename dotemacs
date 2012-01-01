@@ -407,13 +407,9 @@
             (hl-line-mode)
             (linum-mode)))
 
-(add-hook 'python-mode
+(add-hook 'python-mode-hook
           (lambda ()
             (linum-mode)))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (flyspell-mode 1)))
 ;;------------------------------------------------------------------------;;
 
 
