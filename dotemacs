@@ -312,6 +312,7 @@
 
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key "\M-%" 'query-replace-regexp)
 (global-set-key (kbd "C--") 'undo)
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
@@ -522,8 +523,7 @@
 (setq org-directory "~/Dropbox/Documents/org")
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
-(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org"
-                              "~/Dropbox/Documents/org/refile.org")))
+(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-mobile-force-id-on-agenda-items nil)
 (add-hook 'after-init-hook 'org-mobile-pull)
 (add-hook 'kill-emacs-hook 'org-mobile-push)
@@ -562,6 +562,8 @@
                "* %?\n%U\n %i")
               ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
                "* NEXT %?\n%U\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
 ;; Agenda
 (setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-agenda-dim-blocked-tasks nil)
@@ -701,6 +703,14 @@
 ;;------------------------------------------------------------------------;;
 ;; Enable multiple shells
 (require 'shell-current-directory);
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(when (file-exists-p "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+  (setq scheme-program-name
+        "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+  (require 'xscheme))
 ;;------------------------------------------------------------------------;;
 
 
