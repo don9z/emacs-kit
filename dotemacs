@@ -540,14 +540,14 @@
               ("HOLD" :foreground "magenta" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold))))
 (setq org-use-fast-todo-selection t)
-(setq org-todo-state-tags-triggers
-      (quote (("CANCELLED" ("CANCELLED" . t))
-              ("WAITING" ("WAITING" . t))
-              ("HOLD" ("WAITING" . t) ("HOLD" . t))
-              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("STARTED" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+;; (setq org-todo-state-tags-triggers
+;;       (quote (("CANCELLED" ("CANCELLED" . t))
+;;               ("WAITING" ("WAITING" . t))
+;;               ("HOLD" ("WAITING" . t) ("HOLD" . t))
+;;               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+;;               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+;;               ("STARTED" ("WAITING") ("CANCELLED") ("HOLD"))
+;;               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 ;; Enable clock when done
 (setq org-log-done t)
 ;; Capture
@@ -555,15 +555,16 @@
 (global-set-key "\C-cc" 'org-capture)
 (setq org-capture-templates
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* TODO %?\n%U\n %i")
+               "* TODO %?\n  %U\n %i")
               ("n" "Note" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* %? :NOTE:\n%U\n %i")
+               "* %? :NOTE:\n  %U\n %i")
               ("j" "Journal" entry (file+datetree "~/Dropbox/Documents/org/refile.org")
-               "* %?\n%U\n %i")
+               "* %?\n  %U\n %i")
               ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* NEXT %?\n%U\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
+               "* NEXT %?\n  %U\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
+(setq org-reverse-note-order t)
 ;; Agenda
 (setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-agenda-dim-blocked-tasks nil)
