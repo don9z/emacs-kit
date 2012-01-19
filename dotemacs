@@ -389,6 +389,8 @@
   (linum-mode t)
   ;; Setting for auto-complete
   (define-key c-mode-base-map "\M-/" 'ac-complete-clang)
+  ;; Line width indication
+  (fci-mode t)
 )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
@@ -712,6 +714,11 @@
   (setq scheme-program-name
         "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
   (require 'xscheme))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'fill-column-indicator)
 ;;------------------------------------------------------------------------;;
 
 

@@ -205,7 +205,7 @@ function `fci-mode' is run."
 
 (make-variable-buffer-local 'fci-rule-column)
 
-(defcustom fci-rule-color "#cccccc"
+(defcustom fci-rule-color "#303030"
   "Color used to draw the fill-column rule.
 
 Changes to this variable do not take effect until the mode
@@ -237,7 +237,7 @@ function `fci-mode' is run."
                  (symbol :tag "PBM" 'pbm)
                  (symbol :tag "XBM" 'xbm)))
 
-(defcustom fci-rule-use-dashes nil
+(defcustom fci-rule-use-dashes t
   "Whether to show the fill-column rule as dashes or as a solid line.
 This has no effect on non-graphical displays.
 
