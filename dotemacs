@@ -255,7 +255,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; Kill whole if curson is at line beginning using ctrl+k
 (setq kill-whole-line t)
-;; Hightlight C/C++ warning
+;; Highlight C/C++ warning
 (global-cwarn-mode 1)
 ;; Compile command
 (setq compile-command "make -C ") 
@@ -397,11 +397,15 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda () 
+            ;; Line width indicator
+            (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
 
 (add-hook 'java-mode-hook
           (lambda ()
+            ;; Line width indicator
+            (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
 
@@ -412,6 +416,9 @@
 
 (add-hook 'python-mode-hook
           (lambda ()
+            ;; Line width indicator
+            (fci-mode t)
+            (highlight-indentation)
             (linum-mode)))
 ;;------------------------------------------------------------------------;;
 
@@ -718,7 +725,13 @@
 
 
 ;;------------------------------------------------------------------------;;
+;; Set line indicator to column 80
 (require 'fill-column-indicator)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'highlight-indentation)
 ;;------------------------------------------------------------------------;;
 
 
