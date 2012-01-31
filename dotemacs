@@ -274,6 +274,16 @@
 ;; Set to use bash as Shell
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
+;; Settings of shell-mode
+;; always insert at the bottom
+(setq comint-scroll-to-bottom-on-input t)
+;; no duplicates in command history
+(setq comint-input-ignoredups t)
+;; what to run when i press enter on a line above the current prompt
+(setq comint-get-old-input (lambda () ""))
+;; max shell history size
+(setq comint-input-ring-size 5000)         
+(setenv "PAGER" "cat")
 ;;------------------------------------------------------------------------;;
 
 
@@ -793,3 +803,9 @@
 ;; apropos
 ;;   search for emacs commands with regex
 ;; follow-mode
+;; M-l downcase-word
+;;   Convert following word to lower case, moving over.
+;; M-t transpose-words
+;;   Switch the words around point, leaving point at end of them.
+;; M-m back-to-indentation
+
