@@ -337,7 +337,9 @@
 (global-set-key "\M-u" 
                 '(lambda () 
                    (interactive) (backward-word 1) (upcase-word 1)))
-
+(global-set-key "\M-\S-u" 
+                '(lambda () 
+                   (interactive) (backward-word 1) (downcase-word 1)))
 ;; Reverse buffer
 (global-set-key "\M-r" 'revert-buffer)
 
@@ -732,6 +734,12 @@
 
 ;;------------------------------------------------------------------------;;
 (require 'highlight-indentation)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/emacs-nav-20110220")
+(require 'nav)
 ;;------------------------------------------------------------------------;;
 
 
