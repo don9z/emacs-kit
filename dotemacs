@@ -16,6 +16,8 @@
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Set log files mode to auto-reverse-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+;; Set .markdown files mode to markdown-mode
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 ;; Add .site-lisp and site-lisp in home directory to load path   
 (setq load-path (nconc '( "~/Dropbox/Emacs/emacs.d/site-lisp" ) load-path))
 ;;------------------------------------------------------------------------;;
@@ -750,6 +752,11 @@
 ;;------------------------------------------------------------------------;;
 (add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/emacs-nav-20110220")
 (require 'nav)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'markdown-mode)
 ;;------------------------------------------------------------------------;;
 
 
