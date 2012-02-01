@@ -18,6 +18,8 @@
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 ;; Set .markdown files mode to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;; Set .clj files to clojure-mode
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 ;; Add .site-lisp and site-lisp in home directory to load path   
 (setq load-path (nconc '( "~/Dropbox/Emacs/emacs.d/site-lisp" ) load-path))
 ;;------------------------------------------------------------------------;;
@@ -757,6 +759,11 @@
 
 ;;------------------------------------------------------------------------;;
 (require 'markdown-mode)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'clojure-mode)
 ;;------------------------------------------------------------------------;;
 
 
