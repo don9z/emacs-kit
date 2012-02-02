@@ -286,7 +286,8 @@
 ;; what to run when i press enter on a line above the current prompt
 (setq comint-get-old-input (lambda () ""))
 ;; max shell history size
-(setq comint-input-ring-size 5000)         
+(setq comint-input-ring-size 5000)
+;; show all in emacs interactive output
 (setenv "PAGER" "cat")
 ;;------------------------------------------------------------------------;;
 
@@ -768,6 +769,14 @@
 
 
 ;;------------------------------------------------------------------------;;
+(require 'key-chord)
+(key-chord-mode 1)
+(key-chord-define-global "hj" 'ido-find-file)
+(key-chord-define c-mode-map ";;" "\C-e;")
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
 (require 'protobuf-mode)
 ;;------------------------------------------------------------------------;;
 
@@ -819,7 +828,7 @@
 ;; follow-mode
 ;; M-l downcase-word
 ;;   Convert following word to lower case, moving over.
-;; M-t transpose-words
-;;   Switch the words around point, leaving point at end of them.
+;; M-t transpose-words C-t transpose chars C-x C-t transpose-lines
 ;; M-m back-to-indentation
-
+;; M-x revert-buffer-with-coding-system
+;;   Change text coding system, e.g, from GBK to UTF-8
