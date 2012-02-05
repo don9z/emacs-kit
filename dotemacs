@@ -79,7 +79,7 @@
     (string-match "^\\*GNU Emacs\\*$" str)
 	(string-match "^TAGS" str)
 	(string-match "^\\*Messages\\*$" str)
-	(string-match "^\\*Completions\\*$" str)
+	(string-match "^\\*Completions\\*$" strkj)
 	(string-match "^\\*scratch\\*$" str)
 	(string-match "^\\*ESS\\*$" str)
 	(string-match "^ " str)
@@ -392,8 +392,6 @@
   (c-set-offset 'case-label '+)
   ;; Make open-braces after a case: statement indent to 0 (default was '+)
   (c-set-offset 'statement-case-open 0)
-  ;; Make the ENTER key indent next line properly
-  (local-set-key "\C-m" 'newline-and-indent)
   ;; Make DEL take all previous whitespace with it
   (setq c-hungry-delete-key t)
   ;; Show in which function
@@ -792,8 +790,13 @@
 (require 'mark-more-like-this)
 (global-set-key (kbd "C-,") 'mark-previous-like-this)
 (global-set-key (kbd "C-.") 'mark-next-like-this)
-;; Like the other two, but takes an argument (negative is previous)
-(global-set-key (kbd "C-M-m") 'mark-more-like-this)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/expand-region")
+(require 'expand-region)
+(global-set-key (kbd "C-M-m") 'er/expand-region)
 ;;------------------------------------------------------------------------;;
 
 

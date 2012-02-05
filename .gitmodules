@@ -1,3 +1,6 @@
 [submodule "emacs.d/mark-multiple"]
 	path = emacs.d/mark-multiple
 	url = https://github.com/magnars/mark-multiple.el.git
+[submodule "emacs.d/expand-region"]
+	path = emacs.d/expand-region
+	url = https://github.com/magnars/expand-region.el.git
