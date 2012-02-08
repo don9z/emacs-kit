@@ -48,7 +48,6 @@
       (forward-char 1))
   (newline)
   (previous-line))
-(global-set-key "\M-\r" 'add-and-goto-that-line)
 
 
 ;; Count words in buffer
@@ -797,6 +796,14 @@
 (add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/expand-region")
 (require 'expand-region)
 (global-set-key (kbd "C-M-m") 'er/expand-region)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(when (file-exists-p "/usr/local/share/doc/git-core/contrib/emacs")
+  (add-to-list 'load-path "/usr/local/share/doc/git-core/contrib/emacs")
+  (require 'git)
+  (require 'git-blame))
 ;;------------------------------------------------------------------------;;
 
 
