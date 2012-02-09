@@ -16,10 +16,6 @@
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Set log files mode to auto-reverse-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
-;; Set .markdown files mode to markdown-mode
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; Set .clj files to clojure-mode
-(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 ;; Add .site-lisp and site-lisp in home directory to load path   
 (setq load-path (nconc '( "~/Dropbox/Emacs/emacs.d/site-lisp" ) load-path))
 ;;------------------------------------------------------------------------;;
@@ -641,12 +637,6 @@
 (setq ido-enable-flex-matching t)
 ;;------------------------------------------------------------------------;;
 
-;;------------------------------------------------------------------------;;
-;; Enable auto pair, paris () {} "" etc.
-(require 'autopair)
-(autopair-global-mode) ;; enable autopair in all buffers 
-;;------------------------------------------------------------------------;;
-
 
 ;;------------------------------------------------------------------------;;
 ;; Pinyin input
@@ -757,11 +747,15 @@
 
 ;;------------------------------------------------------------------------;;
 (require 'markdown-mode)
+;; Set .markdown files mode to markdown-mode
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 ;;------------------------------------------------------------------------;;
 
 
 ;;------------------------------------------------------------------------;;
 (require 'clojure-mode)
+;; Set .clj files to clojure-mode
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
 ;;------------------------------------------------------------------------;;
 
 
