@@ -694,16 +694,9 @@
 
 
 ;;------------------------------------------------------------------------;;
-(when (file-exists-p "/usr/local/share/emacs/site-lisp/auctex.el")
-  (load "/usr/local/share/emacs/site-lisp/auctex.el" nil t t)
-  (load "/usr/local/share/emacs/site-lisp/preview-latex.el" nil t t))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(add-to-list 'load-path 
-             "~/Dropbox/Emacs/emacs.d/magit-0.8.2/share/emacs/site-lisp")
-(require 'magit);
+;; (when (file-exists-p "/usr/local/share/emacs/site-lisp/auctex.el")
+;;   (load "/usr/local/share/emacs/site-lisp/auctex.el" nil t t)
+;;   (load "/usr/local/share/emacs/site-lisp/preview-latex.el" nil t t))
 ;;------------------------------------------------------------------------;;
 
 
