@@ -8,6 +8,7 @@
          "/usr/local/bin"
          ":"
          (getenv "PATH")))
+(setenv "LANG" "en_US.UTF-8")
 ;; Add cscope-indexer execute path
 (setq exec-path (append exec-path '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/")))
 ;; Set dotemacs file mode to lisp-mode
@@ -430,6 +431,13 @@
             (fci-mode t)
             (highlight-indentation)
             (linum-mode)))
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            ;; Line width indicator
+            (fci-mode t)
+            (highlight-indentation)
+            (linum-mode)))
 ;;------------------------------------------------------------------------;;
 
 
@@ -791,6 +799,12 @@
   (add-to-list 'load-path "/usr/local/share/doc/git-core/contrib/emacs")
   (require 'git)
   (require 'git-blame))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'rvm)
+(rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 ;;------------------------------------------------------------------------;;
 
 
