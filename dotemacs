@@ -75,7 +75,7 @@
     (string-match "^\\*GNU Emacs\\*$" str)
 	(string-match "^TAGS" str)
 	(string-match "^\\*Messages\\*$" str)
-	(string-match "^\\*Completions\\*$" strkj)
+	(string-match "^\\*Completions\\*$" str)
 	(string-match "^\\*scratch\\*$" str)
 	(string-match "^\\*ESS\\*$" str)
 	(string-match "^ " str)
@@ -805,6 +805,17 @@
 ;;------------------------------------------------------------------------;;
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+(require 'erc)
+;; joining && autojoing
+;; make sure to use wildcards for e.g. freenode as the actual server
+;; name can be be a bit different, which would screw up autoconnect
+(erc-autojoin-mode t)
+(setq erc-autojoin-channels-alist
+  '((".*\\.freenode.net" "#emacs" "#ruby" "#java")))
 ;;------------------------------------------------------------------------;;
 
 
