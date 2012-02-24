@@ -395,6 +395,7 @@
   (define-key c-mode-base-map "\M-/" 'ac-complete-clang)
   ;; Line width indication
   (fci-mode t)
+  (make-face-unitalic 'font-lock-comment-face)
 )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
