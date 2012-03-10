@@ -1,7 +1,6 @@
 ;;------------------------------------------------------------------------;;
 ;; Profile
-(setq user-full-name "Chris Zheng | 郑 栋")
-(setq user-mail-address "chris.d.cheng@gmail.com")
+(setq user-full-name "Chris Zheng")
 ;; Add path
 (setenv "PATH"
         (concat
@@ -10,7 +9,14 @@
          (getenv "PATH")))
 (setenv "LANG" "en_US.UTF-8")
 ;; Add cscope-indexer execute path
-(setq exec-path (append exec-path '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/")))
+(when (file-exists-p "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+  (setq scheme-program-name
+        "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+  (require 'xscheme))
+
+(when (file-exists-p "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/cscope-indexer")
+  (setq exec-path (append exec-path 
+                          '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/"))))
 ;; Set dotemacs file mode to lisp-mode
 (add-to-list 'auto-mode-alist '("dotemacs" . emacs-lisp-mode))
 ;; Set pac files mode to javascript-mode
@@ -34,18 +40,6 @@
        ((string-match "[\]})>]" prev-char) (backward-sexp 1))
        (t (error "%s" "Not on a paren, brace, or bracket")))))
 (global-set-key (kbd "M-=") 'bounce-sexp)
-
-
-;; Add a line and jump to it
-(defun add-and-goto-that-line()
-  "Add a new line and move to that line"
-  (interactive)
-  (end-of-line)
-  (if (not (eobp))
-      (forward-char 1))
-  (newline)
-  (previous-line))
-
 
 ;; Count words in buffer
 (defun count-words-buffer ()
@@ -682,16 +676,6 @@
 ;; Set aspell as spell check tool
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org2blog/")
-(require 'org2blog)
-(setq org2blog-blog-alist
-      '(("zd"
-         :url "http://zhengdong.me/xmlrpc.php"
-         :username "admin")))
 ;;------------------------------------------------------------------------;;
 
 
