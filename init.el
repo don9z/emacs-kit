@@ -447,9 +447,9 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load auto-complete
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/auto-complete-1.3")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/auto-complete")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/Dropbox/Emacs/emacs.d/auto-complete-1.3/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/Dropbox/Emacs/emacs.d/auto-complete/dict")
 (ac-config-default)
 (setq ac-modes
       (append ac-modes '(org-mode objc-mode jde-mode sql-mode
