@@ -1,2 +1,1 @@
-(load-file "~/Dropbox/Emacs/dotemacs")
-
+(load-file "~/Dropbox/Emacs/init.el")

@@ -17,8 +17,6 @@
 (when (file-exists-p "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/cscope-indexer")
   (setq exec-path (append exec-path 
                           '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/"))))
-;; Set dotemacs file mode to lisp-mode
-(add-to-list 'auto-mode-alist '("dotemacs" . emacs-lisp-mode))
 ;; Set pac files mode to javascript-mode
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Set log files mode to auto-reverse-tail-mode
