@@ -685,13 +685,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/anything-config")
-;;(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/anything-config/extensions")
-(require 'anything-config)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 ;; Enable multiple shells
 (require 'shell-current-directory);
 ;;------------------------------------------------------------------------;;
@@ -733,14 +726,6 @@
 (require 'clojure-mode)
 ;; Set .clj files to clojure-mode
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(require 'key-chord)
-(key-chord-mode 1)
-(key-chord-define-global "hj" 'ido-find-file)
-(key-chord-define c-mode-map ";;" "\C-e;")
 ;;------------------------------------------------------------------------;;
 
 
