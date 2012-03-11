@@ -525,8 +525,8 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load org-mode
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.8.02/lisp")
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-7.8.02/contrib/lisp")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-mode/lisp")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-mode/contrib/lisp")
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
@@ -601,7 +601,6 @@
 (add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/yasnippet")
 (require 'yasnippet)
 (yas/global-mode 1)
-;;(yas/load-directory "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c/snippets")
 ;;------------------------------------------------------------------------;;
 
 
