@@ -9,20 +9,15 @@
          (getenv "PATH")))
 (setenv "LANG" "en_US.UTF-8")
 ;; Add cscope-indexer execute path
-(when (file-exists-p "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
-  (setq scheme-program-name
-        "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
-  (require 'xscheme))
-
-(when (file-exists-p "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/cscope-indexer")
+(when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
   (setq exec-path (append exec-path 
-                          '("~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope/"))))
+                          '((concat emacs-d "cscope-15.7a/xcscope/")))))
 ;; Set pac files mode to javascript-mode
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Set log files mode to auto-reverse-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
-;; Add .site-lisp and site-lisp in home directory to load path   
-(setq load-path (nconc '( "~/Dropbox/Emacs/emacs.d/site-lisp" ) load-path))
+;; Add .site-lisp and site-lisp in home directory to load path
+(add-to-list 'load-path (concat emacs-d "site-lisp"))
 ;;------------------------------------------------------------------------;;
 
 
@@ -430,6 +425,7 @@
 ;;------------------------------------------------------------------------;;
 ;; Add marmalade to package repo
 (require 'package)
+(package-initialize)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;;------------------------------------------------------------------------;;
 
@@ -442,11 +438,11 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load color-theme
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/color-theme-6.6.0")
+(add-to-list 'load-path (concat emacs-d "color-theme-6.6.0"))
 (require 'color-theme)
 (color-theme-initialize)
-;;(color-theme-tomorrow-night)
 (color-theme-blackboard)
+;;(color-theme-tomorrow-night)
 ;;(color-theme-billw)
 ;;(my-color-theme)
 ;;------------------------------------------------------------------------;;
@@ -454,9 +450,9 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load auto-complete
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/auto-complete")
+(add-to-list 'load-path (concat emacs-d "auto-complete"))
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/Dropbox/Emacs/emacs.d/auto-complete/dict")
+(add-to-list 'ac-dictionary-directories (concat emacs-d "auto-complete/dict"))
 (ac-config-default)
 (setq ac-modes
       (append ac-modes '(org-mode objc-mode jde-mode sql-mode
@@ -478,7 +474,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load xcscope
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/cscope-15.7a/xcscope")
+(add-to-list 'load-path (concat emacs-d "cscope-15.7a/xcscope"))
 (require 'xcscope)
 ;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; * Keybindings:
@@ -532,8 +528,8 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load org-mode
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-mode/lisp")
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/org-mode/contrib/lisp")
+(add-to-list 'load-path (concat emacs-d "org-mode/lisp"))
+(add-to-list 'load-path (concat emacs-d "org-mode/contrib/lisp"))
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
@@ -605,7 +601,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/yasnippet")
+(add-to-list 'load-path (concat emacs-d "yasnippet"))
 (require 'yasnippet)
 (yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
@@ -640,7 +636,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Pinyin input
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/eim")
+(add-to-list 'load-path (concat emacs-d "eim"))
 (autoload 'eim-use-package "eim" "Another emacs input method")
 ;; Tooltip is not good for use
 (setq eim-use-tooltip nil)
@@ -716,7 +712,7 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/emacs-nav-20110220")
+(add-to-list 'load-path (concat emacs-d "emacs-nav-20110220"))
 (require 'nav)
 ;;------------------------------------------------------------------------;;
 
@@ -745,7 +741,7 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/mark-multiple")
+(add-to-list 'load-path (concat emacs-d "mark-multiple"))
 (require 'inline-string-rectangle)
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
 (require 'mark-more-like-this)
@@ -755,7 +751,7 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/expand-region")
+(add-to-list 'load-path (concat emacs-d "expand-region"))
 (require 'expand-region)
 (global-set-key (kbd "C-M-m") 'er/expand-region)
 ;;------------------------------------------------------------------------;;
