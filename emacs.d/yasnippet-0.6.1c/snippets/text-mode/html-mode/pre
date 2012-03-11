@@ -1,5 +1,0 @@
-#contributor : Jimmy Wu <frozenthrone88@gmail.com>
-#name : <pre>...</pre>
-# --
-<pre lang="${1:java}">$0
-</pre>

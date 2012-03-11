@@ -598,10 +598,10 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
-(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c")
+(add-to-list 'load-path "~/Dropbox/Emacs/emacs.d/yasnippet")
 (require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c/snippets")
+(yas/global-mode 1)
+;;(yas/load-directory "~/Dropbox/Emacs/emacs.d/yasnippet-0.6.1c/snippets")
 ;;------------------------------------------------------------------------;;
 
 
