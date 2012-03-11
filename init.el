@@ -423,6 +423,13 @@
 
 
 ;;------------------------------------------------------------------------;;
+;; Theme
+(add-to-list 'custom-theme-load-path (concat emacs-d "custom-themes"))
+(load-theme 'blackboard t)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
 ;; Add marmalade to package repo
 (require 'package)
 (package-initialize)
@@ -433,18 +440,6 @@
 ;;------------------------------------------------------------------------;;
 ;; php mode
 (require 'php-mode)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Load color-theme
-(add-to-list 'load-path (concat emacs-d "color-theme-6.6.0"))
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-blackboard)
-;;(color-theme-tomorrow-night)
-;;(color-theme-billw)
-;;(my-color-theme)
 ;;------------------------------------------------------------------------;;
 
 
