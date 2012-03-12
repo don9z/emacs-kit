@@ -2,6 +2,8 @@
 ;; Profile
 (setq user-full-name "Chris Zheng")
 
+(setenv "LANG" "en_US.UTF-8")
+
 ;; Set extension dir location
 (defvar emacs-d "~/Dropbox/Emacs/emacs.d/"
   "Location of all extensions in")
