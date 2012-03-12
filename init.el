@@ -1,23 +1,16 @@
-;;------------------------------------------------------------------------;;
+;------------------------------------------------------------------------;;
 ;; Profile
 (setq user-full-name "Chris Zheng")
-;; Add path
-(setenv "PATH"
-        (concat
-         "/usr/local/bin"
-         ":"
-         (getenv "PATH")))
-(setenv "LANG" "en_US.UTF-8")
-;; Add cscope-indexer execute path
-(when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
-  (setq exec-path (append exec-path 
-                          '((concat emacs-d "cscope-15.7a/xcscope/")))))
-;; Set pac files mode to javascript-mode
-(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
-;; Set log files mode to auto-reverse-tail-mode
-(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
-;; Add .site-lisp and site-lisp in home directory to load path
+
+;; Set extension dir location
+(defvar emacs-d "~/Dropbox/Emacs/emacs.d/"
+  "Location of all extensions in")
+;; Add site-lisp to load path
 (add-to-list 'load-path (concat emacs-d "site-lisp"))
+
+;; File mode settings
+(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 ;;------------------------------------------------------------------------;;
 
 
@@ -46,13 +39,11 @@
         (setq count (1+ count)))
       (message "buffer contains %d words." count))))
 
-
 ;; Compute the length of the marked region 
 (defun region-length ()
   "length of a region"
   (interactive)
   (message (format "%d" (- (region-end) (region-beginning)))))
-
 
 ;; Buffer-switching methods
 (defun buffer-ignored (str)
@@ -106,7 +97,6 @@
 (global-set-key "\M-`" 'next-use-buffer)
 (global-set-key "\M-~" 'prev-use-buffer)
 
-
 ;; Show ascii table
 (defun ascii-table ()
   "Print the ascii table"
@@ -120,13 +110,11 @@
       (insert (format "%4d %c\n" i i))))
   (beginning-of-buffer))
 
-
 ;; Insert date into buffer
 (defun insert-date ()
   "Insert date at point"
   (interactive)
   (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
-
 
 ;; Convert a buffer from dos ^M end of lines to unix end of lines
 (defun dos2unix ()
@@ -161,7 +149,6 @@
   (move-line (if (null n) 1 n)))
 (global-set-key [M-up] 'move-line-up)
 (global-set-key [M-down] 'move-line-down)
-
 
 ;; A no-op function to bind to if you want to set a keystroke to null
 (defun void ()
@@ -198,10 +185,11 @@
 ;; Hide the tool bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode 0))
-;; Show menu bar only for mac osx
-(if (window-system) (menu-bar-mode nil))
-(when (boundp 'mac-command-modifier)
-  (if (window-system) (menu-bar-mode t)))
+
+;; Show menu bar on Mac and Terminal
+(if (window-system)
+    (if (boundp 'mac-option-modifier) (menu-bar-mode t) (menu-bar-mode nil))
+  (menu-bar-mode t))
 ;; Show time
 (display-time-mode 1)
 ;;------------------------------------------------------------------------;;
@@ -470,6 +458,10 @@
 ;;------------------------------------------------------------------------;;
 ;; Load xcscope
 (add-to-list 'load-path (concat emacs-d "cscope-15.7a/xcscope"))
+;; Add cscope-indexer execute path
+(when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
+  (setq exec-path (append exec-path 
+                          '((concat emacs-d "cscope-15.7a/xcscope/")))))
 (require 'xcscope)
 ;; (add-hook 'java-mode-hook (function cscope:hook))
 ;; * Keybindings:
