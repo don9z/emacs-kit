@@ -2,8 +2,6 @@
 ;; Profile
 (setq user-full-name "Chris Zheng")
 
-(setenv "LANG" "en_US.UTF-8")
-
 ;; Set extension dir location
 (defvar emacs-d "~/Dropbox/Emacs/emacs.d/"
   "Location of all extensions in")
@@ -13,6 +11,34 @@
 ;; File mode settings
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Packages sync at start
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives 
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+(require 'cl)
+;; Install all packages on start
+(defvar packages-list
+  '(rainbow-mode solarized-theme zenburn-theme)
+  "A list of packages to ensure are installed at launch.")
+(defun has-package-not-installed ()
+  (loop for p in packages-list 
+        when (not (package-installed-p p)) do (return t)
+        finally (return nil)))
+(when (has-package-not-installed)
+  ;; Check for new packages (package versions)
+  (message "%s" "Get latest versions of all packages...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; Install the missing packages
+  (dolist (p packages-list)
+    (when (not (package-installed-p p))
+      (package-install p))))
 ;;------------------------------------------------------------------------;;
 
 
@@ -262,6 +288,8 @@
 (setq comint-input-ring-size 5000)
 ;; show all in emacs interactive output
 (setenv "PAGER" "cat")
+;; Set lang to enable Chinese display in shell-mode
+(setenv "LANG" "en_US.UTF-8")
 ;;------------------------------------------------------------------------;;
 
 
@@ -416,14 +444,6 @@
 ;; Theme
 (add-to-list 'custom-theme-load-path (concat emacs-d "custom-themes"))
 (load-theme 'blackboard t)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Add marmalade to package repo
-(require 'package)
-(package-initialize)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;;------------------------------------------------------------------------;;
 
 
@@ -690,7 +710,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-;; Set line indicator to column 80
 (require 'fill-column-indicator)
 ;;------------------------------------------------------------------------;;
 
