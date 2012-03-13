@@ -22,10 +22,22 @@
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (require 'cl)
-;; Install all packages on start
+;; Guarantee all packages are installed on start
 (defvar packages-list
-  '(rainbow-mode solarized-theme zenburn-theme fill-column-indicator)
-  "A list of packages to ensure are installed at launch.")
+  '(rainbow-mode 
+    fill-column-indicator
+    clojure-mode
+    cursor-chg
+    highlight-indentation
+    highlight-symbol
+    markdown-mode
+    php-mode
+    protobuf-mode
+    rvm)
+  "List of packages needs to be installed at launch")
+;; Test some package exists or not
+;; (package-installed-p 'css-mode)
+
 (defun has-package-not-installed ()
   (loop for p in packages-list 
         when (not (package-installed-p p)) do (return t)
