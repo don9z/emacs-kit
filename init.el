@@ -24,7 +24,7 @@
 (require 'cl)
 ;; Install all packages on start
 (defvar packages-list
-  '(rainbow-mode solarized-theme zenburn-theme)
+  '(rainbow-mode solarized-theme zenburn-theme fill-column-indicator)
   "A list of packages to ensure are installed at launch.")
 (defun has-package-not-installed ()
   (loop for p in packages-list 
@@ -711,6 +711,8 @@
 
 ;;------------------------------------------------------------------------;;
 (require 'fill-column-indicator)
+(setq fci-rule-color "#303030")
+(setq fci-rule-use-dashes t)
 ;;------------------------------------------------------------------------;;
 
 
