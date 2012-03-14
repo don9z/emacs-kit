@@ -577,14 +577,6 @@
               ("HOLD" :foreground "magenta" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold))))
 (setq org-use-fast-todo-selection t)
-;; (setq org-todo-state-tags-triggers
-;;       (quote (("CANCELLED" ("CANCELLED" . t))
-;;               ("WAITING" ("WAITING" . t))
-;;               ("HOLD" ("WAITING" . t) ("HOLD" . t))
-;;               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-;;               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-;;               ("STARTED" ("WAITING") ("CANCELLED") ("HOLD"))
-;;               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 ;; Enable clock when done
 (setq org-log-done t)
 ;; Capture
@@ -594,7 +586,7 @@
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
                "* TODO %?\n  %U\n %i")
               ("n" "Note" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* %? :NOTE:\n  %U\n %i")
+               "* %?\n  %U\n %i")
               ("j" "Journal" entry (file+datetree "~/Dropbox/Documents/org/refile.org")
                "* %?\n  %U\n %i")
               ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
