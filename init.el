@@ -33,7 +33,8 @@
     markdown-mode
     php-mode
     protobuf-mode
-    rvm)
+    rvm
+    org)
   "List of packages needs to be installed at launch")
 ;; Test some package exists or not
 ;; (package-installed-p 'css-mode)
@@ -549,8 +550,6 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load org-mode
-(add-to-list 'load-path (concat emacs-d "org-mode/lisp"))
-(add-to-list 'load-path (concat emacs-d "org-mode/contrib/lisp"))
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
