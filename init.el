@@ -722,15 +722,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(require 'ftl)
-(autoload 'turn-on-ftl-mode "ftl" nil t)
-(add-hook 'html-mode-hook 'turn-on-ftl-mode t t)
-(add-hook 'xml-mode-hook 'turn-on-ftl-mode t t)
-(add-hook 'text-mode-hook 'turn-on-ftl-mode t t)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 (add-to-list 'load-path (concat emacs-d "mark-multiple"))
 (require 'inline-string-rectangle)
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
