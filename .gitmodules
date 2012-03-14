@@ -13,4 +13,3 @@
 [submodule "emacs.d/emacs-nav"]
 	path = emacs.d/emacs-nav
 	url = https://github.com/ctrochalakis/emacs-nav.git
-

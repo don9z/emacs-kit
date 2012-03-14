@@ -477,16 +477,6 @@
                                   change-log-mode text-mode
                                   makefile-gmake-mode makefile-bsdmake-mo
                                   autoconf-mode makefile-automake-mode)))
-
-(require 'auto-complete-clang)
-;; If you want to add a compiler flag (most of time is the include path), 
-;; just create a file call .clang-completion-config.el under the directory you put your source in. 
-;; With the content like this:
-;; (setq clang-completion-flags (split-string "-pthread -I/usr/include/gtk-2.0 
-;; -I/usr/lib/gtk-2.0/include -I/usr/include/atk-1.0 
-;; -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/gio-unix-2.0/ 
-;; -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 
-;; -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include"))
 ;;------------------------------------------------------------------------;;
 
 
