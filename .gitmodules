@@ -16,3 +16,6 @@
 [submodule "emacs.d/shell-current-directory"]
 	path = emacs.d/shell-current-directory
 	url = https://github.com/metaperl/shell-current-directory.git
+[submodule "emacs.d/revbufs"]
+	path = emacs.d/revbufs
+	url = https://github.com/emacsmirror/revbufs.git
