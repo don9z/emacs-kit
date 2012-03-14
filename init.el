@@ -647,21 +647,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-;; Pinyin input
-(add-to-list 'load-path (concat emacs-d "eim"))
-(autoload 'eim-use-package "eim" "Another emacs input method")
-;; Tooltip is not good for use
-(setq eim-use-tooltip nil)
-(register-input-method
- "eim-py" "euc-cn" 'eim-use-package
- "拼音" "汉字拼音输入法" "py.txt")
-;; Use ; to input English
-(require 'eim-extra)
-(global-set-key ";" 'eim-insert-ascii)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 ;; Reverse all out of date buffers
 (require 'revbufs)
 ;;------------------------------------------------------------------------;;

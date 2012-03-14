@@ -13,6 +13,4 @@
 [submodule "emacs.d/emacs-nav"]
 	path = emacs.d/emacs-nav
 	url = https://github.com/ctrochalakis/emacs-nav.git
-[submodule "emacs.d/emacs-java"]
-	path = emacs.d/emacs-java
-	url = https://github.com/skeeto/emacs-java.git
+
