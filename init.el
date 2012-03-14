@@ -5,8 +5,10 @@
 ;; Set extension dir location
 (defvar emacs-d "~/Dropbox/Emacs/emacs.d/"
   "Location of all extensions in")
-;; Add site-lisp to load path
-(add-to-list 'load-path (concat emacs-d "site-lisp"))
+
+;; Add all dirs in emacs-d recursively to load-path
+(let ((default-directory emacs-d))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; File mode settings
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
@@ -468,7 +470,6 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load auto-complete
-(add-to-list 'load-path (concat emacs-d "auto-complete"))
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat emacs-d "auto-complete/dict"))
 (ac-config-default)
@@ -481,8 +482,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-;; Load xcscope
-(add-to-list 'load-path (concat emacs-d "cscope-15.7a/xcscope"))
 ;; Add cscope-indexer execute path
 (when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
   (setq exec-path (append exec-path 
@@ -603,7 +602,6 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
-(add-to-list 'load-path (concat emacs-d "yasnippet"))
 (require 'yasnippet)
 (yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
@@ -638,7 +636,6 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Reverse all out of date buffers
-(add-to-list 'load-path (concat emacs-d "revbufs"))
 (require 'revbufs)
 ;;------------------------------------------------------------------------;;
 
@@ -676,7 +673,6 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Enable multiple shells
-(add-to-list 'load-path (concat emacs-d "shell-current-directory"))
 (require 'shell-current-directory)
 ;;------------------------------------------------------------------------;;
 
@@ -702,7 +698,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path (concat emacs-d "emacs-nav"))
 (require 'nav)
 ;;------------------------------------------------------------------------;;
 
@@ -722,7 +717,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path (concat emacs-d "mark-multiple"))
 (require 'inline-string-rectangle)
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
 (require 'mark-more-like-this)
@@ -732,7 +726,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(add-to-list 'load-path (concat emacs-d "expand-region"))
 (require 'expand-region)
 (global-set-key (kbd "C-M-m") 'er/expand-region)
 ;;------------------------------------------------------------------------;;
