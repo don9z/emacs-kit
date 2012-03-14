@@ -13,3 +13,6 @@
 [submodule "emacs.d/emacs-nav"]
 	path = emacs.d/emacs-nav
 	url = https://github.com/ctrochalakis/emacs-nav.git
+[submodule "emacs.d/shell-current-directory"]
+	path = emacs.d/shell-current-directory
+	url = https://github.com/metaperl/shell-current-directory.git

@@ -675,7 +675,8 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Enable multiple shells
-(require 'shell-current-directory);
+(add-to-list 'load-path (concat emacs-d "shell-current-directory"))
+(require 'shell-current-directory)
 ;;------------------------------------------------------------------------;;
 
 
