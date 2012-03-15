@@ -38,8 +38,6 @@
     rvm
     org)
   "List of packages needs to be installed at launch")
-;; Test some package exists or not
-;; (package-installed-p 'css-mode)
 
 (defun has-package-not-installed ()
   (loop for p in packages-list 
@@ -69,18 +67,6 @@
        ((string-match "[\]})>]" prev-char) (backward-sexp 1))
        (t (error "%s" "Not on a paren, brace, or bracket")))))
 (global-set-key (kbd "M-=") 'bounce-sexp)
-
-;; Count words in buffer
-(defun count-words-buffer ()
-  "Count the number of words in current the buffer, print in the minibuffer"
-  (interactive)
-  (save-excursion
-    (let ((count 0))
-      (goto-char (point-min))
-      (while (< (point) (point-max))
-        (forward-word 1)
-        (setq count (1+ count)))
-      (message "buffer contains %d words." count))))
 
 ;; Compute the length of the marked region 
 (defun region-length ()
@@ -203,36 +189,36 @@
 ;;------------------------------------------------------------------------;;
 ;; UI settings
 ;; Using this method to guarantee that font in speedbar is same size as buffer
+(set-frame-parameter (selected-frame) 'alpha (list 85 50))
 (setq default-frame-alist
-  (append
-    '((left . 50) 
-      (top . 0)
-      (width . 100) 
-      (height . 40)
-      ) 
-    default-frame-alist))
-(add-to-list 'default-frame-alist 
-             '(font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
+   (append
+     '((left . 50) 
+       (top . 0)
+       (width . 100) 
+       (height . 40)
+       (font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+       )
+     default-frame-alist))
 
-;; Font zoom out  C-x C-=
-;; Font zoom in   C-x C--
-;; Font reset     C-x C-0
-
-;; Frame transparant
-;;(add-to-list 'default-frame-alist (cons 'alpha (list 90 50)))
-
-;; Slow down the mouse wheel acceleration
-;; (when (boundp 'mouse-wheel-scroll-amount)
-;;   (setq mouse-wheel-scroll-amount '(0.01)))
+;; Loop window transparency
+(setq alpha-list '((100 100) (95 65) (85 55) (75 45) (65 35)))
+(defun loop-alpha ()
+  (interactive)
+  (let ((alpha-value (car alpha-list)))
+    ((lambda (left right)
+       (set-frame-parameter (selected-frame) 'alpha (list left right))
+       (add-to-list 'default-frame-alist (cons 'alpha (list left right)))) 
+     (car alpha-value) (car (cdr alpha-value)))
+    (setq alpha-list (cdr (append alpha-list (list alpha-value))))))
 
 ;; Hide the tool bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode 0))
-
 ;; Show menu bar on Mac and Terminal
 (if (window-system)
     (if (boundp 'mac-option-modifier) (menu-bar-mode t) (menu-bar-mode nil))
   (menu-bar-mode t))
+
 ;; Show time
 (display-time-mode 1)
 ;;------------------------------------------------------------------------;;
