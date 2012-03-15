@@ -36,7 +36,9 @@
     php-mode
     protobuf-mode
     rvm
-    org)
+    org ;; seems emacs 24 ships org, but put it here for sure
+    ecb
+    )
   "List of packages needs to be installed at launch")
 
 (defun has-package-not-installed ()
@@ -699,6 +701,17 @@
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist
   '((".*\\.freenode.net" "#emacs" "#ruby" "#java")))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; ecb
+(eval-after-load "ecb" 
+  '(progn
+     (setq ecb-tip-of-the-day nil)
+     ;; Too fix the error, kinda workaround
+     (setq stack-trace-on-error t)
+     (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
 ;;------------------------------------------------------------------------;;
 
 
