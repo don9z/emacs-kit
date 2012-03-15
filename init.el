@@ -189,7 +189,6 @@
 ;;------------------------------------------------------------------------;;
 ;; UI settings
 ;; Using this method to guarantee that font in speedbar is same size as buffer
-(set-frame-parameter (selected-frame) 'alpha (list 85 50))
 (setq default-frame-alist
    (append
      '((left . 50) 
@@ -218,9 +217,15 @@
 (if (window-system)
     (if (boundp 'mac-option-modifier) (menu-bar-mode t) (menu-bar-mode nil))
   (menu-bar-mode t))
+;; Emacs gurus don't need no stinking scroll bars
+(when (fboundp 'toggle-scroll-bar)
+  (toggle-scroll-bar -1))
 
 ;; Show time
 (display-time-mode 1)
+;; Font zoom out  C-x C-=
+;; Font zoom in   C-x C--
+;; Font reset     C-x C-0
 ;;------------------------------------------------------------------------;;
 
 
@@ -244,7 +249,8 @@
 (global-font-lock-mode t)
 (setq transient-mark-mode t)
 ;; Wrap line
-(set-default 'truncate-partial-width-windows (not truncate-partial-width-windows))
+(set-default 'truncate-partial-width-windows 
+             (not truncate-partial-width-windows))
 ;; Allow paste between emacs and external application
 (setq x-select-enable-clipboard t)
 ;; Stop creating those backup~ files
@@ -266,9 +272,6 @@
 ;; Display current buffer file path to frame title
 (setq frame-title-format 
   '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
-;; Emacs gurus don't need no stinking scroll bars
-(when (fboundp 'toggle-scroll-bar)
-  (toggle-scroll-bar -1))
 ;; Prevent the annoying beep on errors, use flash instead
 (setq visible-bell t)
 ;; No warnings
@@ -278,6 +281,7 @@
 ;; Set to use bash as Shell
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
+
 ;; Settings of shell-mode
 ;; always insert at the bottom
 (setq comint-scroll-to-bottom-on-input t)
@@ -333,14 +337,16 @@
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-+") 'balance-windows)
-;; Replace dired's M-o
+;; Replace some modes' M-o key binding
 (add-hook 'dired-mode-hook 
           (lambda () 
             (define-key dired-mode-map (kbd "M-o") 'other-window)))
-;; Replace ibuffer's M-o
 (add-hook 'ibuffer-mode-hook 
           (lambda () 
             (define-key ibuffer-mode-map (kbd "M-o") 'other-window)))
+(add-hook 'diff-mode-hook 
+          (lambda () 
+            (define-key diff-mode-map (kbd "M-o") 'other-window)))
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
@@ -397,25 +403,19 @@
   (hl-line-mode t)
   ;; Line number minor mode
   (linum-mode t)
-  ;; Setting for auto-complete
-  (define-key c-mode-base-map "\M-/" 'ac-complete-clang)
-  ;; Line width indication
-  (fci-mode t)
   (make-face-unitalic 'font-lock-comment-face)
-)
+  ;; Line width indication
+  (fci-mode t))
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
-
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda () 
-            ;; Line width indicator
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
 
 (add-hook 'java-mode-hook
           (lambda ()
-            ;; Line width indicator
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
@@ -427,14 +427,12 @@
 
 (add-hook 'python-mode-hook
           (lambda ()
-            ;; Line width indicator
             (fci-mode t)
             (highlight-indentation)
             (linum-mode)))
 
 (add-hook 'ruby-mode-hook
           (lambda ()
-            ;; Line width indicator
             (fci-mode t)
             (highlight-indentation)
             (linum-mode)))
@@ -473,53 +471,14 @@
   (setq exec-path (append exec-path 
                           '((concat emacs-d "cscope-15.7a/xcscope/")))))
 (require 'xcscope)
-;; (add-hook 'java-mode-hook (function cscope:hook))
-;; * Keybindings:
-;;
-;; All keybindings use the "C-c s" prefix, but are usable only while
-;; editing a source file, or in the cscope results buffer:
-;;
-;;      C-c s s         Find symbol. *********
-;;      C-c s d         Find global definition.
-;;      C-c s g         Find global definition (alternate binding).
-;;      C-c s G         Find global definition without prompting.
-;;      C-c s c         Find functions calling a function. *********
-;;      C-c s C         Find called functions (list functions called
-;;                      from a function). *********
-;;      C-c s t         Find text string.
-;;      C-c s e         Find egrep pattern.
-;;      C-c s f         Find a file.
-;;      C-c s i         Find files #including a file.
-;;
-;; These pertain to navigation through the search results:
-;;
-;;      C-c s b         Display *cscope* buffer.
-;;      C-c s B         Auto display *cscope* buffer toggle.
-;;      C-c s n         Next symbol.
-;;      C-c s N         Next file.
-;;      C-c s p         Previous symbol.
-;;      C-c s P         Previous file.
-;;      C-c s u         Pop mark.
-;;
-;; These pertain to setting and unsetting the variable,
-;; `cscope-initial-directory', (location searched for the cscope database
-;;  directory):
-;;
-;;      C-c s a         Set initial directory. *********
-;;      C-c s A         Unset initial directory.
-;;
-;; These pertain to cscope database maintenance:
-;;
-;;      C-c s L         Create list of files to index. *********
-;;      C-c s I         Create list and index.
-;;      C-c s E         Edit list of files to index.
-;;      C-c s W         Locate this buffer's cscope directory
-;;                      ("W" --> "where").
-;;      C-c s S         Locate this buffer's cscope directory.
-;;                      (alternate binding: "S" --> "show").
-;;      C-c s T         Locate this buffer's cscope directory.
-;;                      (alternate binding: "T" --> "tell").
-;;      C-c s D         Dired this buffer's directory.
+;; Keybindings:
+;; C-c s s         Find symbol.
+;; C-c s c         Find functions calling a function.
+;; C-c s C         Find called functions (list functions called from a function).
+;; C-c s a         Set initial directory.
+;; C-c s A         Unset initial directory.
+;; C-c s L         Create list of files to index.
+;; C-c s I         Create list and index.
 ;;------------------------------------------------------------------------;;
 
 
@@ -574,15 +533,15 @@
 (add-hook 'org-mode-hook 
           (lambda () (setq truncate-lines nil)))
 
-;; TAB - Subtree cycling  S-TAB - Global cycling
-;; M-RET - Insert same level heading  M-S-RET Insert TODO entry 
-;; M-left/right - Promote/Demote current heading by one level
-;; M-S-left/right - Promote/Demote current subtree by one level
-;; M-S-up/down - Move subtree up/down
-;; C-c C-t - Rotate TODO state 
-;; C-c C-s - Schedule  C-c C-d - Deadline
-;; C-c a t - Show the global TODO list
-;; S-M-RET Insert a new TODO entry
+;; TAB             - Subtree cycling  S-TAB - Global cycling
+;; M-RET           - Insert same level heading  M-S-RET Insert TODO entry 
+;; M-left/right    - Promote/Demote current heading by one level
+;; M-S-left/right  - Promote/Demote current subtree by one level
+;; M-S-up/down     - Move subtree up/down
+;; C-c C-t         - Rotate TODO state 
+;; C-c C-s         - Schedule  C-c C-d - Deadline
+;; C-c a t         - Show the global TODO list
+;; S-M-RET         - Insert a new TODO entry
 ;;------------------------------------------------------------------------;;
 
 
@@ -627,8 +586,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-;; (autoload 'flymake-find-file-hook "flymake" "" t)
-;; (add-hook 'find-file-hook 'flymake-find-file-hook)
 (setq flymake-gui-warnings-enabled nil)
 (setq flymake-log-level 0)
 ;; Show error message in mini buffer
@@ -664,9 +621,10 @@
 
 
 ;;------------------------------------------------------------------------;;
-(when (file-exists-p "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
-  (setq scheme-program-name
-        "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+(setq mit-scheme-app-path 
+  "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+(when (file-exists-p mit-scheme-app-path)
+  (setq scheme-program-name mit-scheme-app-path)
   (require 'xscheme))
 ;;------------------------------------------------------------------------;;
 
@@ -692,6 +650,7 @@
 (require 'markdown-mode)
 ;; Set .markdown files mode to markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 ;;------------------------------------------------------------------------;;
 
 
@@ -718,8 +677,9 @@
 
 
 ;;------------------------------------------------------------------------;;
-(when (file-exists-p "/usr/local/share/doc/git-core/contrib/emacs")
-  (add-to-list 'load-path "/usr/local/share/doc/git-core/contrib/emacs")
+(setq git-emacs-contrib-path "/usr/local/share/doc/git-core/contrib/emacs")
+(when (file-exists-p git-emacs-contrib-path)
+  (add-to-list 'load-path git-emacs-contrib-path)
   (require 'git)
   (require 'git-blame))
 ;;------------------------------------------------------------------------;;
