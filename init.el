@@ -9,10 +9,6 @@
 ;; Add all dirs in emacs-d recursively to load-path
 (let ((default-directory emacs-d))
   (normal-top-level-add-subdirs-to-load-path))
-
-;; File mode settings
-(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
-(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 ;;------------------------------------------------------------------------;;
 
 
@@ -54,6 +50,15 @@
   (dolist (p packages-list)
     (when (not (package-installed-p p))
       (package-install p))))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Autoloads
+(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
+
+(autoload 'highlight-indentation "highlight-indentation" "")
 ;;------------------------------------------------------------------------;;
 
 
@@ -446,7 +451,6 @@
 (add-to-list 'custom-theme-load-path (concat emacs-d "custom-themes"))
 (load-theme 'blackboard t)
 ;;------------------------------------------------------------------------;;
-
 
 ;;------------------------------------------------------------------------;;
 ;; Load auto-complete
