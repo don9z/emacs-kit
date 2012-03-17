@@ -283,8 +283,6 @@
 (setq visible-bell t)
 ;; No warnings
 (setq ring-bell-function 'ignore)
-;; For emacsclient
-(server-start)
 ;; Set to use bash as Shell
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
@@ -554,8 +552,9 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Enable highlight symbol
-(require 'highlight-symbol)
-(global-set-key "\C-ch" 'highlight-symbol-at-point)
+(eval-after-load "highlight-symbol"
+  '(progn
+     (global-set-key "\C-ch" 'highlight-symbol-at-point)))
 ;; (global-set-key [] 'highlight-symbol-next)
 ;; (global-set-key [] 'highlight-symbol-prev)
 ;; (global-set-key [] 'highlight-symbol-remove-all)
@@ -564,9 +563,11 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Enable cursor style
-(require 'cursor-chg)  ; Load this library
-(change-cursor-mode 1) ; On for overwrite/read-only/input mode
-(toggle-cursor-type-when-idle 1) ; On when idle
+(require 'cursor-chg)
+;; On for overwrite/read-only/input mode
+(change-cursor-mode 1) 
+;; On when idle
+(toggle-cursor-type-when-idle 1) 
 ;;------------------------------------------------------------------------;;
 
 
@@ -699,6 +700,9 @@
      (setq stack-trace-on-error t)
      (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
 ;;------------------------------------------------------------------------;;
+
+;; For emacsclient
+(server-start)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
