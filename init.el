@@ -66,11 +66,15 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 ;; nav
-(autoload 'nav "nav" "load nav" t)
+(autoload 'nav "nav" "nav" t)
 ;; revbufs
-(autoload 'revbufs "revbufs" "revert all buffers" t)
+(autoload 'revbufs "revbufs" "revbufs" t)
 ;; expand-region
-(autoload 'er/expand-region "expand-region" "load expand-region" t)
+(autoload 'er/expand-region "expand-region" "expand-region" t)
+;; mark-multiple
+(autoload 'inline-string-rectangle "inline-string-rectangle" "mark-multiple" t)
+(autoload 'mark-previous-like-this "mark-more-like-this" "mark-mulitiple" t)
+(autoload 'mark-next-like-this "mark-more-like-this" "mark-mulitiple" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -387,6 +391,10 @@
 
 ;; expand-region
 (global-set-key (kbd "C-M-m") 'er/expand-region)
+;; mark-multiple
+(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
+(global-set-key (kbd "C-,") 'mark-previous-like-this)
+(global-set-key (kbd "C-.") 'mark-next-like-this)
 
 ;; Cheat sheet for key bindings
 ;; M-^ move current line to the end of prev line
@@ -648,15 +656,6 @@
 (require 'fill-column-indicator)
 (setq fci-rule-color "#303030")
 (setq fci-rule-use-dashes t)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(require 'inline-string-rectangle)
-(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
-(require 'mark-more-like-this)
-(global-set-key (kbd "C-,") 'mark-previous-like-this)
-(global-set-key (kbd "C-.") 'mark-next-like-this)
 ;;------------------------------------------------------------------------;;
 
 
