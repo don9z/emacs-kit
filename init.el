@@ -55,10 +55,15 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Autoloads
+;; Javascript-mode 
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
+;; Auto-revert-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
-
+;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "")
+;; markdown-mode
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 ;;------------------------------------------------------------------------;;
 
 
@@ -643,14 +648,6 @@
 
 
 ;;------------------------------------------------------------------------;;
-(require 'markdown-mode)
-;; Set .markdown files mode to markdown-mode
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 (require 'inline-string-rectangle)
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
 (require 'mark-more-like-this)
@@ -675,7 +672,7 @@
 
 
 ;;------------------------------------------------------------------------;;
-(require 'rvm)
+;; rvm
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 ;;------------------------------------------------------------------------;;
 
