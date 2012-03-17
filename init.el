@@ -69,6 +69,8 @@
 (autoload 'nav "nav" "load nav" t)
 ;; revbufs
 (autoload 'revbufs "revbufs" "revert all buffers" t)
+;; expand-region
+(autoload 'er/expand-region "expand-region" "load expand-region" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -383,6 +385,9 @@
 ;; Mac OS X conventions
 (global-set-key (kbd "M-a") 'mark-whole-buffer)
 
+;; expand-region
+(global-set-key (kbd "C-M-m") 'er/expand-region)
+
 ;; Cheat sheet for key bindings
 ;; M-^ move current line to the end of prev line
 ;;------------------------------------------------------------------------;;
@@ -652,12 +657,6 @@
 (require 'mark-more-like-this)
 (global-set-key (kbd "C-,") 'mark-previous-like-this)
 (global-set-key (kbd "C-.") 'mark-next-like-this)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(require 'expand-region)
-(global-set-key (kbd "C-M-m") 'er/expand-region)
 ;;------------------------------------------------------------------------;;
 
 
