@@ -1,4 +1,4 @@
-;------------------------------------------------------------------------;;
+;;------------------------------------------------------------------------;;
 ;; Profile
 (setq user-full-name "Chris Zheng")
 
@@ -77,6 +77,8 @@
 (autoload 'mark-next-like-this "mark-more-like-this" "mark-mulitiple" t)
 ;; fill-column-indicator
 (autoload 'fci-mode "fill-column-indicator" "" t)
+;; shell-current-directory
+(autoload 'shell-current-directory "shell-current-directory" "" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -344,9 +346,9 @@
 (global-set-key "\M-6" 'compile)
 (global-set-key "\M-^" 'next-error)
 (global-set-key (kbd "C-6") 'kill-compilation)
-
-(global-set-key "\M-7" 'shell-current-directory)
 (global-set-key "\M-8" 'grep-find)
+;; shell-current-directory
+(global-set-key "\M-7" 'shell-current-directory)
 
 ;; Indexing using cscope
 (defun enable-cscope-shortcut (language-mode-map)
@@ -636,12 +638,6 @@
 ;; (when (file-exists-p "/usr/local/share/emacs/site-lisp/auctex.el")
 ;;   (load "/usr/local/share/emacs/site-lisp/auctex.el" nil t t)
 ;;   (load "/usr/local/share/emacs/site-lisp/preview-latex.el" nil t t))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Enable multiple shells
-(require 'shell-current-directory)
 ;;------------------------------------------------------------------------;;
 
 
