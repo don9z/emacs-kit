@@ -339,9 +339,11 @@
 (global-set-key "\M-8" 'grep-find)
 
 ;; Indexing using cscope
-(global-set-key "\M-9" 'cscope-find-global-definition)
-(global-set-key "\M-(" 'cscope-pop-mark)
-(global-set-key (kbd "C-9") 'cscope-find-functions-calling-this-function)
+(defun enable-cscope-shortcut (language-mode-map)
+  (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
+  (define-key language-mode-map "\M-(" 'cscope-pop-mark)
+  (define-key language-mode-map (kbd "C-9") 
+    'cscope-find-functions-calling-this-function))
 
 ;; Map the window manipulation keys to meta 0, 1, 2, o
 (global-set-key (kbd "M-3") 'split-window-horizontally)
@@ -418,7 +420,10 @@
   (linum-mode t)
   (make-face-unitalic 'font-lock-comment-face)
   ;; Line width indication
-  (fci-mode t))
+  (fci-mode t)
+  (require 'xcscope)
+  (enable-cscope-shortcut c-mode-map)
+  )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 (add-hook 'emacs-lisp-mode-hook
@@ -431,7 +436,10 @@
           (lambda ()
             (fci-mode t)
             (hl-line-mode)
-            (linum-mode)))
+            (linum-mode)
+            (require 'xcscope)
+            (enable-cscope-shortcut java-mode-map)
+            ))
 
 (add-hook 'makefile-mode-hook
           (lambda ()
@@ -477,7 +485,6 @@
 (when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
   (setq exec-path (append exec-path 
                           '((concat emacs-d "cscope-15.7a/xcscope/")))))
-(require 'xcscope)
 ;; Keybindings:
 ;; C-c s s         Find symbol.
 ;; C-c s c         Find functions calling a function.
