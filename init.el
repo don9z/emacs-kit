@@ -67,6 +67,8 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 ;; nav
 (autoload 'nav "nav" "load nav" t)
+;; revbufs
+(autoload 'revbufs "revbufs" "revert all buffers" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -593,12 +595,6 @@
 (ido-mode t)
 ;; Enable fuzzy matching
 (setq ido-enable-flex-matching t)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Reverse all out of date buffers
-(require 'revbufs)
 ;;------------------------------------------------------------------------;;
 
 
