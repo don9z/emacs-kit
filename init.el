@@ -79,6 +79,8 @@
 (autoload 'fci-mode "fill-column-indicator" "" t)
 ;; shell-current-directory
 (autoload 'shell-current-directory "shell-current-directory" "" t)
+;; xscheme
+(autoload 'run-scheme "xscheme" "" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -642,11 +644,11 @@
 
 
 ;;------------------------------------------------------------------------;;
-(setq mit-scheme-app-path 
+;; mit-scheme
+(setq mit-scheme-home 
   "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
-(when (file-exists-p mit-scheme-app-path)
-  (setq scheme-program-name mit-scheme-app-path)
-  (require 'xscheme))
+(when (file-exists-p mit-scheme-home)
+  (setq scheme-program-name mit-scheme-home))
 ;;------------------------------------------------------------------------;;
 
 
