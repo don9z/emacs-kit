@@ -60,10 +60,13 @@
 ;; Auto-revert-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 ;; highlight-indentation
-(autoload 'highlight-indentation "highlight-indentation" "")
+(autoload 'highlight-indentation "highlight-indentation" 
+  "load highlight-indentation")
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;; nav
+(autoload 'nav "nav" "load nav" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -469,6 +472,7 @@
 
 
 ;;------------------------------------------------------------------------;;
+;; cscope
 ;; Add cscope-indexer execute path
 (when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
   (setq exec-path (append exec-path 
@@ -639,11 +643,6 @@
 (require 'fill-column-indicator)
 (setq fci-rule-color "#303030")
 (setq fci-rule-use-dashes t)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(require 'nav)
 ;;------------------------------------------------------------------------;;
 
 
