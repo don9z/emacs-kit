@@ -59,22 +59,24 @@
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Auto-revert-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
-;; highlight-indentation
-(autoload 'highlight-indentation "highlight-indentation" 
-  "load highlight-indentation")
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; highlight-indentation
+(autoload 'highlight-indentation "highlight-indentation" "")
 ;; nav
-(autoload 'nav "nav" "nav" t)
+(autoload 'nav "nav" "" t)
 ;; revbufs
-(autoload 'revbufs "revbufs" "revbufs" t)
+(autoload 'revbufs "revbufs" "" t)
 ;; expand-region
-(autoload 'er/expand-region "expand-region" "expand-region" t)
+(autoload 'er/expand-region "expand-region" "" t)
 ;; mark-multiple
 (autoload 'inline-string-rectangle "inline-string-rectangle" "mark-multiple" t)
 (autoload 'mark-previous-like-this "mark-more-like-this" "mark-mulitiple" t)
 (autoload 'mark-next-like-this "mark-more-like-this" "mark-mulitiple" t)
+;; fill-column-indicator
+(autoload 'fci-mode "fill-column-indicator" "" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -653,9 +655,10 @@
 
 
 ;;------------------------------------------------------------------------;;
-(require 'fill-column-indicator)
-(setq fci-rule-color "#303030")
-(setq fci-rule-use-dashes t)
+(eval-after-load "fill-column-indicator"
+  '(progn
+     (setq fci-rule-color "#303030")
+     (setq fci-rule-use-dashes t)))
 ;;------------------------------------------------------------------------;;
 
 
