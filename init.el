@@ -3,7 +3,7 @@
 (setq user-full-name "Chris Zheng")
 
 ;; Set extension dir location
-(defvar emacs-d "~/Dropbox/Emacs/emacs.d/"
+(defvar emacs-d "/Users/chris/Dropbox/Emacs/emacs.d/"
   "Location of all extensions in")
 
 ;; Add all dirs in emacs-d recursively to load-path
@@ -342,6 +342,7 @@
 
 ;; Indexing using cscope
 (defun enable-cscope-shortcut (language-mode-map)
+  (require 'xcscope)
   (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
   (define-key language-mode-map "\M-(" 'cscope-pop-mark)
   (define-key language-mode-map (kbd "C-9") 
@@ -423,7 +424,6 @@
   (make-face-unitalic 'font-lock-comment-face)
   ;; Line width indication
   (fci-mode t)
-  (require 'xcscope)
   (enable-cscope-shortcut c-mode-map)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
@@ -439,7 +439,6 @@
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)
-            (require 'xcscope)
             (enable-cscope-shortcut java-mode-map)
             ))
 
@@ -483,10 +482,8 @@
 
 ;;------------------------------------------------------------------------;;
 ;; cscope
-;; Add cscope-indexer execute path
-(when (file-exists-p (concat emacs-d "cscope-15.7a/xcscope/cscope-indexer"))
-  (setq exec-path (append exec-path 
-                          '((concat emacs-d "cscope-15.7a/xcscope/")))))
+;; Add cscope-indexer to exec-path
+(setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
 ;; Keybindings:
 ;; C-c s s         Find symbol.
 ;; C-c s c         Find functions calling a function.
