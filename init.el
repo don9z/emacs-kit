@@ -401,6 +401,11 @@
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
 (global-set-key (kbd "C-,") 'mark-previous-like-this)
 (global-set-key (kbd "C-.") 'mark-next-like-this)
+;; org
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
 
 ;; Cheat sheet for key bindings
 ;; M-^ move current line to the end of prev line
@@ -515,20 +520,8 @@
 
 
 ;;------------------------------------------------------------------------;;
-;; Load org-mode
-(require 'org-install)
+;; org
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-;; MobileOrg
-(setq org-directory "~/Dropbox/Documents/org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
-(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org")))
-(setq org-mobile-force-id-on-agenda-items nil)
-(add-hook 'after-init-hook 'org-mobile-pull)
-(add-hook 'kill-emacs-hook 'org-mobile-push)
 ;; Task
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
@@ -546,7 +539,6 @@
 (setq org-log-done t)
 ;; Capture
 (setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
-(global-set-key "\C-cc" 'org-capture)
 (setq org-capture-templates
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
                "* TODO %?\n  %U\n %i")
@@ -564,6 +556,32 @@
 (setq org-agenda-dim-blocked-tasks nil)
 (add-hook 'org-mode-hook 
           (lambda () (setq truncate-lines nil)))
+;; MobileOrg
+(setq org-directory "~/Dropbox/Documents/org")
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+(setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
+(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org")))
+(setq org-mobile-force-id-on-agenda-items nil)
+;; moble sync
+;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; (add-hook 'kill-emacs-hook 'org-mobile-push)
+(defvar org-mobile-sync-timer nil)
+(defvar org-mobile-sync-idle-secs (* 60 10))
+(defun org-mobile-sync ()
+  (interactive)
+  (org-mobile-pull)
+  (org-mobile-push))
+(defun org-mobile-sync-enable ()
+  "enable mobile org idle sync"
+  (interactive)
+  (setq org-mobile-sync-timer
+        (run-with-idle-timer org-mobile-sync-idle-secs t
+                             'org-mobile-sync)));
+(defun org-mobile-sync-disable ()
+  "disable mobile org idle sync"
+  (interactive)
+  (cancel-timer org-mobile-sync-timer))
+(org-mobile-sync-enable)
 
 ;; TAB             - Subtree cycling  S-TAB - Global cycling
 ;; M-RET           - Insert same level heading  M-S-RET Insert TODO entry 
