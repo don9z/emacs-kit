@@ -414,50 +414,48 @@
 
 ;;------------------------------------------------------------------------;;
 ;; mode settings
-;;
-;; c/c++ mode
-;; set up my tab length as a variable
-(defun get-my-tab-length () 4)
-(defun my-c-mode-hook ()
-  (local-set-key "\M-f" 'c-forward-into-nomenclature)
-  (local-set-key "\M-b" 'c-backward-into-nomenclature)
-  ;; Set C code mode to Kernighan and Ritchie mode
-  (c-set-style "K&R")
-  ;; Set tab width and c offset
-  (setq tab-width (get-my-tab-length))
-  (setq c-basic-offset (get-my-tab-length))
-  (setq standard-indent (get-my-tab-length))
-  ;; Make style variables gloable
-  (setq c-style-variables-are-local-p nil)
-  ;; Brace that opens a substatement block, indent to zero
-  (c-set-offset 'substatement-open 0)
-  ;; Switch/case: make each case line indent from switch
-  (c-set-offset 'case-label '+)
-  ;; Make open-braces after a case: statement indent to 0 (default was '+)
-  (c-set-offset 'statement-case-open 0)
-  ;; Make DEL take all previous whitespace with it
-  (setq c-hungry-delete-key t)
-  ;; Show in which function
-  (which-function-mode t)
-  ;; Make a #define be left-aligned 
-  (setq c-electric-pound-behavior (quote (alignleft)))
-  ;; High light line minor mode
-  (hl-line-mode t)
-  ;; Line number minor mode
-  (linum-mode t)
-  (make-face-unitalic 'font-lock-comment-face)
-  ;; Line width indication
-  (fci-mode t)
-  (enable-cscope-shortcut c-mode-map)
-  )
-(add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
+;; c/c++ mode
+(add-hook 'c-mode-common-hook
+          (lambda () 
+            (local-set-key "\M-f" 'c-forward-into-nomenclature)
+            (local-set-key "\M-b" 'c-backward-into-nomenclature)
+            ;; Set C code mode to Kernighan and Ritchie mode
+            (c-set-style "K&R")
+            ;; Set tab width and c offset
+            (setq c-tab-width 4)
+            (setq tab-width c-tab-width)
+            (setq c-basic-offset c-tab-width)
+            (setq standard-indent c-tab-width)
+            ;; Make style variables gloable
+            (setq c-style-variables-are-local-p nil)
+            ;; Brace that opens a substatement block, indent to zero
+            (c-set-offset 'substatement-open 0)
+            ;; Switch/case: make each case line indent from switch
+            (c-set-offset 'case-label '+)
+            ;; Make open-braces after a case: statement indent to 0 (default was '+)
+            (c-set-offset 'statement-case-open 0)
+            ;; Make DEL take all previous whitespace with it
+            (setq c-hungry-delete-key t)
+            ;; Show in which function
+            (which-function-mode t)
+            ;; Make a #define be left-aligned 
+            (setq c-electric-pound-behavior (quote (alignleft)))
+            ;; High light line minor mode
+            (hl-line-mode t)
+            ;; Line number minor mode
+            (linum-mode t)
+            (make-face-unitalic 'font-lock-comment-face)
+            ;; Line width indication
+            (fci-mode t)
+            (enable-cscope-shortcut c-mode-map)))
+;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
           (lambda () 
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
-
+;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
             (fci-mode t)
@@ -465,18 +463,18 @@
             (linum-mode)
             (enable-cscope-shortcut java-mode-map)
             ))
-
+;; makefile mode
 (add-hook 'makefile-mode-hook
           (lambda ()
             (hl-line-mode)
             (linum-mode)))
-
+;; python mode
 (add-hook 'python-mode-hook
           (lambda ()
             (fci-mode t)
             (highlight-indentation)
             (linum-mode)))
-
+;; ruby mode
 (add-hook 'ruby-mode-hook
           (lambda ()
             (fci-mode t)
@@ -497,10 +495,14 @@
 (add-to-list 'ac-dictionary-directories (concat emacs-d "auto-complete/dict"))
 (ac-config-default)
 (setq ac-modes
-      (append ac-modes '(org-mode objc-mode jde-mode sql-mode
-                                  change-log-mode text-mode
-                                  makefile-gmake-mode makefile-bsdmake-mo
-                                  autoconf-mode makefile-automake-mode)))
+      (append ac-modes '(org-mode objc-mode sql-mode text-mode)))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Load yasnippet
+(require 'yasnippet)
+(yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
 
 
@@ -592,13 +594,6 @@
 ;; C-c C-s         - Schedule  C-c C-d - Deadline
 ;; C-c a t         - Show the global TODO list
 ;; S-M-RET         - Insert a new TODO entry
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Load yasnippet
-(require 'yasnippet)
-(yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
 
 
