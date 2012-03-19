@@ -224,6 +224,7 @@
        (top . 0)
        (width . 100) 
        (height . 40)
+       (cursor-color . "#ff7700")
        (font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
        )
      default-frame-alist))
