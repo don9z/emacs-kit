@@ -34,6 +34,7 @@
     rvm
     org ;; seems emacs 24 ships org, but put it here for sure
     ecb
+    magit
     )
   "List of packages needs to be installed at launch")
 
@@ -372,7 +373,7 @@
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-+") 'balance-windows)
-;; Replace some modes' M-o key binding
+;; Replace some modes' key binding
 (add-hook 'dired-mode-hook 
           (lambda () 
             (define-key dired-mode-map (kbd "M-o") 'other-window)))
@@ -382,6 +383,9 @@
 (add-hook 'diff-mode-hook 
           (lambda () 
             (define-key diff-mode-map (kbd "M-o") 'other-window)))
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)))
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
@@ -668,15 +672,6 @@
   '(progn
      (setq fci-rule-color "#303030")
      (setq fci-rule-use-dashes t)))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-(setq git-emacs-contrib-path "/usr/local/share/doc/git-core/contrib/emacs")
-(when (file-exists-p git-emacs-contrib-path)
-  (add-to-list 'load-path git-emacs-contrib-path)
-  (require 'git)
-  (require 'git-blame))
 ;;------------------------------------------------------------------------;;
 
 
