@@ -81,6 +81,9 @@
 (autoload 'shell-current-directory "shell-current-directory" "" t)
 ;; xscheme
 (autoload 'run-scheme "xscheme" "" t)
+;; auctex
+(if (file-exists-p "/usr/local/share/emacs/site-lisp/tex-site.el")
+    (require 'tex-site))
 ;;------------------------------------------------------------------------;;
 
 
@@ -220,9 +223,10 @@
 ;; Using this method to guarantee that font in speedbar is same size as buffer
 (setq default-frame-alist
    (append
-     '((left . 50) 
+     '(
+       (left . 50)
        (top . 0)
-       (width . 100) 
+       (width . 100)
        (height . 40)
        (cursor-color . "#ff7700")
        (font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
@@ -647,13 +651,6 @@
 ;; Set aspell as spell check tool
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; (when (file-exists-p "/usr/local/share/emacs/site-lisp/auctex.el")
-;;   (load "/usr/local/share/emacs/site-lisp/auctex.el" nil t t)
-;;   (load "/usr/local/share/emacs/site-lisp/preview-latex.el" nil t t))
 ;;------------------------------------------------------------------------;;
 
 
