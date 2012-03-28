@@ -386,6 +386,13 @@
 (add-hook 'magit-mode-hook
           (lambda ()
             (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)))
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)))
+(add-hook 'magit-mode-hook
+          (lambda ()
+            (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally)))
+
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
