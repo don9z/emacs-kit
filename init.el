@@ -311,11 +311,12 @@
 (setq visible-bell t)
 ;; No warnings
 (setq ring-bell-function 'ignore)
-;; Set to use bash as Shell
-(setq explicit-shell-file-name "/bin/bash")
-(setq shell-file-name "/bin/bash")
+;; Remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Settings of shell-mode
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
 ;; always insert at the bottom
 (setq comint-scroll-to-bottom-on-input t)
 ;; no duplicates in command history
