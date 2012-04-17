@@ -124,6 +124,8 @@
 	(string-match "^\\*TeX silent\\*$" str)
     (string-match "^\\*\[e|E\]diff.*\\*$" str)
     (string-match "^\\*Help\\*$" str)
+    (string-match "^refile.org" str)
+    (string-match "^\\*magit-.*\\*$" str)
     (with-current-buffer (get-buffer str)
       (eq major-mode 'dired-mode))
     ;;Test to see if the window is visible on an existing visible frame.
