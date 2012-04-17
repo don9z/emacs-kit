@@ -16,13 +16,13 @@
 ;; Packages sync at start
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives 
+(add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (require 'cl)
 ;; Guarantee all packages are installed on start
 (defvar packages-list
-  '(rainbow-mode 
+  '(rainbow-mode
     fill-column-indicator
     clojure-mode
     cursor-chg
@@ -39,7 +39,7 @@
   "List of packages needs to be installed at launch")
 
 (defun has-package-not-installed ()
-  (loop for p in packages-list 
+  (loop for p in packages-list
         when (not (package-installed-p p)) do (return t)
         finally (return nil)))
 (when (has-package-not-installed)
@@ -56,7 +56,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; Autoloads
-;; Javascript-mode 
+;; Javascript-mode
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; Auto-revert-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
@@ -95,13 +95,13 @@
   (interactive)
   (let ((prev-char (char-to-string (preceding-char)))
 	    (next-char (char-to-string (following-char))))
-     (cond 
+     (cond
        ((string-match "[[{(<]" next-char) (forward-sexp 1))
        ((string-match "[\]})>]" prev-char) (backward-sexp 1))
        (t (error "%s" "Not on a paren, brace, or bracket")))))
 (global-set-key (kbd "M-=") 'bounce-sexp)
 
-;; Compute the length of the marked region 
+;; Compute the length of the marked region
 (defun region-length ()
   "length of a region"
   (interactive)
@@ -110,7 +110,7 @@
 ;; Buffer-switching methods
 (defun buffer-ignored (str)
   (or
-    ;;buffers I don't want to switch to 
+    ;;buffers I don't want to switch to
 	(string-match "^\\*Buffer List\\*$" str)
     (string-match "^\\*GNU Emacs\\*$" str)
 	(string-match "^TAGS" str)
@@ -127,14 +127,14 @@
     (with-current-buffer (get-buffer str)
       (eq major-mode 'dired-mode))
     ;;Test to see if the window is visible on an existing visible frame.
-    ;;Because I can always ALT-TAB to that visible frame, I never want to 
-    ;;Ctrl-TAB to that buffer in the current frame.  That would cause 
+    ;;Because I can always ALT-TAB to that visible frame, I never want to
+    ;;Ctrl-TAB to that buffer in the current frame.  That would cause
     ;;a duplicate top-level buffer inside two frames.
-    (memq str                
-      (mapcar 
-        (lambda (x) 
-          (buffer-name 
-            (window-buffer 
+    (memq str
+      (mapcar
+        (lambda (x)
+          (buffer-name
+            (window-buffer
               (frame-selected-window x))))
         (visible-frame-list)))))
 (defun next-buffer (ls)
@@ -204,7 +204,7 @@
 (defun move-line-up (n)
   "Moves current line N (1) lines up leaving point in place."
   (interactive "p")
-  (move-line (if (null n) -1 (- n)))) 
+  (move-line (if (null n) -1 (- n))))
 (defun move-line-down (n)
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
@@ -241,7 +241,7 @@
   (let ((alpha-value (car alpha-list)))
     ((lambda (left right)
        (set-frame-parameter (selected-frame) 'alpha (list left right))
-       (add-to-list 'default-frame-alist (cons 'alpha (list left right)))) 
+       (add-to-list 'default-frame-alist (cons 'alpha (list left right))))
      (car alpha-value) (car (cdr alpha-value)))
     (setq alpha-list (cdr (append alpha-list (list alpha-value))))))
 
@@ -284,7 +284,7 @@
 (global-font-lock-mode t)
 (setq transient-mark-mode t)
 ;; Wrap line
-(set-default 'truncate-partial-width-windows 
+(set-default 'truncate-partial-width-windows
              (not truncate-partial-width-windows))
 ;; Allow paste between emacs and external application
 (setq x-select-enable-clipboard t)
@@ -303,9 +303,9 @@
 ;; Highlight C/C++ warning
 (global-cwarn-mode 1)
 ;; Compile command
-(setq compile-command "make -C ") 
+(setq compile-command "make -C ")
 ;; Display current buffer file path to frame title
-(setq frame-title-format 
+(setq frame-title-format
   '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 ;; Prevent the annoying beep on errors, use flash instead
 (setq visible-bell t)
@@ -364,7 +364,7 @@
   (require 'xcscope)
   (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
   (define-key language-mode-map "\M-(" 'cscope-pop-mark)
-  (define-key language-mode-map (kbd "C-9") 
+  (define-key language-mode-map (kbd "C-9")
     'cscope-find-functions-calling-this-function))
 
 ;; Map the window manipulation keys to meta 0, 1, 2, o
@@ -375,14 +375,14 @@
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-+") 'balance-windows)
 ;; Replace some modes' key binding
-(add-hook 'dired-mode-hook 
-          (lambda () 
+(add-hook 'dired-mode-hook
+          (lambda ()
             (define-key dired-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'ibuffer-mode-hook 
-          (lambda () 
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
             (define-key ibuffer-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'diff-mode-hook 
-          (lambda () 
+(add-hook 'diff-mode-hook
+          (lambda ()
             (define-key diff-mode-map (kbd "M-o") 'other-window)))
 (add-hook 'magit-mode-hook
           (lambda ()
@@ -397,11 +397,11 @@
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
-(global-set-key "\M-u" 
-                '(lambda () 
+(global-set-key "\M-u"
+                '(lambda ()
                    (interactive) (backward-word 1) (upcase-word 1)))
-(global-set-key "\M-\S-u" 
-                '(lambda () 
+(global-set-key "\M-\S-u"
+                '(lambda ()
                    (interactive) (backward-word 1) (downcase-word 1)))
 ;; Reverse buffer
 (global-set-key "\M-r" 'revert-buffer)
@@ -434,7 +434,7 @@
 
 ;; c/c++ mode
 (add-hook 'c-mode-common-hook
-          (lambda () 
+          (lambda ()
             (local-set-key "\M-f" 'c-forward-into-nomenclature)
             (local-set-key "\M-b" 'c-backward-into-nomenclature)
             ;; Set C code mode to Kernighan and Ritchie mode
@@ -456,7 +456,7 @@
             (setq c-hungry-delete-key t)
             ;; Show in which function
             (which-function-mode t)
-            ;; Make a #define be left-aligned 
+            ;; Make a #define be left-aligned
             (setq c-electric-pound-behavior (quote (alignleft)))
             ;; High light line minor mode
             (hl-line-mode t)
@@ -468,7 +468,7 @@
             (enable-cscope-shortcut c-mode-map)))
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
-          (lambda () 
+          (lambda ()
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
@@ -573,7 +573,7 @@
 ;; Agenda
 (setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-agenda-dim-blocked-tasks nil)
-(add-hook 'org-mode-hook 
+(add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
 ;; MobileOrg
 (setq org-directory "~/Dropbox/Documents/org")
@@ -603,11 +603,11 @@
 (org-mobile-sync-enable)
 
 ;; TAB             - Subtree cycling  S-TAB - Global cycling
-;; M-RET           - Insert same level heading  M-S-RET Insert TODO entry 
+;; M-RET           - Insert same level heading  M-S-RET Insert TODO entry
 ;; M-left/right    - Promote/Demote current heading by one level
 ;; M-S-left/right  - Promote/Demote current subtree by one level
 ;; M-S-up/down     - Move subtree up/down
-;; C-c C-t         - Rotate TODO state 
+;; C-c C-t         - Rotate TODO state
 ;; C-c C-s         - Schedule  C-c C-d - Deadline
 ;; C-c a t         - Show the global TODO list
 ;; S-M-RET         - Insert a new TODO entry
@@ -629,9 +629,9 @@
 ;; Enable cursor style
 (require 'cursor-chg)
 ;; On for overwrite/read-only/input mode
-(change-cursor-mode 1) 
+(change-cursor-mode 1)
 ;; On when idle
-(toggle-cursor-type-when-idle 1) 
+(toggle-cursor-type-when-idle 1)
 ;;------------------------------------------------------------------------;;
 
 
@@ -668,7 +668,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; mit-scheme
-(setq mit-scheme-home 
+(setq mit-scheme-home
   "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
 (when (file-exists-p mit-scheme-home)
   (setq scheme-program-name mit-scheme-home))
@@ -701,7 +701,7 @@
 
 ;;------------------------------------------------------------------------;;
 ;; ecb
-(eval-after-load "ecb" 
+(eval-after-load "ecb"
   '(progn
      (setq ecb-tip-of-the-day nil)
      ;; Too fix the error, kinda workaround
