@@ -522,6 +522,7 @@
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
 (require 'yasnippet)
+(add-to-list 'yas/snippet-dirs (concat emacs-d "yasnippet/extras/imported"))
 (yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
 
