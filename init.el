@@ -547,15 +547,13 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 ;; Task
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
-              (sequence "WAITING(w@/@)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
+      (quote ((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)"
+                        "|" "DONE(d!/!)" "CANCELLED(c@/!)"))))
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
               ("STARTED" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold))))
 (setq org-use-fast-todo-selection t)
 ;; Enable clock when done
