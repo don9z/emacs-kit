@@ -562,7 +562,7 @@
 (setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
 (setq org-capture-templates
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* TODO %?\n  %U\n %i")
+               "* TODO %?\n  OPENED: %U\n %i")
               ("n" "Note" entry (file "~/Dropbox/Documents/org/refile.org")
                "* %?\n  %U\n %i")
               ("j" "Journal" entry (file+datetree "~/Dropbox/Documents/org/refile.org")
