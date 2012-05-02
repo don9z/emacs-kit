@@ -1,1 +1,1 @@
-(load-file "~/Dropbox/Emacs/init.el")
+(load-file "~/Dropbox/emacs-kit/init.el")

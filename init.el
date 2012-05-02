@@ -3,7 +3,7 @@
 (setq user-full-name "Chris Zheng")
 
 ;; Set extension dir location
-(defvar emacs-d "/Users/chris/Dropbox/Emacs/emacs.d/"
+(defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
   "Location of all extensions in")
 
 ;; Add all dirs in emacs-d recursively to load-path
