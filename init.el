@@ -6,6 +6,16 @@
 (defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
   "Location of all extensions in")
 
+;; Sync $PATH from terminal to Emacs
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell.
+This is particularly useful under Mac OSX, where GUI apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+(set-exec-path-from-shell-PATH)
+
 ;; Add all dirs in emacs-d recursively to load-path
 (let ((default-directory emacs-d))
   (normal-top-level-add-subdirs-to-load-path))
