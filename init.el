@@ -478,7 +478,8 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
             (make-face-unitalic 'font-lock-comment-face)
             ;; Line width indication
             (fci-mode t)
-            (enable-cscope-shortcut c-mode-map)))
+            (enable-cscope-shortcut c-mode-map)
+            (enable-cscope-shortcut c++-mode-map)))
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
