@@ -47,6 +47,7 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     org ;; seems emacs 24 ships org, but put it here for sure
     ecb
     magit
+    nav
     )
   "List of packages needs to be installed at launch")
 
@@ -78,8 +79,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 
 ;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "")
-;; nav
-(autoload 'nav "nav" "" t)
 ;; revbufs
 (autoload 'revbufs "revbufs" "" t)
 ;; expand-region
