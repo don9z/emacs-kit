@@ -48,6 +48,7 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     magit
     nav
     expand-region
+    auto-complete
     )
   "List of packages needs to be installed at launch")
 
@@ -521,7 +522,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ;;------------------------------------------------------------------------;;
 ;; Load auto-complete
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat emacs-d "auto-complete/dict"))
 (ac-config-default)
 (setq ac-modes
       (append ac-modes '(org-mode objc-mode sql-mode text-mode)))
