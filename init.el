@@ -39,7 +39,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     cursor-chg
     highlight-indentation
     highlight-symbol
-    markdown-mode
     markdown-mode+
     php-mode
     protobuf-mode
@@ -48,6 +47,7 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     ecb
     magit
     nav
+    expand-region
     )
   "List of packages needs to be installed at launch")
 
@@ -81,8 +81,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (autoload 'highlight-indentation "highlight-indentation" "")
 ;; revbufs
 (autoload 'revbufs "revbufs" "" t)
-;; expand-region
-(autoload 'er/expand-region "expand-region" "" t)
 ;; mark-multiple
 (autoload 'inline-string-rectangle "inline-string-rectangle" "mark-multiple" t)
 (autoload 'mark-previous-like-this "mark-more-like-this" "mark-mulitiple" t)
@@ -542,14 +540,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ;; cscope
 ;; Add cscope-indexer to exec-path
 (setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
-;; Keybindings:
-;; C-c s s         Find symbol.
-;; C-c s c         Find functions calling a function.
-;; C-c s C         Find called functions (list functions called from a function).
-;; C-c s a         Set initial directory.
-;; C-c s A         Unset initial directory.
-;; C-c s L         Create list of files to index.
-;; C-c s I         Create list and index.
 ;;------------------------------------------------------------------------;;
 
 
