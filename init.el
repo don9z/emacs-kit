@@ -2,10 +2,6 @@
 ;; Profile
 (setq user-full-name "Chris Zheng")
 
-;; Set extension dir location
-(defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
-  "Location of all extensions in")
-
 ;; Sync $PATH from terminal to Emacs
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell.
@@ -16,6 +12,9 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-from-shell-PATH)
 
+;; Set extension dir location
+(defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
+  "Location of all extensions in")
 ;; Add all dirs in emacs-d recursively to load-path
 (let ((default-directory emacs-d))
   (normal-top-level-add-subdirs-to-load-path))
@@ -49,6 +48,8 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     nav
     expand-region
     auto-complete
+    melpa
+    multi-term
     )
   "List of packages needs to be installed at launch")
 
