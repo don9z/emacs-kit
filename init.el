@@ -50,6 +50,8 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     auto-complete
     melpa
     multi-term
+    git-blame
+    yaml-mode
     )
   "List of packages needs to be installed at launch")
 
@@ -78,6 +80,8 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;; yaml-mode
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 ;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "")
