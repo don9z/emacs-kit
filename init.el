@@ -7,7 +7,9 @@
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell.
 This is particularly useful under Mac OSX, where GUI apps are not started from a shell."
   (interactive)
-  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+  (let ((path-from-shell
+         (replace-regexp-in-string "[ \t\n]*$" ""
+                                   (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-from-shell-PATH)
@@ -101,6 +103,9 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 ;; auctex
 (if (file-exists-p "/usr/local/share/emacs/site-lisp/tex-site.el")
     (require 'tex-site))
+;; cscope
+(setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
+(autoload 'cscope-set-initial-directory "xcscope" "" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -539,13 +544,6 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
 (require 'yasnippet)
 (add-to-list 'yas/snippet-dirs (concat emacs-d "yasnippet/extras/imported"))
 (yas/global-mode 1)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; cscope
-;; Add cscope-indexer to exec-path
-(setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
 ;;------------------------------------------------------------------------;;
 
 
