@@ -551,6 +551,10 @@ to match that used by the user's shell."
 ;;------------------------------------------------------------------------;;
 ;; org
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;; Enable org-habit
+(eval-after-load "org"
+  '(progn
+     (add-to-list 'org-modules 'org-habit)))
 ;; Task
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)"
@@ -570,11 +574,11 @@ to match that used by the user's shell."
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
                "* TODO %?\n  OPENED: %U\n %i")
               ("n" "Note" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* %?\n  %U\n %i")
-              ("j" "Journal" entry (file+datetree "~/Dropbox/Documents/org/refile.org")
-               "* %?\n  %U\n %i")
+               "* %?\n  OPENED: %U\n %i")
+              ("j" "Journal" entry (file "~/Dropbox/Documents/org/refile.org")
+               "* %?\n  OPENED: %U\n %i")
               ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* NEXT %?\n  %U\nSCHEDULED: %t .+1d/3d\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n  %i"))))
+               "* TODO %?\n  SCHEDULED: %t\n  OPENED: %U\n  :PROPERTIES:\n  :STYLE: habit\n  :END:\n  %i"))))
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-reverse-note-order t)
@@ -702,8 +706,9 @@ to match that used by the user's shell."
 (eval-after-load "erc"
   '(progn
      (erc-autojoin-mode t)
-     (setq erc-autojoin-channels-alist
-           '((".*\\.freenode.net" "#emacs" "#ruby" "#java")))))
+     ;; (setq erc-autojoin-channels-alist
+     ;;       '((".*\\.freenode.net" "#emacs" "#ruby" "#java")))
+     ))
 ;;------------------------------------------------------------------------;;
 
 
