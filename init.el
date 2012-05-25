@@ -572,8 +572,15 @@ to match that used by the user's shell."
               ("WAITING" :foreground "orange" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold))))
 (setq org-use-fast-todo-selection t)
-;; Enable clock when done
-(setq org-log-done t)
+;; Parent can't be marked as done unless all children are done
+(setq org-enforce-todo-dependencies t)
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+;; Show CLOSED: [timestamp]
+(setq org-log-done 'time)
 ;; Capture
 (setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
 (setq org-capture-templates
