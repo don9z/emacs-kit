@@ -408,6 +408,12 @@ to match that used by the user's shell."
 (add-hook 'diff-mode-hook
           (lambda ()
             (define-key diff-mode-map (kbd "M-o") 'other-window)))
+(add-hook 'scheme-mode-hook
+          (lambda ()
+            (define-key scheme-mode-map (kbd "M-o") 'other-window)))
+(add-hook 'scheme-mode-hook
+          (lambda ()
+            (define-key scheme-mode-map (kbd "M-O") 'xscheme-send-buffer)))
 (add-hook 'magit-mode-hook
           (lambda ()
             (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)))
