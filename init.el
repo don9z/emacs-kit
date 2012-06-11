@@ -213,7 +213,6 @@ to match that used by the user's shell."
     (goto-char (point-min))
       (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
-
 (defun move-line (&optional n)
   "Move current line N (1) lines up/down leaving point in place."
   (interactive "p")
@@ -282,9 +281,6 @@ to match that used by the user's shell."
 
 ;; Show time
 (display-time-mode 1)
-;; Font zoom out  C-x C-=
-;; Font zoom in   C-x C--
-;; Font reset     C-x C-0
 ;;------------------------------------------------------------------------;;
 
 
@@ -351,7 +347,7 @@ to match that used by the user's shell."
 (setq comint-input-ring-size 5000)
 ;; show all in emacs interactive output
 (setenv "PAGER" "cat")
-;; Set lang to enable Chinese display in shell-mode
+;; set lang to enable Chinese display in shell-mode
 (setenv "LANG" "en_US.UTF-8")
 ;;------------------------------------------------------------------------;;
 
@@ -456,9 +452,6 @@ to match that used by the user's shell."
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cc" 'org-capture)
-
-;; Cheat sheet for key bindings
-;; M-^ move current line to the end of prev line
 ;;------------------------------------------------------------------------;;
 
 
@@ -500,12 +493,14 @@ to match that used by the user's shell."
             (fci-mode t)
             (enable-cscope-shortcut c-mode-map)
             (enable-cscope-shortcut c++-mode-map)))
+
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (fci-mode t)
             (hl-line-mode)
             (linum-mode)))
+
 ;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
@@ -514,22 +509,31 @@ to match that used by the user's shell."
             (linum-mode)
             (enable-cscope-shortcut java-mode-map)
             ))
+
 ;; makefile mode
 (add-hook 'makefile-mode-hook
           (lambda ()
             (hl-line-mode)
             (linum-mode)))
+
 ;; python mode
 (add-hook 'python-mode-hook
           (lambda ()
             (fci-mode t)
             (highlight-indentation)
             (linum-mode)))
+
 ;; ruby mode
 (add-hook 'ruby-mode-hook
           (lambda ()
             (fci-mode t)
             (highlight-indentation)
+            (linum-mode)))
+
+;; scheme mode
+(add-hook 'scheme-mode-hook
+          (lambda ()
+            (fci-mode t)
             (linum-mode)))
 ;;------------------------------------------------------------------------;;
 
@@ -537,7 +541,8 @@ to match that used by the user's shell."
 ;;------------------------------------------------------------------------;;
 ;; Theme
 (add-to-list 'custom-theme-load-path (concat emacs-d "custom-themes"))
-(load-theme 'blackboard t)
+(if (window-system)
+    (load-theme 'blackboard t))
 ;;------------------------------------------------------------------------;;
 
 ;;------------------------------------------------------------------------;;
@@ -629,16 +634,6 @@ to match that used by the user's shell."
   (interactive)
   (cancel-timer org-mobile-sync-timer))
 (org-mobile-sync-enable)
-
-;; TAB             - Subtree cycling  S-TAB - Global cycling
-;; M-RET           - Insert same level heading  M-S-RET Insert TODO entry
-;; M-left/right    - Promote/Demote current heading by one level
-;; M-S-left/right  - Promote/Demote current subtree by one level
-;; M-S-up/down     - Move subtree up/down
-;; C-c C-t         - Rotate TODO state
-;; C-c C-s         - Schedule  C-c C-d - Deadline
-;; C-c a t         - Show the global TODO list
-;; S-M-RET         - Insert a new TODO entry
 ;;------------------------------------------------------------------------;;
 
 
@@ -755,40 +750,3 @@ to match that used by the user's shell."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
-
-;; Tips
-;; sudo edit
-;;   C-c C-f /sudo::/path/to/file
-;; follow-mode
-;;   Show same buffer in two windows but scroll as one.
-;; Games
-;;   tetris
-;; Compile
-;;   emacs -batch -f batch-byte-compile *.el
-;; align-regexp
-;; occur
-;;   search for regex match lines in file, shows in other buffer
-;; re-builder
-;;   search lines match and mark
-;; anything
-;;   like quicksivler
-;; tramp
-;;   /sudo::/, /user@site:/, /user@site#port:/
-;; rectangle
-;;   cut: C-x r k -> C-x r y
-;;   add with space: C-x r o
-;;   replace with space: C-x r c
-;;   delete: C-x r d
-;;   replace with char: C-x r t, then input chars
-;; wdired-change-to-wdired-mode
-;;   edit dir like file
-;; multi-occur-in-matching-buffers
-;; apropos
-;;   search for emacs commands with regex
-;; follow-mode
-;; M-l downcase-word
-;;   Convert following word to lower case, moving over.
-;; M-t transpose-words C-t transpose chars C-x C-t transpose-lines
-;; M-m back-to-indentation
-;; M-x revert-buffer-with-coding-system
-;;   Change text coding system, e.g, from GBK to UTF-8
