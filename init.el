@@ -303,9 +303,6 @@ to match that used by the user's shell."
 ;; Syntax highlight
 (global-font-lock-mode t)
 (setq transient-mark-mode t)
-;; Wrap line
-(set-default 'truncate-partial-width-windows
-             (not truncate-partial-width-windows))
 ;; Allow paste between emacs and external application
 (setq x-select-enable-clipboard t)
 ;; Stop creating those backup~ files
