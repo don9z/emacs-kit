@@ -406,20 +406,13 @@ to match that used by the user's shell."
             (define-key scheme-interaction-mode-map (kbd "M-o") 'other-window)))
 (add-hook 'scheme-mode-hook
           (lambda ()
-            (define-key scheme-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'scheme-mode-hook
-          (lambda ()
+            (define-key scheme-mode-map (kbd "M-o") 'other-window)
             (define-key scheme-mode-map (kbd "M-O") 'xscheme-send-buffer)))
 (add-hook 'magit-mode-hook
           (lambda ()
-            (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)))
-(add-hook 'magit-mode-hook
-          (lambda ()
-            (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)))
-(add-hook 'magit-mode-hook
-          (lambda ()
+            (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)
+            (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)
             (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally)))
-
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
