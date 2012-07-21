@@ -101,6 +101,8 @@ to match that used by the user's shell."
 (autoload 'shell-current-directory "shell-current-directory" "" t)
 ;; xscheme
 (autoload 'run-scheme "xscheme" "" t)
+;; geiser
+(autoload 'run-geiser "geiser" "" t)
 ;; auctex
 (if (file-exists-p "/usr/local/share/emacs/site-lisp/tex-site.el")
     (require 'tex-site))
