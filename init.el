@@ -442,6 +442,8 @@ to match that used by the user's shell."
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cc" 'org-capture)
+;; highlight-symbol
+(global-set-key "\C-ch" 'highlight-symbol-at-point)
 ;;------------------------------------------------------------------------;;
 
 
@@ -624,17 +626,6 @@ to match that used by the user's shell."
   (interactive)
   (cancel-timer org-mobile-sync-timer))
 (org-mobile-sync-enable)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Enable highlight symbol
-(eval-after-load "highlight-symbol"
-  '(progn
-     (global-set-key "\C-ch" 'highlight-symbol-at-point)))
-;; (global-set-key [] 'highlight-symbol-next)
-;; (global-set-key [] 'highlight-symbol-prev)
-;; (global-set-key [] 'highlight-symbol-remove-all)
 ;;------------------------------------------------------------------------;;
 
 
