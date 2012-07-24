@@ -56,6 +56,7 @@ to match that used by the user's shell."
     multi-term
     git-blame
     yaml-mode
+    flymake-python-pyflakes
     )
   "List of packages needs to be installed at launch")
 
@@ -515,7 +516,8 @@ to match that used by the user's shell."
           (lambda ()
             (fci-mode t)
             (highlight-indentation)
-            (linum-mode)))
+            (linum-mode)
+            (flymake-python-pyflakes-load)))
 
 ;; ruby mode
 (add-hook 'ruby-mode-hook
@@ -715,6 +717,7 @@ to match that used by the user's shell."
      (setq stack-trace-on-error t)
      (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
 ;;------------------------------------------------------------------------;;
+
 
 ;; For emacsclient
 (server-start)
