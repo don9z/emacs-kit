@@ -553,7 +553,7 @@ to match that used by the user's shell."
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
 (require 'yasnippet)
-(add-to-list 'yas/snippet-dirs (concat emacs-d "yasnippet/extras/imported"))
+;; (add-to-list 'yas/snippet-dirs (concat emacs-d "yasnippet/extras/imported"))
 (yas/global-mode 1)
 ;;------------------------------------------------------------------------;;
 
@@ -677,7 +677,7 @@ to match that used by the user's shell."
 ;;------------------------------------------------------------------------;;
 ;; mit-scheme
 (setq mit-scheme-home
-  "/Applications/MIT-Scheme.app/Contents/Resources/mit-scheme")
+  "/usr/local/bin/mit-scheme")
 (when (file-exists-p mit-scheme-home)
   (setq scheme-program-name mit-scheme-home))
 ;;------------------------------------------------------------------------;;
