@@ -536,7 +536,7 @@ to match that used by the user's shell."
 
 ;;------------------------------------------------------------------------;;
 ;; Theme
-(add-to-list 'custom-theme-load-path (concat emacs-d "custom-themes"))
+(add-to-list 'custom-theme-load-path (concat emacs-d "blackboard-theme"))
 (if (window-system)
     (load-theme 'blackboard t))
 ;;------------------------------------------------------------------------;;

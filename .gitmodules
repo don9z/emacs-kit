@@ -13,3 +13,6 @@
 [submodule "emacs.d/geiser"]
 	path = emacs.d/geiser
 	url = git://git.sv.gnu.org/geiser.git
+[submodule "emacs.d/blackboard-theme"]
+	path = emacs.d/blackboard-theme
+	url = https://github.com/don9z/blackboard-theme.git
