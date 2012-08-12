@@ -675,15 +675,6 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; mit-scheme
-(setq mit-scheme-home
-  "/usr/local/bin/mit-scheme")
-(when (file-exists-p mit-scheme-home)
-  (setq scheme-program-name mit-scheme-home))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 (eval-after-load "fill-column-indicator"
   '(progn
      (setq fci-rule-color "#303030")
