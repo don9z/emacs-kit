@@ -419,7 +419,9 @@ to match that used by the user's shell."
 (add-hook 'geiser-repl-mode-hook
           (lambda ()
             (define-key geiser-repl-mode-map (kbd "M-`") 'next-use-buffer)))
-
+(add-hook 'geiser-mode-hook
+          (lambda ()
+            (define-key geiser-mode-map (kbd "M-`") 'next-use-buffer)))
 
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-l" 'goto-line)
