@@ -85,6 +85,7 @@ to match that used by the user's shell."
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;;(setq markdown-command "redcarpet")
 ;; yaml-mode
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
@@ -354,28 +355,37 @@ to match that used by the user's shell."
 
 ;;------------------------------------------------------------------------;;
 ;; Keybindings
-(global-set-key [S-left] 'other-window)
-(global-set-key [C-delete] 'kill-word)
-(global-set-key [C-backspace] 'backward-kill-word)
 (global-set-key [home] 'beginning-of-buffer)
 (global-set-key [end] 'end-of-buffer)
 (global-set-key [C-left] 'enlarge-window-horizontally)
 (global-set-key [C-right] 'shrink-window-horizontally)
 (global-set-key [C-up] 'enlarge-window)
 (global-set-key [C-down] 'shrink-window)
+(global-set-key [S-left] 'other-window)
 
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-%" 'query-replace-regexp)
+
 (global-set-key (kbd "C--") 'undo)
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
+(global-set-key "\M-k" 'kill-this-buffer)
+(global-set-key "\M-l" 'goto-line)
+(global-set-key "\M-u"
+                '(lambda ()
+                   (interactive) (backward-word 1) (upcase-word 1)))
+(global-set-key "\M-\S-u"
+                '(lambda ()
+                   (interactive) (backward-word 1) (downcase-word 1)))
+(global-set-key "\M-r" 'revert-buffer)
 
 ;; Compile
 (global-set-key "\M-6" 'compile)
 (global-set-key "\M-^" 'next-error)
 (global-set-key (kbd "C-6") 'kill-compilation)
 (global-set-key "\M-8" 'grep-find)
+
 ;; shell-current-directory
 (global-set-key "\M-7" 'shell-current-directory)
 
@@ -422,17 +432,6 @@ to match that used by the user's shell."
 (add-hook 'geiser-mode-hook
           (lambda ()
             (define-key geiser-mode-map (kbd "M-`") 'next-use-buffer)))
-
-(global-set-key "\M-k" 'kill-this-buffer)
-(global-set-key "\M-l" 'goto-line)
-(global-set-key "\M-u"
-                '(lambda ()
-                   (interactive) (backward-word 1) (upcase-word 1)))
-(global-set-key "\M-\S-u"
-                '(lambda ()
-                   (interactive) (backward-word 1) (downcase-word 1)))
-;; Reverse buffer
-(global-set-key "\M-r" 'revert-buffer)
 
 ;; For Mac OS X meta key
 (when (boundp 'mac-command-modifier)
