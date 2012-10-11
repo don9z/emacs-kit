@@ -58,6 +58,7 @@ to match that used by the user's shell."
     yaml-mode
     flymake-python-pyflakes
     dummy-h-mode
+    web-mode
     )
   "List of packages needs to be installed at launch")
 
@@ -92,6 +93,12 @@ to match that used by the user's shell."
 ;; dummy-h-mode
 (add-to-list 'auto-mode-alist '("\\.h$" . dummy-h-mode))
 (autoload 'dummy-h-mode "dummy-h-mode" "Dummy H mode" t)
+;; web-mode
+(add-to-list 'auto-mode-alist '("\\.phtml$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
 ;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "" t)
