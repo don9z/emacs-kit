@@ -395,7 +395,11 @@ to match that used by the user's shell."
 (global-set-key "\M-6" 'compile)
 (global-set-key "\M-^" 'next-error)
 (global-set-key (kbd "C-6") 'kill-compilation)
+
+;; grep-find
 (global-set-key "\M-8" 'grep-find)
+(setq grep-find-command
+      "find . -name .svn -prune -o -name TAGS -prune -o -name .git -prune -o -type f -print0 | xargs -0 grep -nHE ")
 
 ;; shell-current-directory
 (global-set-key "\M-7" 'shell-current-directory)
@@ -728,18 +732,3 @@ to match that used by the user's shell."
 
 ;; For emacsclient
 (server-start)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
-  ;; Exclude .svn .git TAGS from grep-find path
- '(grep-find-command "find . -name .svn -prune -o -name TAGS -prune -o -name .git -prune -o -type f -print0 | xargs -0 grep -nHE "))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
