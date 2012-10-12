@@ -712,9 +712,10 @@ to match that used by the user's shell."
 ;; erc
 (eval-after-load "erc"
   '(progn
+     (setq erc-nick "don9z")
      (erc-autojoin-mode t)
-     ;; (setq erc-autojoin-channels-alist
-     ;;       '((".*\\.freenode.net" "#emacs" "#ruby" "#java")))
+     (setq erc-autojoin-channels-alist
+           '((".*\\.freenode.net" "#emacs")))
      ))
 ;;------------------------------------------------------------------------;;
 
