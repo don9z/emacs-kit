@@ -99,6 +99,8 @@ to match that used by the user's shell."
 (add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+;; latex-mode
+(add-to-list 'auto-mode-alist '("\\.tex$" . latex-mode))
 
 ;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "" t)
@@ -296,6 +298,16 @@ to match that used by the user's shell."
 
 ;; Show time
 (display-time-mode 1)
+
+(defun enter-my-chinese-writing-mode ()
+  "Set font in current buffer"
+  (interactive)
+  (setq buffer-face-mode-face '(:family "Microsoft YaHei"))
+  (buffer-face-mode))
+(defun leave-my-chinese-writing-mode ()
+  "Unset buffer face"
+  (interactive)
+  (buffer-face-mode -1))
 ;;------------------------------------------------------------------------;;
 
 
