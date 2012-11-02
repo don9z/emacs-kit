@@ -59,6 +59,7 @@ to match that used by the user's shell."
     flymake-python-pyflakes
     dummy-h-mode
     web-mode
+    auctex
     )
   "List of packages needs to be installed at launch")
 
@@ -99,8 +100,6 @@ to match that used by the user's shell."
 (add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
-;; latex-mode
-(add-to-list 'auto-mode-alist '("\\.tex$" . latex-mode))
 
 ;; highlight-indentation
 (autoload 'highlight-indentation "highlight-indentation" "" t)
@@ -118,9 +117,6 @@ to match that used by the user's shell."
 (autoload 'run-scheme "xscheme" "" t)
 ;; geiser
 (autoload 'run-geiser "geiser" "" t)
-;; auctex
-(if (file-exists-p "/usr/local/share/emacs/site-lisp/tex-site.el")
-    (require 'tex-site))
 ;; cscope
 (setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
 (autoload 'cscope-set-initial-directory "xcscope" "" t)
