@@ -36,30 +36,33 @@ to match that used by the user's shell."
 (require 'cl)
 ;; Guarantee all packages are installed on start
 (defvar packages-list
-  '(rainbow-mode
-    fill-column-indicator
+  '(
+    auctex
+    auto-complete
     clojure-mode
     cursor-chg
+    dummy-h-mode
+    ecb
+    expand-region
+    fill-column-indicator
+    flymake-python-pyflakes
+    git-blame
     highlight-indentation
     highlight-symbol
-    markdown-mode+
-    php-mode
-    protobuf-mode
-    rvm
-    org ;; seems emacs 24 ships org, but put it here for sure
-    ecb
     magit
-    nav
-    expand-region
-    auto-complete
+    markdown-mode+
     melpa
     multi-term
-    git-blame
-    yaml-mode
-    flymake-python-pyflakes
-    dummy-h-mode
+    nav
+    org ;; seems emacs 24 ships org, but put it here for sure
+    php-mode
+    protobuf-mode
+    rainbow-mode
+    rvm
+    scss-mode
+    sicp
     web-mode
-    auctex
+    yaml-mode
     )
   "List of packages needs to be installed at launch")
 
@@ -266,7 +269,8 @@ to match that used by the user's shell."
        (width . 100)
        (height . 40)
        (cursor-color . "#ff7700")
-       (font . "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+       ;;(font . "-apple-Source_Code_Pro-medium-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+       (font . "-apple-Inconsolata-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
        )
      default-frame-alist))
 
