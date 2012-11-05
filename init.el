@@ -104,8 +104,6 @@ to match that used by the user's shell."
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
-;; highlight-indentation
-(autoload 'highlight-indentation "highlight-indentation" "" t)
 ;; revbufs
 (autoload 'revbufs "revbufs" "" t)
 ;; mark-multiple
@@ -547,7 +545,7 @@ to match that used by the user's shell."
 (add-hook 'python-mode-hook
           (lambda ()
             (fci-mode t)
-            (highlight-indentation)
+            (highlight-indentation-mode)
             (linum-mode)
             (flymake-python-pyflakes-load)))
 
@@ -555,7 +553,7 @@ to match that used by the user's shell."
 (add-hook 'ruby-mode-hook
           (lambda ()
             (fci-mode t)
-            (highlight-indentation)
+            (highlight-indentation-mode)
             (linum-mode)))
 
 ;; scheme mode
