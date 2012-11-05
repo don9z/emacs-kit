@@ -58,7 +58,6 @@ to match that used by the user's shell."
     php-mode
     protobuf-mode
     rainbow-mode
-    rvm
     scss-mode
     sicp
     web-mode
@@ -709,12 +708,6 @@ to match that used by the user's shell."
   '(progn
      (setq fci-rule-color "#303030")
      (setq fci-rule-use-dashes t)))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; rvm
-(rvm-use-default) ;; use rvm's default ruby for the current Emacs session
 ;;------------------------------------------------------------------------;;
 
 
