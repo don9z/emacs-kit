@@ -39,6 +39,7 @@ to match that used by the user's shell."
   '(
     auctex
     auto-complete
+    autopair
     clojure-mode
     cursor-chg
     dummy-h-mode
@@ -557,7 +558,8 @@ to match that used by the user's shell."
 (add-hook 'scheme-mode-hook
           (lambda ()
             (fci-mode t)
-            (linum-mode)))
+            (linum-mode)
+            (autopair-mode)))
 ;;------------------------------------------------------------------------;;
 
 
