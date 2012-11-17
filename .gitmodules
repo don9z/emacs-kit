@@ -1,9 +1,6 @@
 [submodule "emacs.d/mark-multiple"]
 	path = emacs.d/mark-multiple
 	url = https://github.com/magnars/mark-multiple.el.git
-[submodule "emacs.d/yasnippet"]
-	path = emacs.d/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
 [submodule "emacs.d/shell-current-directory"]
 	path = emacs.d/shell-current-directory
 	url = https://github.com/metaperl/shell-current-directory.git
