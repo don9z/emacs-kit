@@ -62,6 +62,7 @@ to match that used by the user's shell."
     sicp
     web-mode
     yaml-mode
+    yasnippet
     )
   "List of packages needs to be installed at launch")
 
@@ -582,8 +583,11 @@ to match that used by the user's shell."
 ;;------------------------------------------------------------------------;;
 ;; Load yasnippet
 (require 'yasnippet)
-;; (add-to-list 'yas/snippet-dirs (concat emacs-d "yasnippet/extras/imported"))
 (yas/global-mode 1)
+(require 'dropdown-list)
+(setq yas-prompt-functions '(yas-dropdown-prompt
+                             yas-ido-prompt
+                             yas-completing-prompt))
 ;;------------------------------------------------------------------------;;
 
 
