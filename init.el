@@ -28,10 +28,10 @@ to match that used by the user's shell."
 ;; Packages sync at start
 (require 'package)
 (package-initialize)
+;; (add-to-list 'package-archives
+;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/")
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-             )
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
 
 (require 'cl)
 ;; Guarantee all packages are installed on start
@@ -39,6 +39,7 @@ to match that used by the user's shell."
   '(
     auctex
     auto-complete
+    auto-indent-mode
     autopair
     clojure-mode
     cursor-chg
@@ -353,6 +354,10 @@ to match that used by the user's shell."
 (setq ring-bell-function 'ignore)
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Always auto indent
+(auto-indent-mode)
+;; Join next line with white-space deleted when kill at the end of a line
+(setq auto-indent-kill-line-at-eol 'nil)
 
 ;; Settings of shell-mode
 (setq explicit-shell-file-name "/bin/bash")
