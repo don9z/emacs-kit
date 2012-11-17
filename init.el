@@ -29,9 +29,9 @@ to match that used by the user's shell."
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; (add-to-list 'package-archives
-;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/")
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+             )
 
 (require 'cl)
 ;; Guarantee all packages are installed on start
