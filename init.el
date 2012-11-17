@@ -50,6 +50,7 @@ to match that used by the user's shell."
     highlight-indentation
     highlight-symbol
     magit
+    mark-multiple
     markdown-mode+
     melpa
     multi-term
@@ -106,10 +107,6 @@ to match that used by the user's shell."
 
 ;; revbufs
 (autoload 'revbufs "revbufs" "" t)
-;; mark-multiple
-(autoload 'inline-string-rectangle "inline-string-rectangle" "mark-multiple" t)
-(autoload 'mark-previous-like-this "mark-more-like-this" "mark-mulitiple" t)
-(autoload 'mark-next-like-this "mark-more-like-this" "mark-mulitiple" t)
 ;; fill-column-indicator
 (autoload 'fci-mode "fill-column-indicator" "" t)
 ;; shell-current-directory
