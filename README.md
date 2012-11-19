@@ -1,11 +1,13 @@
 Emacs-Kit
 ---
-Emacs is an awesome editor, but the process of figuring out one useful Emacs configuration is long and difficult. This kit is about to ease the procedure, I try to make it more configurable, more efficient, and more readable.
+Emacs is the best editor, but figuring out one workable Emacs configuration takes time, and often mess up everything.
 
-I don't use any scripts which I don't know what for, so, this kit doesn't have any 'garbage' script in it. But in case that some functionalities that might be not needed, most of the packages are lazy loaded.
+This kit is aimed to make it easy to configure, also, more efficient, and more readable.
 
-Also, I adopt emacs packaging mechanism, all packages are downloaded and installed during the first start of Emacs from [MELPA](http://melpa.milkbox.net/).
+I didn't use any script which I don't know what for, so, this kit doesn't contain any 'garbage' script. But in case that some functions might not be needed, most of the packages are [Lazy loading](http://en.wikipedia.org/wiki/Lazy_loading).
 
-Other packages are using `git submodule` which fetches packages from [github](http://github.com), please use `git submodule init` and `git submodule update` after you clone it.
+Also, I adopted the Emacs packaging mechanism, all packages will be downloaded and installed during the first start of Emacs from [MELPA](http://melpa.milkbox.net/).
 
-Please use Emacs 24 and put a soft link in $USER to `.emacs` as well as changing `emacs-d` in `init.el`.
+There are still some packages missing in MELPA are fetched from [github](http://github.com) using `git submodule`, please use `git submodule init` and `git submodule update` after you clone it.
+
+Please use Emacs 24 and put a soft link of `.emacs` in `$USER` home directory, and change location of `emacs-d` in `init.el`.
