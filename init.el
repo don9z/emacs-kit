@@ -38,10 +38,12 @@ to match that used by the user's shell."
 (defvar packages-list
   '(
     auctex
+    ascii
     auto-complete
     auto-indent-mode
     autopair
     clojure-mode
+    csv-mode
     cursor-chg
     dummy-h-mode
     ecb
@@ -86,15 +88,14 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; Autoloads
-;; Javascript-mode
+;; Auto mode & autoload
+;; javascript-mode
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
-;; Auto-revert-tail-mode
+;; auto-revert-tail-mode
 (add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-;;(setq markdown-command "redcarpet")
 ;; yaml-mode
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 ;; dummy-h-mode
@@ -106,6 +107,10 @@ to match that used by the user's shell."
 (add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+;; csv-mode
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(autoload 'csv-mode "csv-mode"
+  "Major mode for editing comma-separated value files." t)
 
 ;; revbufs
 (autoload 'revbufs "revbufs" "" t)
