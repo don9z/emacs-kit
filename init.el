@@ -364,6 +364,9 @@ to match that used by the user's shell."
 (auto-indent-mode)
 ;; Join next line with white-space deleted when kill at the end of a line
 (setq auto-indent-kill-line-at-eol 'nil)
+;; highlight current line
+(if (window-system)
+    (global-hl-line-mode))
 
 ;; Settings of shell-mode
 (setq explicit-shell-file-name "/bin/bash")
@@ -518,8 +521,6 @@ to match that used by the user's shell."
             (which-function-mode t)
             ;; Make a #define be left-aligned
             (setq c-electric-pound-behavior (quote (alignleft)))
-            ;; High light line minor mode
-            (hl-line-mode t)
             ;; Line number minor mode
             (linum-mode t)
             (make-face-unitalic 'font-lock-comment-face)
@@ -532,14 +533,12 @@ to match that used by the user's shell."
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (fci-mode t)
-            (hl-line-mode)
             (linum-mode)))
 
 ;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
             (fci-mode t)
-            (hl-line-mode)
             (linum-mode)
             (enable-cscope-shortcut java-mode-map)
             ))
@@ -547,7 +546,6 @@ to match that used by the user's shell."
 ;; makefile mode
 (add-hook 'makefile-mode-hook
           (lambda ()
-            (hl-line-mode)
             (linum-mode)))
 
 ;; python mode
