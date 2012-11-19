@@ -45,6 +45,7 @@ to match that used by the user's shell."
     clojure-mode
     csv-mode
     cursor-chg
+    cyberpunk-theme
     dummy-h-mode
     ecb
     expand-region
