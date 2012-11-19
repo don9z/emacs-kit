@@ -67,6 +67,7 @@ to match that used by the user's shell."
     protobuf-mode
     rainbow-mode
     scss-mode
+    shell-here
     sicp
     web-mode
     yaml-mode
@@ -119,8 +120,6 @@ to match that used by the user's shell."
 (autoload 'revbufs "revbufs" "" t)
 ;; fill-column-indicator
 (autoload 'fci-mode "fill-column-indicator" "" t)
-;; shell-current-directory
-(autoload 'shell-current-directory "shell-current-directory" "" t)
 ;; xscheme
 (autoload 'run-scheme "xscheme" "" t)
 ;; geiser
@@ -425,8 +424,8 @@ to match that used by the user's shell."
 (setq grep-find-command
       "find . -name .svn -prune -o -name TAGS -prune -o -name .git -prune -o -type f -print0 | xargs -0 grep -nHE ")
 
-;; shell-current-directory
-(global-set-key "\M-7" 'shell-current-directory)
+;; shell-here
+(global-set-key "\M-7" 'shell-here)
 
 ;; Indexing using cscope
 (defun enable-cscope-shortcut (language-mode-map)
