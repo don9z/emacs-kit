@@ -52,8 +52,10 @@ to match that used by the user's shell."
     fill-column-indicator
     flymake-python-pyflakes
     git-blame
+    golden-ratio
     highlight-indentation
     highlight-symbol
+    ido-ubiquitous
     magit
     mark-multiple
     markdown-mode+
@@ -685,11 +687,17 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;;Enable ido-mode
+;; Enable ido-mode
 (require 'ido)
 (ido-mode t)
 ;; Enable fuzzy matching
 (setq ido-enable-flex-matching t)
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; Enable ido-ubiquitous
+(ido-ubiquitous-mode)
 ;;------------------------------------------------------------------------;;
 
 
