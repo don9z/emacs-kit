@@ -58,7 +58,7 @@ to match that used by the user's shell."
     ido-ubiquitous
     magit
     mark-multiple
-    markdown-mode+
+    markdown-mode
     melpa
     multi-term
     nav
