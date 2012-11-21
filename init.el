@@ -100,6 +100,7 @@ to match that used by the user's shell."
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-command-needs-filename t)
 ;; yaml-mode
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 ;; dummy-h-mode
