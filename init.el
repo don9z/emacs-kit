@@ -2,7 +2,7 @@
 ;; Profile
 (setq user-full-name "Chris Zheng")
 
-;; Sync $PATH from terminal to Emacs
+;; Sync $PATH from Shell to Emacs
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable
 to match that used by the user's shell."
@@ -15,26 +15,94 @@ to match that used by the user's shell."
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-from-shell-PATH)
 
-;; Set extension dir location
+;; Add extension folder to load-path
 (defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
   "Location of all extensions in")
-;; Add all dirs in emacs-d recursively to load-path
 (let ((default-directory emacs-d))
   (normal-top-level-add-subdirs-to-load-path))
+
+;; Global preferences
+;; set environment coding system
+(set-language-environment "UTF-8")
+;; show paren, brace, and curly brace "partners"
+(show-paren-mode t)
+;; show column and line number on mode line
+(setq column-number-mode t)
+(setq line-number-mode t)
+;; show time in mode line
+(display-time-mode 1)
+;; big kill ring buffer pool
+(setq kill-ring-max 200)
+;; set TAB set
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+;; save bookmarks to default file
+(setq bookmark-save-flag 1)
+;; set column to 80
+(setq default-fill-column 80)
+;; enable syntax highlight
+(global-font-lock-mode t)
+;; enable mark highlight
+(setq transient-mark-mode t)
+;; allow paste between emacs and external applications
+(setq x-select-enable-clipboard t)
+;; stop creating those backup~ files
+(setq make-backup-files nil)
+;; stop creating those #***# files
+(setq auto-save-default nil)
+;; always add new line to the end of a file
+(setq require-final-newline t)
+;; no new lines when you press the "arrow-down key" at end of the buffer
+(setq next-line-add-newlines nil)
+;; make the y or n suffice for a yes or no question
+(fset 'yes-or-no-p 'y-or-n-p)
+;; kill whole if curson is at line beginning
+(setq kill-whole-line t)
+;; highlight C/C++ warning
+(global-cwarn-mode 1)
+;; set compile command
+(setq compile-command "make -C ")
+;; display current buffer file path to frame title
+(setq frame-title-format
+      '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; prevent the annoying beep on errors, use flash instead
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+;; remove trailing whitespace before save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; highlight current line
+(if (window-system)
+    (global-hl-line-mode))
+
+;; shell-mode settings
+(setq explicit-shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/bash")
+;; always insert at the bottom
+(setq comint-scroll-to-bottom-on-input t)
+;; no duplicates in command history
+(setq comint-input-ignoredups t)
+;; what to run when i press enter on a line above the current prompt
+(setq comint-get-old-input (lambda () ""))
+;; max shell history size
+(setq comint-input-ring-size 5000)
+;; show all in emacs interactive output
+(setenv "PAGER" "cat")
+;; set lang to enable Chinese display in shell-mode
+(setenv "LANG" "en_US.UTF-8")
 ;;------------------------------------------------------------------------;;
 
 
 ;;------------------------------------------------------------------------;;
-;; Packages sync at start
+;; package.el
 (require 'package)
 (package-initialize)
-;; (add-to-list 'package-archives
-;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
+;; (add-to-list 'package-archives
+;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 (require 'cl)
-;; Guarantee all packages are installed on start
+;; sync packages on start
 (defvar packages-list
   '(
     auctex
@@ -93,6 +161,8 @@ to match that used by the user's shell."
 
 ;;------------------------------------------------------------------------;;
 ;; Auto mode & autoload
+;; org-mode
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 ;; javascript-mode
 (add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
 ;; auto-revert-tail-mode
@@ -114,19 +184,19 @@ to match that used by the user's shell."
 ;; csv-mode
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 (autoload 'csv-mode "csv-mode"
-  "Major mode for editing comma-separated value files." t)
+  "Major mode for editing CSV files" t)
 
 ;; revbufs
-(autoload 'revbufs "revbufs" "" t)
+(autoload 'revbufs "revbufs" "Revert all buffers" t)
 ;; fill-column-indicator
-(autoload 'fci-mode "fill-column-indicator" "" t)
+(autoload 'fci-mode "fill-column-indicator" "Fill column indicator" t)
 ;; xscheme
-(autoload 'run-scheme "xscheme" "" t)
+(autoload 'run-scheme "xscheme" "Run mit-scheme" t)
 ;; geiser
-(autoload 'run-geiser "geiser" "" t)
+(autoload 'run-geiser "geiser" "Geiser" t)
 ;; cscope
 (setq exec-path (append exec-path (list (concat emacs-d "xcscope/"))))
-(autoload 'cscope-set-initial-directory "xcscope" "" t)
+(autoload 'cscope-set-initial-directory "xcscope" "Cscope" t)
 ;;------------------------------------------------------------------------;;
 
 
@@ -143,13 +213,11 @@ to match that used by the user's shell."
        (t (error "%s" "Not on a paren, brace, or bracket")))))
 (global-set-key (kbd "M-=") 'bounce-sexp)
 
-;; Compute the length of the marked region
 (defun region-length ()
-  "length of a region"
+  "Length of a region"
   (interactive)
   (message (format "%d" (- (region-end) (region-beginning)))))
 
-;; Buffer-switching methods
 (defun buffer-ignored (str)
   (or
     ;;buffers I don't want to switch to
@@ -203,7 +271,6 @@ to match that used by the user's shell."
 (global-set-key "\M-`" 'next-use-buffer)
 (global-set-key "\M-~" 'prev-use-buffer)
 
-;; Show ascii table
 (defun ascii-table ()
   "Print the ascii table"
   (interactive)
@@ -216,19 +283,18 @@ to match that used by the user's shell."
       (insert (format "%4d %c\n" i i))))
   (beginning-of-buffer))
 
-;; Insert date into buffer
 (defun insert-date ()
   "Insert date at point"
   (interactive)
   (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
 
-;; Convert a buffer from dos ^M end of lines to unix end of lines
 (defun dos2unix ()
+  "Convert line end from dos to unix"
   (interactive)
     (goto-char (point-min))
       (while (search-forward "\r" nil t) (replace-match "")))
-;; vice versa
 (defun unix2dos ()
+  "Convert line end from unix to dos"
   (interactive)
     (goto-char (point-min))
       (while (search-forward "\n" nil t) (replace-match "\r\n")))
@@ -264,7 +330,7 @@ to match that used by the user's shell."
 
 ;;------------------------------------------------------------------------;;
 ;; UI settings
-;; Using this method to guarantee that font in speedbar is same size as buffer
+;; frame size, cursor color and font setting
 (setq default-frame-alist
    (append
      '(
@@ -278,7 +344,7 @@ to match that used by the user's shell."
        )
      default-frame-alist))
 
-;; Loop window transparency
+;; loop window transparency
 (setq alpha-list '((100 100) (95 65) (85 55) (75 45) (65 35)))
 (defun loop-alpha ()
   (interactive)
@@ -289,20 +355,23 @@ to match that used by the user's shell."
      (car alpha-value) (car (cdr alpha-value)))
     (setq alpha-list (cdr (append alpha-list (list alpha-value))))))
 
-;; Hide the tool bar
+;; hide the tool bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode 0))
-;; Show menu bar on Mac and Terminal
+;; show menu bar only on Mac and Terminal
 (if (window-system)
     (if (boundp 'mac-option-modifier) (menu-bar-mode t) (menu-bar-mode nil))
   (menu-bar-mode t))
-;; Emacs gurus don't need no stinking scroll bars
+;; emacs gurus don't need no stinking scroll bars
 (when (fboundp 'toggle-scroll-bar)
   (toggle-scroll-bar -1))
 
-;; Show time
-(display-time-mode 1)
+;; theme
+(add-to-list 'custom-theme-load-path (concat emacs-d "blackboard-theme"))
+(if (window-system)
+    (load-theme 'blackboard t))
 
+;; font setting
 (defun enter-my-chinese-writing-mode ()
   "Set font in current buffer"
   (interactive)
@@ -316,135 +385,60 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; Miscellaneous
-;; Show paren, brace, and curly brace "partners" at all times
-(show-paren-mode t)
-;; Show column and line number on mode line
-(setq column-number-mode t)
-(setq line-number-mode t)
-;; Big buffer pool
-(setq kill-ring-max 200)
-;; TAB set
-(setq-default tab-width 4)
-(setq-default indent-tabs-mode nil)
-;; Save bookmarks to default file
-(setq bookmark-save-flag 1)
-;; Column to 80
-(setq default-fill-column 80)
-;; Syntax highlight
-(global-font-lock-mode t)
-(setq transient-mark-mode t)
-;; Allow paste between emacs and external application
-(setq x-select-enable-clipboard t)
-;; Stop creating those backup~ files
-(setq make-backup-files nil)
-;; Stop creating those #***# files
-(setq auto-save-default nil)
-;; Add new line to file end
-(setq require-final-newline t)
-;; No new lines when you press the "arrow-down key" at end of the buffer
-(setq next-line-add-newlines nil)
-;; Make the y or n suffice for a yes or no question
-(fset 'yes-or-no-p 'y-or-n-p)
-;; Kill whole if curson is at line beginning using ctrl+k
-(setq kill-whole-line t)
-;; Highlight C/C++ warning
-(global-cwarn-mode 1)
-;; Compile command
-(setq compile-command "make -C ")
-;; Display current buffer file path to frame title
-(setq frame-title-format
-  '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
-;; Prevent the annoying beep on errors, use flash instead
-(setq visible-bell t)
-;; No warnings
-(setq ring-bell-function 'ignore)
-;; Remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; Always auto indent
-(auto-indent-mode)
-;; Join next line with white-space deleted when kill at the end of a line
-(setq auto-indent-kill-line-at-eol 'nil)
-;; highlight current line
-(if (window-system)
-    (global-hl-line-mode))
-;; for shell-command-on-region to decide how to do encoding
-;;(setq default-process-coding-system '(utf-8 . utf-8))
-(set-language-environment "UTF-8")
-;; Settings of shell-mode
-(setq explicit-shell-file-name "/bin/bash")
-(setq shell-file-name "/bin/bash")
-;; always insert at the bottom
-(setq comint-scroll-to-bottom-on-input t)
-;; no duplicates in command history
-(setq comint-input-ignoredups t)
-;; what to run when i press enter on a line above the current prompt
-(setq comint-get-old-input (lambda () ""))
-;; max shell history size
-(setq comint-input-ring-size 5000)
-;; show all in emacs interactive output
-(setenv "PAGER" "cat")
-;; set lang to enable Chinese display in shell-mode
-(setenv "LANG" "en_US.UTF-8")
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
 ;; Keybindings
+;; set command key as meta key on Mac OS X
+(when (boundp 'mac-command-modifier)
+  (setq mac-command-modifier 'meta))
+
 (global-set-key [home] 'beginning-of-buffer)
 (global-set-key [end] 'end-of-buffer)
+
 (global-set-key [C-left] 'enlarge-window-horizontally)
 (global-set-key [C-right] 'shrink-window-horizontally)
 (global-set-key [C-up] 'enlarge-window)
 (global-set-key [C-down] 'shrink-window)
-(global-set-key [S-left] 'other-window)
 
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-%" 'query-replace-regexp)
 
 (global-set-key (kbd "C--") 'undo)
+(global-set-key "\M-l" 'goto-line)
+
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
 (global-set-key "\M-k" 'kill-this-buffer)
-(global-set-key "\M-l" 'goto-line)
+(global-set-key "\M-r" 'revert-buffer)
+
 (global-set-key "\M-u"
                 '(lambda ()
                    (interactive) (backward-word 1) (upcase-word 1)))
 (global-set-key "\M-\S-u"
                 '(lambda ()
                    (interactive) (backward-word 1) (downcase-word 1)))
-(global-set-key "\M-r" 'revert-buffer)
 
-;; Compile
+;; compilation
 (global-set-key "\M-6" 'compile)
 (global-set-key "\M-^" 'next-error)
 (global-set-key (kbd "C-6") 'kill-compilation)
+
+;; shell-here
+(global-set-key "\M-7" 'shell-here)
 
 ;; grep-find
 (global-set-key "\M-8" 'grep-find)
 (setq grep-find-command
       "find . -name .svn -prune -o -name TAGS -prune -o -name .git -prune -o -type f -print0 | xargs -0 grep -nHE ")
 
-;; shell-here
-(global-set-key "\M-7" 'shell-here)
-
-;; Indexing using cscope
-(defun enable-cscope-shortcut (language-mode-map)
-  (require 'xcscope)
-  (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
-  (define-key language-mode-map "\M-(" 'cscope-pop-mark)
-  (define-key language-mode-map (kbd "C-9")
-    'cscope-find-functions-calling-this-function))
-
-;; Map the window manipulation keys to meta 0, 1, 2, o
+;; map the window manipulation keys to meta 0, 1, 2, o
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-2") 'split-window-vertically)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-+") 'balance-windows)
-;; Replace some modes' key binding
+
+;; fix conflicted key bindings
 (add-hook 'dired-mode-hook
           (lambda ()
             (define-key dired-mode-map (kbd "M-o") 'other-window)))
@@ -473,12 +467,13 @@ to match that used by the user's shell."
           (lambda ()
             (define-key geiser-mode-map (kbd "M-`") 'next-use-buffer)))
 
-;; For Mac OS X meta key
-(when (boundp 'mac-command-modifier)
-  (setq mac-command-modifier 'meta))
-;; Mac OS X conventions
-(global-set-key (kbd "M-a") 'mark-whole-buffer)
-
+;; indexing using cscope
+(defun enable-cscope-shortcut (language-mode-map)
+  (require 'xcscope)
+  (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
+  (define-key language-mode-map "\M-(" 'cscope-pop-mark)
+  (define-key language-mode-map (kbd "C-9")
+    'cscope-find-functions-calling-this-function))
 ;; expand-region
 (global-set-key (kbd "C-M-m") 'er/expand-region)
 ;; mark-multiple
@@ -496,39 +491,39 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; mode settings
-
+;; Mode settings
 ;; c/c++ mode
 (add-hook 'c-mode-common-hook
           (lambda ()
             (local-set-key "\M-f" 'c-forward-into-nomenclature)
             (local-set-key "\M-b" 'c-backward-into-nomenclature)
-            ;; Set C code mode to Kernighan and Ritchie mode
+            ;; set C code mode to Kernighan and Ritchie mode
             (c-set-style "K&R")
-            ;; Set tab width and c offset
+            ;; set tab width and c offset
             (setq c-tab-width 4)
             (setq tab-width c-tab-width)
             (setq c-basic-offset c-tab-width)
             (setq standard-indent c-tab-width)
-            ;; Make style variables gloable
+            ;; make style variables global
             (setq c-style-variables-are-local-p nil)
-            ;; Brace that opens a substatement block, indent to zero
+            ;; brace that opens a substatement block, indent to zero
             (c-set-offset 'substatement-open 0)
-            ;; Switch/case: make each case line indent from switch
+            ;; switch/case: make each case line indent from switch
             (c-set-offset 'case-label '+)
-            ;; Make open-braces after a case: statement indent to 0 (default was '+)
+            ;; make open-braces after a case: statement indent to 0 (default was '+)
             (c-set-offset 'statement-case-open 0)
-            ;; Make DEL take all previous whitespace with it
+            ;; make DEL take all previous whitespace with it
             (setq c-hungry-delete-key t)
-            ;; Show in which function
+            ;; show in which function
             (which-function-mode t)
-            ;; Make a #define be left-aligned
+            ;; make #define be left-aligned
             (setq c-electric-pound-behavior (quote (alignleft)))
-            ;; Line number minor mode
+            ;; line number minor mode
             (linum-mode t)
             (make-face-unitalic 'font-lock-comment-face)
-            ;; Line width indication
+            ;; line width indication
             (fci-mode t)
+            ;; enable cscope key bindings
             (enable-cscope-shortcut c-mode-map)
             (enable-cscope-shortcut c++-mode-map)))
 
@@ -543,8 +538,7 @@ to match that used by the user's shell."
           (lambda ()
             (fci-mode t)
             (linum-mode)
-            (enable-cscope-shortcut java-mode-map)
-            ))
+            (enable-cscope-shortcut java-mode-map)))
 
 ;; makefile mode
 (add-hook 'makefile-mode-hook
@@ -576,40 +570,12 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; Theme
-(add-to-list 'custom-theme-load-path (concat emacs-d "blackboard-theme"))
-(if (window-system)
-    (load-theme 'blackboard t))
-;;------------------------------------------------------------------------;;
-
-;;------------------------------------------------------------------------;;
-;; Load auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(setq ac-modes
-      (append ac-modes '(org-mode objc-mode sql-mode text-mode)))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Load yasnippet
-(require 'yasnippet)
-(yas/global-mode 1)
-(require 'dropdown-list)
-(setq yas-prompt-functions '(yas-dropdown-prompt
-                             yas-ido-prompt
-                             yas-completing-prompt))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; org
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-;; Enable org-habit
+;; Built-in packages
+;; enable org-habit
 (eval-after-load "org"
   '(progn
      (add-to-list 'org-modules 'org-habit)))
-;; Task
+;; tasks
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)"
                         "|" "DONE(d!/!)" "CANCELLED(c@/!)"))))
@@ -620,16 +586,16 @@ to match that used by the user's shell."
               ("WAITING" :foreground "orange" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold))))
 (setq org-use-fast-todo-selection t)
-;; Parent can't be marked as done unless all children are done
+;; parent can't be marked as done unless all children are done
 (setq org-enforce-todo-dependencies t)
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-;; Show CLOSED: [timestamp]
+;; show CLOSED: [timestamp]
 (setq org-log-done 'time)
-;; Capture
+;; capture
 (setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
 (setq org-capture-templates
       (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
@@ -643,12 +609,12 @@ to match that used by the user's shell."
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-reverse-note-order t)
-;; Agenda
+;; agenda
 (setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-agenda-dim-blocked-tasks nil)
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
-;; MobileOrg
+;; mobileOrg
 (setq org-directory "~/Dropbox/Documents/org")
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 (setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
@@ -674,25 +640,54 @@ to match that used by the user's shell."
   (interactive)
   (cancel-timer org-mobile-sync-timer))
 (org-mobile-sync-enable)
-;;------------------------------------------------------------------------;;
 
-
-;;------------------------------------------------------------------------;;
-;; Enable cursor style
-(require 'cursor-chg)
-;; On for overwrite/read-only/input mode
-(change-cursor-mode 1)
-;; On when idle
-(toggle-cursor-type-when-idle 1)
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Enable ido-mode
-(require 'ido)
+;; ido-mode
 (ido-mode t)
-;; Enable fuzzy matching
+;; enable fuzzy matching
 (setq ido-enable-flex-matching t)
+
+;; erc
+(eval-after-load "erc"
+  '(progn
+     (setq erc-nick "don9z")
+     (erc-autojoin-mode t)
+     (setq erc-autojoin-channels-alist
+           '((".*\\.freenode.net" "#emacs")))
+     ))
+
+;; ispell
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra"))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+(setq ac-modes
+      (append ac-modes '(org-mode objc-mode sql-mode text-mode)))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; yasnippet
+(require 'yasnippet)
+(yas/global-mode 1)
+(require 'dropdown-list)
+(setq yas-prompt-functions '(yas-dropdown-prompt
+                             yas-ido-prompt
+                             yas-completing-prompt))
+;;------------------------------------------------------------------------;;
+
+
+;;------------------------------------------------------------------------;;
+;; cursor-chg
+(require 'cursor-chg)
+;; on for overwrite/read-only/input mode
+(change-cursor-mode 1)
+;; on when idle
+(toggle-cursor-type-when-idle 1)
 ;;------------------------------------------------------------------------;;
 
 
@@ -703,44 +698,11 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-(setq flymake-gui-warnings-enabled nil)
-(setq flymake-log-level 0)
-;; Show error message in mini buffer
-(defun my-flymake-show-help ()
-   (when (get-char-property (point) 'flymake-overlay)
-     (let ((help (get-char-property (point) 'help-echo)))
-       (if help (message "%s" help)))))
-(add-hook 'post-command-hook 'my-flymake-show-help)
-;; Add to Makefile:
-;; .PHONY: check-syntax
-;; check-syntax:
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; Set aspell as spell check tool
-(setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra"))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
+;; fill-column-indicator
 (eval-after-load "fill-column-indicator"
   '(progn
      (setq fci-rule-color "#303030")
      (setq fci-rule-use-dashes t)))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; erc
-(eval-after-load "erc"
-  '(progn
-     (setq erc-nick "don9z")
-     (erc-autojoin-mode t)
-     (setq erc-autojoin-channels-alist
-           '((".*\\.freenode.net" "#emacs")))
-     ))
 ;;------------------------------------------------------------------------;;
 
 
@@ -754,6 +716,13 @@ to match that used by the user's shell."
      (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
 ;;------------------------------------------------------------------------;;
 
+
+;;------------------------------------------------------------------------;;
+;; auto-indent-mode
+(auto-indent-mode)
+;; join next line with white-space deleted when kill at the end of a line
+(setq auto-indent-kill-line-at-eol 'nil)
+;;------------------------------------------------------------------------;;
 
 ;; For emacsclient
 (server-start)
