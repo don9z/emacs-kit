@@ -253,7 +253,7 @@ to match that used by the user's shell."
   (let* ((ptr ls) bf bn go)
     (while (and ptr (null go))
       (setq bf (car ptr)  bn (buffer-name bf))
-      ;; Skip over
+      ;; skip over
       (if (null (buffer-ignored bn))
         (setq go bf)
         (setq ptr (cdr ptr))))
@@ -317,8 +317,20 @@ to match that used by the user's shell."
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
   (move-line (if (null n) 1 n)))
-(global-set-key [M-up] 'move-line-up)
-(global-set-key [M-down] 'move-line-down)
+
+(defun flip-word-case ()
+  (interactive)
+  (defvar flag 't)
+  (backward-word 1)
+  (cond
+   (flag
+    (upcase-word 1)
+    (setq flag 'nil))
+   (t
+    (downcase-word 1)
+    (setq flag 't))))
+(global-set-key "\M-u"
+                'flip-word-case)
 
 ;; A no-op function to bind to if you want to set a keystroke to null
 (defun void ()
@@ -384,13 +396,10 @@ to match that used by the user's shell."
 
 
 ;;------------------------------------------------------------------------;;
-;; Keybindings
+;; Key bindings
 ;; set command key as meta key on Mac OS X
 (when (boundp 'mac-command-modifier)
   (setq mac-command-modifier 'meta))
-
-(global-set-key [home] 'beginning-of-buffer)
-(global-set-key [end] 'end-of-buffer)
 
 (global-set-key [C-left] 'enlarge-window-horizontally)
 (global-set-key [C-right] 'shrink-window-horizontally)
@@ -408,13 +417,6 @@ to match that used by the user's shell."
 (global-set-key "\M-s" 'save-buffer)
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-r" 'revert-buffer)
-
-(global-set-key "\M-u"
-                '(lambda ()
-                   (interactive) (backward-word 1) (upcase-word 1)))
-(global-set-key "\M-\S-u"
-                '(lambda ()
-                   (interactive) (backward-word 1) (downcase-word 1)))
 
 ;; compilation
 (global-set-key "\M-6" 'compile)
