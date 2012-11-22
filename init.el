@@ -369,8 +369,8 @@ to match that used by the user's shell."
 (if (window-system)
     (global-hl-line-mode))
 ;; for shell-command-on-region to decide how to do encoding
-(setq default-process-coding-system '(utf-8 . utf-8))
-
+;;(setq default-process-coding-system '(utf-8 . utf-8))
+(set-language-environment "UTF-8")
 ;; Settings of shell-mode
 (setq explicit-shell-file-name "/bin/bash")
 (setq shell-file-name "/bin/bash")
