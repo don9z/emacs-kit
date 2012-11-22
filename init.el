@@ -221,12 +221,10 @@ to match that used by the user's shell."
 (defun buffer-ignored (str)
   (or
     ;;buffers I don't want to switch to
-	(string-match "^\\*Buffer List\\*$" str)
     (string-match "^\\*GNU Emacs\\*$" str)
 	(string-match "^TAGS" str)
 	(string-match "^\\*Messages\\*$" str)
 	(string-match "^\\*Completions\\*$" str)
-	(string-match "^\\*scratch\\*$" str)
 	(string-match "^\\*ESS\\*$" str)
 	(string-match "^ " str)
 	(string-match "Mew message" str)
@@ -236,6 +234,7 @@ to match that used by the user's shell."
     (string-match "^\\*Help\\*$" str)
     (string-match "^refile.org" str)
     (string-match "^\\*magit-.*\\*$" str)
+    (string-match "^\\*Compile-Log*\\*$" str)
     (with-current-buffer (get-buffer str)
       (eq major-mode 'dired-mode))
     ;;Test to see if the window is visible on an existing visible frame.
