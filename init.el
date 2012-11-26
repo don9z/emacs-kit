@@ -16,7 +16,7 @@ to match that used by the user's shell."
 (set-exec-path-from-shell-PATH)
 
 ;; Add extension folder to load-path
-(defvar emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
+(defcustom emacs-d "/Users/chris/Dropbox/emacs-kit/emacs.d/"
   "Location of all extensions in")
 (let ((default-directory emacs-d))
   (normal-top-level-add-subdirs-to-load-path))
@@ -232,7 +232,6 @@ to match that used by the user's shell."
 	(string-match "^\\*TeX silent\\*$" str)
     (string-match "^\\*\[e|E\]diff.*\\*$" str)
     (string-match "^\\*Help\\*$" str)
-    (string-match "^refile.org" str)
     (string-match "^\\*magit-.*\\*$" str)
     (string-match "^\\*Compile-Log*\\*$" str)
     (with-current-buffer (get-buffer str)
