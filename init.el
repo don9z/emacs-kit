@@ -128,7 +128,6 @@ to match that used by the user's shell."
     mark-multiple
     markdown-mode
     melpa
-    multi-term
     nav
     org ;; seems emacs 24 ships org, but put it here for sure
     php-mode
