@@ -127,9 +127,15 @@
 (global-set-key "\M-u"
                 'flip-word-case)
 
-;; A no-op function to bind to if you want to set a keystroke to null
-(defun void ()
-  "this is a no-op"
-  (interactive))
+;; switch font setting from default to YaHei
+(defun enter-my-chinese-writing-mode ()
+  "Set font in current buffer"
+  (interactive)
+  (setq buffer-face-mode-face '(:family "Microsoft YaHei"))
+  (buffer-face-mode))
+(defun leave-my-chinese-writing-mode ()
+  "Unset buffer face"
+  (interactive)
+  (buffer-face-mode -1))
 
 (provide 'core-utilities)

@@ -1,9 +1,3 @@
-;;------------------------------------------------------------------------;;
-;; Key bindings
-;; set command key as meta key on Mac OS X
-(when (boundp 'mac-command-modifier)
-  (setq mac-command-modifier 'meta))
-
 (global-set-key [C-left] 'enlarge-window-horizontally)
 (global-set-key [C-right] 'shrink-window-horizontally)
 (global-set-key [C-up] 'enlarge-window)

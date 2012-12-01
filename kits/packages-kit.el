@@ -13,7 +13,6 @@
     autopair
     clojure-mode
     csv-mode
-    cursor-chg
     cyberpunk-theme
     dummy-h-mode
     ecb
@@ -114,16 +113,6 @@
 (setq yas-prompt-functions '(yas-dropdown-prompt
                              yas-ido-prompt
                              yas-completing-prompt))
-;;------------------------------------------------------------------------;;
-
-
-;;------------------------------------------------------------------------;;
-;; cursor-chg
-(require 'cursor-chg)
-;; on for overwrite/read-only/input mode
-(change-cursor-mode 1)
-;; on when idle
-(toggle-cursor-type-when-idle 1)
 ;;------------------------------------------------------------------------;;
 
 

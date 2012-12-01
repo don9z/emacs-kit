@@ -2,42 +2,27 @@
  "Emacs kit is starting up... Be patient, Master %s!"
  (getenv "USER"))
 
-;; Set emacs kit root dir and add to load-path
-(defvar emacs-kit-dir (file-name-directory load-file-name))
-;; Add kit modules to load-path
-(defvar kit-modules-dir (expand-file-name "kits" emacs-kit-dir))
+(defvar emacs-kit-dir (file-name-directory load-file-name)
+  "The root directory of the Emacs kit")
+(defvar kit-modules-dir (expand-file-name "kits" emacs-kit-dir)
+  "Directory of official kits files")
 (add-to-list 'load-path kit-modules-dir)
-;; Add extensions dir to load-path as well as its subdirs
-(defvar kit-extensions-dir (expand-file-name "extensions" emacs-kit-dir))
+(defvar kit-extensions-dir (expand-file-name "extensions" emacs-kit-dir)
+  "Directory of extensions that are not available in ELPA or MELPA")
 (let ((default-directory kit-extensions-dir))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; Sync $PATH from Shell to Emacs
-(defun set-exec-path-from-shell-PATH ()
-  "Set up Emacs' `exec-path' and PATH environment variable
-to match that used by the user's shell."
-  (interactive)
-  (let ((path-from-shell
-         (replace-regexp-in-string "[ \t\n]*$" ""
-                                   (shell-command-to-string
-                                    "$SHELL --login -i -c 'echo $PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-(set-exec-path-from-shell-PATH)
-
 (require 'builtin-kit)
-
 (require 'packages-kit)
-
 (require 'core-utilities)
-
 (require 'ui-kit)
-
 (require 'key-bindings)
-
 (require 'mode-hooks)
 
-;; For emacsclient
+;; OSX specific settings
+(when (eq system-type 'darwin)
+  (require 'osx-kit))
+
 (server-start)
 
 (message

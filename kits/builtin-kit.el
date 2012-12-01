@@ -2,11 +2,6 @@
 (set-language-environment "UTF-8")
 ;; show paren, brace, and curly brace "partners"
 (show-paren-mode t)
-;; show column and line number on mode line
-(setq column-number-mode t)
-(setq line-number-mode t)
-;; show time in mode line
-(display-time-mode 1)
 ;; big kill ring buffer pool
 (setq kill-ring-max 200)
 ;; set TAB set
@@ -38,9 +33,6 @@
 (global-cwarn-mode 1)
 ;; set compile command
 (setq compile-command "make -C ")
-;; display current buffer file path to frame title
-(setq frame-title-format
-      '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 ;; prevent the annoying beep on errors, use flash instead
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
