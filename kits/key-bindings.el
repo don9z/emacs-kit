@@ -1,8 +1,10 @@
+;; set window size
 (global-set-key [C-left] 'enlarge-window-horizontally)
 (global-set-key [C-right] 'shrink-window-horizontally)
 (global-set-key [C-up] 'enlarge-window)
 (global-set-key [C-down] 'shrink-window)
 
+;; always use regex on searching
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-%" 'query-replace-regexp)
@@ -85,6 +87,7 @@
 (global-set-key "\C-cc" 'org-capture)
 ;; highlight-symbol
 (global-set-key "\C-ch" 'highlight-symbol-at-point)
-;;------------------------------------------------------------------------;;
+;; magit
+(global-set-key "\C-xg" 'magit-status)
 
 (provide 'key-bindings)
