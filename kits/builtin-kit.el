@@ -1,19 +1,24 @@
 ;; set environment coding system
 (set-language-environment "UTF-8")
-;; show paren, brace, and curly brace "partners"
+;; enable buffer auto revert
+(global-auto-revert-mode t)
+;; enable syntax highlight
+(global-font-lock-mode t)
+;; highlight current line
+(if (window-system)
+    (global-hl-line-mode))
+;; always show paren, brace, and curly brace "partners"
 (show-paren-mode t)
-;; big kill ring buffer pool
+;; enlarge the kill ring buffer pool
 (setq kill-ring-max 200)
-;; set TAB set
+;; set TAB and indention
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 ;; save bookmarks to default file
 (setq bookmark-save-flag 1)
 ;; set column to 80
 (setq default-fill-column 80)
-;; enable syntax highlight
-(global-font-lock-mode t)
-;; enable mark highlight
+;; highlight marked region
 (setq transient-mark-mode t)
 ;; allow paste between emacs and external applications
 (setq x-select-enable-clipboard t)
@@ -27,7 +32,7 @@
 (setq next-line-add-newlines nil)
 ;; make the y or n suffice for a yes or no question
 (fset 'yes-or-no-p 'y-or-n-p)
-;; kill whole if curson is at line beginning
+;; kill whole line if cursor is at the line beginning
 (setq kill-whole-line t)
 ;; highlight C/C++ warning
 (global-cwarn-mode 1)
@@ -38,9 +43,6 @@
 (setq ring-bell-function 'ignore)
 ;; remove trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; highlight current line
-(if (window-system)
-    (global-hl-line-mode))
 
 ;; shell-mode settings
 (setq explicit-shell-file-name "/bin/bash")
@@ -58,8 +60,15 @@
 ;; set lang to enable Chinese display in shell-mode
 (setenv "LANG" "en_US.UTF-8")
 
+;; org-mode
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;; javascript-mode
+(add-to-list 'auto-mode-alist '("\\.pac\\'" . javascript-mode))
+;; auto-revert-tail-mode
+(add-to-list 'auto-mode-alist '("\\.log\\'" . auto-revert-tail-mode))
 
-;; enable org-habit
+
+;; org-mode
 (eval-after-load "org"
   '(progn
      (add-to-list 'org-modules 'org-habit)))
@@ -108,9 +117,7 @@
 (setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
 (setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org")))
 (setq org-mobile-force-id-on-agenda-items nil)
-;; moble sync
-;; (add-hook 'after-init-hook 'org-mobile-pull)
-;; (add-hook 'kill-emacs-hook 'org-mobile-push)
+;; mobile sync
 (defvar org-mobile-sync-timer nil)
 (defvar org-mobile-sync-idle-secs (* 60 10))
 (defun org-mobile-sync ()
@@ -127,11 +134,12 @@
   "disable mobile org idle sync"
   (interactive)
   (cancel-timer org-mobile-sync-timer))
+;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; (add-hook 'kill-emacs-hook 'org-mobile-push)
 (org-mobile-sync-enable)
 
 ;; ido-mode
 (ido-mode t)
-;; enable fuzzy matching
 (setq ido-enable-flex-matching t)
 
 ;; erc
@@ -140,11 +148,11 @@
      (setq erc-nick "don9z")
      (erc-autojoin-mode t)
      (setq erc-autojoin-channels-alist
-           '((".*\\.freenode.net" "#emacs")))
-     ))
+           '((".*\\.freenode.net" "#emacs")))))
 
 ;; ispell
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))
+
 
 (provide 'builtin-kit)
