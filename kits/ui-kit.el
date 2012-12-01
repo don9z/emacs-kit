@@ -1,5 +1,6 @@
 ;; set theme
-(add-to-list 'custom-theme-load-path (expand-file-name "blackboard-theme" kit-extensions-dir))
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "blackboard-theme" kit-extensions-dir))
 (load-theme 'blackboard t)
 
 ;; display current buffer file path on frame title
@@ -30,6 +31,21 @@
 ;; make the fringe thinner (default is 8 in pixels)
 (if (fboundp 'fringe-mode)
     (fringe-mode 2))
+
+;; make the cursor thinner (as modern editors do)
+(setq default-cursor-type 'bar)
+
+;; set column to 80
+(setq-default fill-column 80)
+;; highlight marked region
+(setq transient-mark-mode t)
+;; enable syntax highlight
+(global-font-lock-mode t)
+;; highlight the current line
+(when (window-system)
+    (global-hl-line-mode))
+;; always show paren, brace, and curly brace "partners"
+(show-paren-mode t)
 
 ;; configure mode line
 (line-number-mode +1)

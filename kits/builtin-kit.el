@@ -1,47 +1,27 @@
 ;; set environment coding system
 (set-language-environment "UTF-8")
-;; enable buffer auto revert
+;; auto revert buffer globally
 (global-auto-revert-mode t)
-;; enable syntax highlight
-(global-font-lock-mode t)
-;; highlight current line
-(if (window-system)
-    (global-hl-line-mode))
-;; always show paren, brace, and curly brace "partners"
-(show-paren-mode t)
-;; enlarge the kill ring buffer pool
-(setq kill-ring-max 200)
 ;; set TAB and indention
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
-;; save bookmarks to default file
+;; kill line with RET if cursor is at the line beginning
+(setq kill-whole-line t)
+;; save bookmark during set
 (setq bookmark-save-flag 1)
-;; set column to 80
-(setq default-fill-column 80)
-;; highlight marked region
-(setq transient-mark-mode t)
-;; allow paste between emacs and external applications
-(setq x-select-enable-clipboard t)
+;; y or n is suffice for a yes or no question
+(fset 'yes-or-no-p 'y-or-n-p)
 ;; stop creating those backup~ files
 (setq make-backup-files nil)
-;; stop creating those #***# files
+;; stop creating those #autosave# files
 (setq auto-save-default nil)
 ;; always add new line to the end of a file
 (setq require-final-newline t)
-;; no new lines when you press the "arrow-down key" at end of the buffer
+;; add no new lines when "arrow-down key" at the end of a buffer
 (setq next-line-add-newlines nil)
-;; make the y or n suffice for a yes or no question
-(fset 'yes-or-no-p 'y-or-n-p)
-;; kill whole line if cursor is at the line beginning
-(setq kill-whole-line t)
-;; highlight C/C++ warning
-(global-cwarn-mode 1)
-;; set compile command
-(setq compile-command "make -C ")
-;; prevent the annoying beep on errors, use flash instead
-(setq visible-bell t)
+;; prevent the annoying beep on errors
 (setq ring-bell-function 'ignore)
-;; remove trailing whitespace before save
+;; remove trailing whitespaces before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; shell-mode settings
@@ -54,7 +34,7 @@
 ;; what to run when i press enter on a line above the current prompt
 (setq comint-get-old-input (lambda () ""))
 ;; max shell history size
-(setq comint-input-ring-size 5000)
+(setq comint-input-ring-size 1000)
 ;; show all in emacs interactive output
 (setenv "PAGER" "cat")
 ;; set lang to enable Chinese display in shell-mode
