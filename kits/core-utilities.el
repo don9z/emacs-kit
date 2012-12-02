@@ -1,4 +1,25 @@
-(defun bounce-sexp ()
+(defun ek-open-with ()
+  "Open the file of a buffer in an external program"
+  (interactive)
+  (when buffer-file-name
+    (shell-command (concat
+                    (if (eq system-type 'darwin)
+                        "open"
+                      (read-shell-command "Open current file with: "))
+                    " "
+                    buffer-file-name))))
+
+(defun ek-google ()
+  "Googles a query or region if any."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+    (url-hexify-string (if mark-active
+         (buffer-substring (region-beginning) (region-end))
+       (read-string "Google: "))))))
+
+(defun ek-bounce-sexp ()
   "Will bounce between matching parens"
   (interactive)
   (let ((prev-char (char-to-string (preceding-char)))
@@ -7,14 +28,14 @@
      ((string-match "[[{(<]" next-char) (forward-sexp 1))
      ((string-match "[\]})>]" prev-char) (backward-sexp 1))
      (t (error "%s" "Not on a paren, brace, or bracket")))))
-(global-set-key (kbd "M-=") 'bounce-sexp)
+(global-set-key (kbd "M-=") 'ek-bounce-sexp)
 
-(defun region-length ()
+(defun ek-region-length ()
   "Length of a region"
   (interactive)
   (message (format "%d" (- (region-end) (region-beginning)))))
 
-(defun buffer-ignored (str)
+(defun ek-buffer-ignored (str)
   (or
    ;;buffers I don't want to switch to
    (string-match "^\\*GNU Emacs\\*$" str)
@@ -43,29 +64,29 @@
              (window-buffer
               (frame-selected-window x))))
           (visible-frame-list)))))
-(defun next-buffer (ls)
-  "Switch to next buffer in ls skipping unwanted ones."
+(defun ek-next-buffer (ls)
+  "Switch to next buffer but skipping unwanted ones."
   (let* ((ptr ls) bf bn go)
     (while (and ptr (null go))
       (setq bf (car ptr)  bn (buffer-name bf))
       ;; skip over
-      (if (null (buffer-ignored bn))
+      (if (null (ek-buffer-ignored bn))
           (setq go bf)
         (setq ptr (cdr ptr))))
     (if go (switch-to-buffer go))))
-(defun prev-use-buffer ()
+(defun ek-prev-use-buffer ()
   "Switch to previous buffer in current window."
   (interactive)
-  (next-buffer (reverse (buffer-list))))
-(defun next-use-buffer ()
+  (ek-next-buffer (reverse (buffer-list))))
+(defun ek-next-use-buffer ()
   "Switch to the other buffer (2nd in list-buffer) in current window."
   (interactive)
   (bury-buffer (current-buffer))
-  (next-buffer (buffer-list)))
-(global-set-key "\M-`" 'next-use-buffer)
-(global-set-key "\M-~" 'prev-use-buffer)
+  (ek-next-buffer (buffer-list)))
+(global-set-key "\M-`" 'ek-next-use-buffer)
+(global-set-key "\M-~" 'ek-prev-use-buffer)
 
-(defun ascii-table ()
+(defun ek-ascii-table ()
   "Print the ascii table"
   (interactive)
   (switch-to-buffer "*ASCII*")
@@ -77,23 +98,23 @@
       (insert (format "%4d %c\n" i i))))
   (beginning-of-buffer))
 
-(defun insert-date ()
+(defun ek-insert-date ()
   "Insert date at point"
   (interactive)
   (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
 
-(defun dos2unix ()
+(defun ek-dos2unix ()
   "Convert line end from dos to unix"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
-(defun unix2dos ()
+(defun ek-unix2dos ()
   "Convert line end from unix to dos"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
-(defun move-line (&optional n)
+(defun ek-move-line (&optional n)
   "Move current line N (1) lines up/down leaving point in place."
   (interactive "p")
   (when (null n)
@@ -104,16 +125,16 @@
     (transpose-lines n)
     (previous-line 1)
     (forward-char col)))
-(defun move-line-up (n)
+(defun ek-move-line-up (n)
   "Moves current line N (1) lines up leaving point in place."
   (interactive "p")
   (move-line (if (null n) -1 (- n))))
-(defun move-line-down (n)
+(defun ek-move-line-down (n)
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
   (move-line (if (null n) 1 n)))
 
-(defun flip-word-case ()
+(defun ek-flip-word-case ()
   (interactive)
   (defvar flag 't)
   (backward-word 1)
@@ -125,7 +146,7 @@
     (downcase-word 1)
     (setq flag 't))))
 (global-set-key "\M-u"
-                'flip-word-case)
+                'ek-flip-word-case)
 
 ;; switch font setting from default to YaHei
 (defun enter-my-chinese-writing-mode ()
