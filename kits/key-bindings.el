@@ -3,6 +3,7 @@
 (global-set-key [C-right] 'shrink-window-horizontally)
 (global-set-key [C-up] 'enlarge-window)
 (global-set-key [C-down] 'shrink-window)
+(global-set-key (kbd "M-+") 'balance-windows)
 
 ;; always use regex on searching
 (global-set-key "\C-s" 'isearch-forward-regexp)
@@ -34,27 +35,10 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-2") 'split-window-vertically)
 (global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-0") 'delete-window)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-+") 'balance-windows)
+(global-set-key (kbd "C-M-0") 'delete-window)
+(global-set-key (kbd "M-0") 'other-window)
 
 ;; fix conflicted key bindings
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (define-key ibuffer-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'diff-mode-hook
-          (lambda ()
-            (define-key diff-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'scheme-interaction-mode-hook
-          (lambda ()
-            (define-key scheme-interaction-mode-map (kbd "M-o") 'other-window)))
-(add-hook 'scheme-mode-hook
-          (lambda ()
-            (define-key scheme-mode-map (kbd "M-o") 'other-window)
-            (define-key scheme-mode-map (kbd "M-O") 'xscheme-send-buffer)))
 (add-hook 'magit-mode-hook
           (lambda ()
             (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)
