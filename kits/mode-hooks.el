@@ -1,4 +1,7 @@
 ;; c/c++ mode
+(defun enable-cscope ()
+  (when (file-exists-p "/usr/local/bin/cscope-indexer")
+    (require 'xcscope)))
 (add-hook 'c-mode-common-hook
           (lambda ()
             ;; set style to Kernighan and Ritchie mode
@@ -16,6 +19,8 @@
             (setq c-electric-pound-behavior (quote (alignleft)))
             ;; show function name in mode line
             (which-function-mode t)
+            ;; enable cscope
+            (enable-cscope)
             ;; set compile command
             (setq compile-command "make -C ")
             ;; do not use italic font on comments
@@ -23,10 +28,7 @@
             ;; display line number as sidebar
             (linum-mode t)
             ;; line width indication
-            (fci-mode t)
-            ;; enable cscope key bindings
-            (enable-cscope-shortcut c-mode-map)
-            (enable-cscope-shortcut c++-mode-map)))
+            (fci-mode t)))
 
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
@@ -37,9 +39,9 @@
 ;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
+            (enable-cscope)
             (fci-mode t)
-            (linum-mode)
-            (enable-cscope-shortcut java-mode-map)))
+            (linum-mode)))
 
 ;; makefile mode
 (add-hook 'makefile-mode-hook

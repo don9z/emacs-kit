@@ -66,8 +66,6 @@
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 
-(setq exec-path (append exec-path (list (expand-file-name "xscope/" kit-extensions-dir))))
-(autoload 'cscope-set-initial-directory "xcscope" "Cscope" t)
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'dummy-h-mode "dummy-h-mode" "Dummy H mode" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)

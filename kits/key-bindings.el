@@ -67,13 +67,6 @@
           (lambda ()
             (define-key geiser-mode-map (kbd "M-`") 'next-use-buffer)))
 
-;; indexing using cscope
-(defun enable-cscope-shortcut (language-mode-map)
-  (require 'xcscope)
-  (define-key language-mode-map "\M-9" 'cscope-find-global-definition)
-  (define-key language-mode-map "\M-(" 'cscope-pop-mark)
-  (define-key language-mode-map (kbd "C-9")
-    'cscope-find-functions-calling-this-function))
 ;; expand-region
 (global-set-key (kbd "C-M-m") 'er/expand-region)
 ;; mark-multiple
