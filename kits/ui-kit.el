@@ -35,7 +35,8 @@
 ;; set theme
 (add-to-list 'custom-theme-load-path
              (expand-file-name "blackboard-theme" kit-extensions-dir))
-(load-theme 'blackboard t)
+(when (window-system)
+ (load-theme 'blackboard t))
 
 ;; display current buffer file path on frame title
 (setq frame-title-format
