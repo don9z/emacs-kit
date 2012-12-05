@@ -56,19 +56,16 @@
        default-frame-alist))
 
 ;; hide the toolbar
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
+(tool-bar-mode -1)
 
 ;; hide the scroll bars
-(when (fboundp 'toggle-scroll-bar)
-  (toggle-scroll-bar -1))
+(toggle-scroll-bar -1)
 
 ;; always show linum fringe
 (global-linum-mode +1)
 
 ;; make the fringe thinner (default is 8 in pixels)
-(if (fboundp 'fringe-mode)
-    (fringe-mode 2))
+(fringe-mode 4)
 
 ;; make the cursor thinner (as modern editors do)
 (setq default-cursor-type 'bar)
