@@ -32,6 +32,10 @@
 
 ;;; Code:
 
+(add-hook 'linum-mode-hook
+          (lambda ()
+            (require 'hlinum)))
+
 ;; c/c++ mode
 (defun enable-cscope ()
   (when (file-exists-p "/usr/local/bin/cscope-indexer")
@@ -59,50 +63,42 @@
             (setq compile-command "make -C ")
             ;; do not use italic font on comments
             (make-face-unitalic 'font-lock-comment-face)
-            ;; display line number as sidebar
-            (linum-mode t)
             ;; line width indication
             (fci-mode t)))
 
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (fci-mode t)
-            (linum-mode)))
+            (fci-mode t)))
 
 ;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
             (enable-cscope)
-            (fci-mode t)
-            (linum-mode)))
-
-;; makefile mode
-(add-hook 'makefile-mode-hook
-          (lambda ()
-            (linum-mode)))
+            (fci-mode t)))
 
 ;; python mode
 (add-hook 'python-mode-hook
           (lambda ()
             (fci-mode t)
             (highlight-indentation-mode)
-            (linum-mode)
             (flymake-python-pyflakes-load)))
 
 ;; ruby mode
 (add-hook 'ruby-mode-hook
           (lambda ()
             (fci-mode t)
-            (highlight-indentation-mode)
-            (linum-mode)))
+            (highlight-indentation-mode)))
 
 ;; scheme mode
 (add-hook 'scheme-mode-hook
           (lambda ()
             (fci-mode t)
-            (linum-mode)
             (autopair-mode)))
 
+;; shell mode
+(add-hook 'shell-mode-hook
+          (lambda ()
+            (linum-mode -1)))
 
 (provide 'mode-hooks)

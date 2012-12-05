@@ -62,6 +62,9 @@
 (when (fboundp 'toggle-scroll-bar)
   (toggle-scroll-bar -1))
 
+;; always show linum fringe
+(global-linum-mode +1)
+
 ;; make the fringe thinner (default is 8 in pixels)
 (if (fboundp 'fringe-mode)
     (fringe-mode 2))
@@ -75,9 +78,6 @@
 (setq transient-mark-mode t)
 ;; enable syntax highlight
 (global-font-lock-mode t)
-;; highlight the current line
-(when (window-system)
-    (global-hl-line-mode))
 ;; always show paren, brace, and curly brace "partners"
 (show-paren-mode t)
 
