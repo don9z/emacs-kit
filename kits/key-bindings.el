@@ -49,6 +49,9 @@
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (define-key org-agenda-mode-map "\M-s" 'org-save-all-org-buffers)))
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-r" 'revert-buffer)
 
