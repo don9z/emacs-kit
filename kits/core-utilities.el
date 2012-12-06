@@ -170,6 +170,7 @@
   (move-line (if (null n) 1 n)))
 
 (defun ek-flip-word-case ()
+  "Fip word case"
   (interactive)
   (defvar flag 't)
   (backward-word 1)
@@ -182,6 +183,14 @@
     (setq flag 't))))
 (global-set-key "\M-u"
                 'ek-flip-word-case)
+
+(defun ek-new-scratch ()
+  "Create a new scratch buffer"
+  (interactive)
+  (progn
+    (switch-to-buffer
+     (get-buffer-create (generate-new-buffer-name "*scratch*")))
+    (emacs-lisp-mode)))
 
 ;; switch font setting from default to YaHei
 (defun enter-my-chinese-writing-mode ()
