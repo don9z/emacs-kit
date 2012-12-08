@@ -53,6 +53,7 @@
     fill-column-indicator
     flymake-python-pyflakes
     git-blame
+    go-mode
     golden-ratio
     highlight-indentation
     highlight-symbol
