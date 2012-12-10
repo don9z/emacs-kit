@@ -64,6 +64,7 @@
     melpa
     nav
     php-mode
+    powerline
     protobuf-mode
     rainbow-mode
     scss-mode
