@@ -86,6 +86,8 @@
    (string-match "^\\*magit-.*\\*$" str)
    (string-match "^\\*Compile-Log*\\*$" str)
    (string-match "^\\*Calendar\\*$" str)
+   (string-match "^work.org$" str)
+   (string-match "^refile.org$" str)
    (with-current-buffer (get-buffer str)
      (eq major-mode 'dired-mode))
    ;;Test to see if the window is visible on an existing visible frame.
