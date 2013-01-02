@@ -45,6 +45,8 @@
   "Directory of extensions that are not available in ELPA or MELPA")
 (let ((default-directory kit-extensions-dir))
   (normal-top-level-add-subdirs-to-load-path))
+(defvar kit-snippets-dir (expand-file-name "snippets" emacs-kit-dir)
+  "Directory of snippets used by yasnippets")
 
 (require 'builtin-kit)
 (require 'packages-kit)
