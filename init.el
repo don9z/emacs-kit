@@ -48,6 +48,9 @@
 (defvar kit-snippets-dir (expand-file-name "snippets" emacs-kit-dir)
   "Directory of snippets used by yasnippets")
 
+(defvar kit-org-dir "/Users/chris/Dropbox/Documents/org"
+  "Directory of org agenda files")
+
 (require 'builtin-kit)
 (require 'packages-kit)
 (require 'core-utilities)

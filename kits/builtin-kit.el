@@ -107,21 +107,18 @@
 ;; show CLOSED: [timestamp]
 (setq org-log-done 'time)
 ;; capture
-(setq org-default-notes-file "~/Dropbox/Documents/org/refile.org")
+(setq org-default-notes-file (expand-file-name "refile.org" kit-org-dir))
 (setq org-capture-templates
-      (quote (("t" "Todo" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* TODO %?\n  OPENED: %U\n %i")
-              ("n" "Note" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* %?\n  OPENED: %U\n %i")
-              ("j" "Journal" entry (file "~/Dropbox/Documents/org/refile.org")
-               "* %?\n  OPENED: %U\n %i")
-              ("h" "Habit" entry (file "~/Dropbox/Documents/org/refile.org")
+      (quote (("t" "Todo" entry (file "") "* TODO %?\n  OPENED: %U\n %i")
+              ("n" "Note" entry (file "") "* %?\n  OPENED: %U\n %i")
+              ("j" "Journal" entry (file "") "* %?\n  OPENED: %U\n %i")
+              ("h" "Habit" entry (file "")
                "* TODO %?\n  SCHEDULED: %t\n  OPENED: %U\n  :PROPERTIES:\n  :STYLE: habit\n  :END:\n  %i"))))
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-reverse-note-order t)
 ;; agenda
-(setq org-agenda-files (quote ("~/Dropbox/Documents/org/work.org")))
+(setq org-agenda-files (list (expand-file-name "work.org" kit-org-dir)))
 (setq org-agenda-dim-blocked-tasks nil)
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
