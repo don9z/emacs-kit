@@ -32,7 +32,7 @@
 
 ;;; Code:
 
-(defun ek-open-with ()
+(defun kit-open-with ()
   "Open the file of a buffer in an external program"
   (interactive)
   (when buffer-file-name
@@ -43,7 +43,7 @@
                     " "
                     buffer-file-name))))
 
-(defun ek-google ()
+(defun kit-google ()
   "Googles a query or region if any."
   (interactive)
   (browse-url
@@ -53,7 +53,7 @@
          (buffer-substring (region-beginning) (region-end))
        (read-string "Google: "))))))
 
-(defun ek-bounce-sexp ()
+(defun kit-bounce-sexp ()
   "Will bounce between matching parens"
   (interactive)
   (let ((prev-char (char-to-string (preceding-char)))
@@ -62,14 +62,14 @@
      ((string-match "[[{(<]" next-char) (forward-sexp 1))
      ((string-match "[\]})>]" prev-char) (backward-sexp 1))
      (t (error "%s" "Not on a paren, brace, or bracket")))))
-(global-set-key (kbd "M-=") 'ek-bounce-sexp)
+(global-set-key (kbd "M-=") 'kit-bounce-sexp)
 
-(defun ek-region-length ()
+(defun kit-region-length ()
   "Length of a region"
   (interactive)
   (message (format "%d" (- (region-end) (region-beginning)))))
 
-(defun ek-buffer-ignored (str)
+(defun kit-buffer-ignored (str)
   (or
    ;;buffers I don't want to switch to
    (string-match "^\\*GNU Emacs\\*$" str)
@@ -101,29 +101,29 @@
              (window-buffer
               (frame-selected-window x))))
           (visible-frame-list)))))
-(defun ek-next-buffer (ls)
+(defun kit-next-buffer (ls)
   "Switch to next buffer but skipping unwanted ones."
   (let* ((ptr ls) bf bn go)
     (while (and ptr (null go))
       (setq bf (car ptr)  bn (buffer-name bf))
       ;; skip over
-      (if (null (ek-buffer-ignored bn))
+      (if (null (kit-buffer-ignored bn))
           (setq go bf)
         (setq ptr (cdr ptr))))
     (if go (switch-to-buffer go))))
-(defun ek-prev-use-buffer ()
+(defun kit-prev-use-buffer ()
   "Switch to previous buffer in current window."
   (interactive)
-  (ek-next-buffer (reverse (buffer-list))))
-(defun ek-next-use-buffer ()
+  (kit-next-buffer (reverse (buffer-list))))
+(defun kit-next-use-buffer ()
   "Switch to the other buffer (2nd in list-buffer) in current window."
   (interactive)
   (bury-buffer (current-buffer))
-  (ek-next-buffer (buffer-list)))
-(global-set-key "\M-`" 'ek-next-use-buffer)
-(global-set-key "\M-~" 'ek-prev-use-buffer)
+  (kit-next-buffer (buffer-list)))
+(global-set-key "\M-`" 'kit-next-use-buffer)
+(global-set-key "\M-~" 'kit-prev-use-buffer)
 
-(defun ek-ascii-table ()
+(defun kit-ascii-table ()
   "Print the ascii table"
   (interactive)
   (switch-to-buffer "*ASCII*")
@@ -135,23 +135,23 @@
       (insert (format "%4d %c\n" i i))))
   (beginning-of-buffer))
 
-(defun ek-insert-date ()
+(defun kit-insert-date ()
   "Insert date at point"
   (interactive)
   (insert (format-time-string "%a %b %e, %Y %l:%M %p")))
 
-(defun ek-dos2unix ()
+(defun kit-dos2unix ()
   "Convert line end from dos to unix"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
-(defun ek-unix2dos ()
+(defun kit-unix2dos ()
   "Convert line end from unix to dos"
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\n" nil t) (replace-match "\r\n")))
 
-(defun ek-move-line (&optional n)
+(defun kit-move-line (&optional n)
   "Move current line N (1) lines up/down leaving point in place."
   (interactive "p")
   (when (null n)
@@ -162,16 +162,16 @@
     (transpose-lines n)
     (previous-line 1)
     (forward-char col)))
-(defun ek-move-line-up (n)
+(defun kit-move-line-up (n)
   "Moves current line N (1) lines up leaving point in place."
   (interactive "p")
   (move-line (if (null n) -1 (- n))))
-(defun ek-move-line-down (n)
+(defun kit-move-line-down (n)
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
   (move-line (if (null n) 1 n)))
 
-(defun ek-flip-word-case ()
+(defun kit-flip-word-case ()
   "Fip word case"
   (interactive)
   (defvar flag 't)
@@ -184,9 +184,9 @@
     (downcase-word 1)
     (setq flag 't))))
 (global-set-key "\M-u"
-                'ek-flip-word-case)
+                'kit-flip-word-case)
 
-(defun ek-new-scratch ()
+(defun kit-new-scratch ()
   "Create a new scratch buffer"
   (interactive)
   (progn
