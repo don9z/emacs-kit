@@ -125,32 +125,7 @@
 (setq org-agenda-dim-blocked-tasks nil)
 (add-hook 'org-mode-hook
           (lambda () (setq truncate-lines nil)))
-;; mobileOrg
-(setq org-directory "~/Dropbox/Documents/org")
-(setq org-mobile-directory "~/Dropbox/MobileOrg")
-(setq org-mobile-inbox-for-pull "~/Dropbox/Documents/org/refile.org")
-(setq org-mobile-files(quote ("~/Dropbox/Documents/org/work.org")))
-(setq org-mobile-force-id-on-agenda-items nil)
-;; mobile sync
-(defvar org-mobile-sync-timer nil)
-(defvar org-mobile-sync-idle-secs (* 60 10))
-(defun org-mobile-sync ()
-  (interactive)
-  (org-mobile-pull)
-  (org-mobile-push))
-(defun org-mobile-sync-enable ()
-  "enable mobile org idle sync"
-  (interactive)
-  (setq org-mobile-sync-timer
-        (run-with-idle-timer org-mobile-sync-idle-secs t
-                             'org-mobile-sync)));
-(defun org-mobile-sync-disable ()
-  "disable mobile org idle sync"
-  (interactive)
-  (cancel-timer org-mobile-sync-timer))
-;; (add-hook 'after-init-hook 'org-mobile-pull)
-;; (add-hook 'kill-emacs-hook 'org-mobile-push)
-(org-mobile-sync-enable)
+
 
 ;; ido-mode
 (ido-mode t)
