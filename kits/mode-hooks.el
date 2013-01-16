@@ -64,37 +64,41 @@
             ;; do not use italic font on comments
             (make-face-unitalic 'font-lock-comment-face)
             ;; line width indication
-            (fci-mode t)))
+            ;;(fci-mode t)
+            ))
 
 ;; emacs lisp mode
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (fci-mode t)))
+            ;;(fci-mode t)
+            ))
 
 ;; java mode
 (add-hook 'java-mode-hook
           (lambda ()
             (enable-cscope)
-            (fci-mode t)))
+            ;;(fci-mode t)
+            ))
 
 ;; python mode
 (add-hook 'python-mode-hook
           (lambda ()
-            (fci-mode t)
             (highlight-indentation-mode)
             (flymake-python-pyflakes-load)))
 
 ;; ruby mode
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (fci-mode t)
-            (highlight-indentation-mode)))
+            ;;(fci-mode t)
+            (highlight-indentation-mode)
+            ))
 
 ;; scheme mode
 (add-hook 'scheme-mode-hook
           (lambda ()
-            (fci-mode t)
-            (autopair-mode)))
+            ;;(fci-mode t)
+            (autopair-mode)
+            ))
 
 ;; shell mode
 (add-hook 'shell-mode-hook
