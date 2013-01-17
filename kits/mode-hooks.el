@@ -84,7 +84,9 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (highlight-indentation-mode)
-            (flymake-python-pyflakes-load)))
+            (flymake-python-pyflakes-load)
+            (jedi:ac-setup)
+            ))
 
 ;; ruby mode
 (add-hook 'ruby-mode-hook

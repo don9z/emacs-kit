@@ -58,6 +58,7 @@
     highlight-indentation
     highlight-symbol
     ido-ubiquitous
+    jedi
     magit
     mark-multiple
     markdown-mode
@@ -107,7 +108,7 @@
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
 (autoload 'run-scheme "xscheme" "Run mit-scheme" t)
 (autoload 'run-geiser "geiser" "Geiser" t)
-
+(autoload 'jedi:ac-setup "jedi" nil t)
 
 ;; auto-complete
 (require 'auto-complete-config)
