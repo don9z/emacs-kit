@@ -194,6 +194,16 @@
      (get-buffer-create (generate-new-buffer-name "*scratch*")))
     (emacs-lisp-mode)))
 
+(defun kit-insert-empty-line-above ()
+  (interactive)
+  (let ((pos (point))
+        (cur-max (point-max)))
+    (beginning-of-line)
+    (newline-and-indent)
+    (goto-char (+ pos (- (point-max) cur-max)))))
+(global-set-key (kbd "<C-return>")
+                'kit-insert-empty-line-above)
+
 ;; switch font setting from default to YaHei
 (defun enter-my-chinese-writing-mode ()
   "Set font in current buffer"
