@@ -54,6 +54,8 @@
             (define-key org-agenda-mode-map "\M-s" 'org-save-all-org-buffers)))
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-r" 'revert-buffer)
+(global-set-key "\M-j" 'kit-join-line-above)
+(global-set-key (kbd "C-`") 'kit-rotate-windows)
 
 ;; compilation
 (global-set-key "\M-6" 'compile)

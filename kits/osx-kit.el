@@ -46,6 +46,7 @@ to match that used by the user's shell."
 (set-exec-path-from-shell-PATH)
 
 (setq mac-command-modifier 'meta)
-
+;;(setq ns-function-modifier 'hyper)
+;;(setq mac-option-modifier 'super)
 
 (provide 'osx-kit)
