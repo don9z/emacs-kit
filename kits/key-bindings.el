@@ -54,8 +54,15 @@
             (define-key org-agenda-mode-map "\M-s" 'org-save-all-org-buffers)))
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-r" 'revert-buffer)
+
+;; core utilities keybindings
 (global-set-key "\M-j" 'kit-join-line-above)
 (global-set-key (kbd "C-`") 'kit-rotate-windows)
+(global-set-key (kbd "M-=") 'kit-bounce-sexp)
+(global-set-key "\M-`" 'kit-next-use-buffer)
+(global-set-key "\M-~" 'kit-prev-use-buffer)
+(global-set-key "\M-u" 'kit-flip-word-case)
+(global-set-key (kbd "<C-return>") 'kit-insert-empty-line-above)
 
 ;; compilation
 (global-set-key "\M-6" 'compile)

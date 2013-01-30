@@ -62,7 +62,6 @@
      ((string-match "[[{(<]" next-char) (forward-sexp 1))
      ((string-match "[\]})>]" prev-char) (backward-sexp 1))
      (t (error "%s" "Not on a paren, brace, or bracket")))))
-(global-set-key (kbd "M-=") 'kit-bounce-sexp)
 
 (defun kit-region-length ()
   "Length of a region"
@@ -120,8 +119,6 @@
   (interactive)
   (bury-buffer (current-buffer))
   (kit-next-buffer (buffer-list)))
-(global-set-key "\M-`" 'kit-next-use-buffer)
-(global-set-key "\M-~" 'kit-prev-use-buffer)
 
 (defun kit-ascii-table ()
   "Print the ascii table"
@@ -183,8 +180,6 @@
    (t
     (downcase-word 1)
     (setq flag 't))))
-(global-set-key "\M-u"
-                'kit-flip-word-case)
 
 (defun kit-new-scratch ()
   "Create a new scratch buffer"
@@ -201,8 +196,6 @@
     (beginning-of-line)
     (newline-and-indent)
     (goto-char (+ pos (- (point-max) cur-max)))))
-(global-set-key (kbd "<C-return>")
-                'kit-insert-empty-line-above)
 
 (defun kit-join-line-above ()
   (interactive)
