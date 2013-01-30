@@ -57,7 +57,7 @@
 
 ;; core utilities keybindings
 (global-set-key "\M-j" 'kit-join-line-above)
-(global-set-key (kbd "C-`") 'kit-rotate-windows)
+(global-set-key (kbd "<C-tab>") 'kit-rotate-windows)
 (global-set-key (kbd "M-=") 'kit-bounce-sexp)
 (global-set-key "\M-`" 'kit-next-use-buffer)
 (global-set-key "\M-~" 'kit-prev-use-buffer)
