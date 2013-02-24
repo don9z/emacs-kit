@@ -99,10 +99,10 @@
 
 ;; expand-region
 (global-set-key (kbd "C-M-m") 'er/expand-region)
-;; mark-multiple
-(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
-(global-set-key (kbd "C-,") 'mark-previous-like-this)
-(global-set-key (kbd "C-.") 'mark-next-like-this)
+;; multiple-cursors
+(global-set-key (kbd "C-,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-.") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-.") 'mc/mark-all-like-this)
 ;; org
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)

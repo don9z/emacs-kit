@@ -60,8 +60,8 @@
     ido-ubiquitous
     jedi
     magit
-    mark-multiple
     markdown-mode
+    multiple-cursors
     melpa
     nav
     php-mode
