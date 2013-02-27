@@ -102,6 +102,7 @@
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'dummy-h-mode "dummy-h-mode" "Dummy H mode" t)
@@ -109,6 +110,7 @@
 (autoload 'run-scheme "xscheme" "Run mit-scheme" t)
 (autoload 'run-geiser "geiser" "Geiser" t)
 (autoload 'jedi:ac-setup "jedi" nil t)
+(autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
 
 ;; auto-complete
 (require 'auto-complete-config)
