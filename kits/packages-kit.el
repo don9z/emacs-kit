@@ -49,6 +49,7 @@
     cyberpunk-theme
     dummy-h-mode
     ecb
+    ess
     expand-region
     fill-column-indicator
     flymake-python-pyflakes
