@@ -226,6 +226,25 @@
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
 
+(defun kit-reset-ui (&optional frame)
+  "Reset UI to a frame split 80-80 horizontally"
+  (interactive)
+  (if frame (select-frame frame))
+  (delete-other-windows)
+  (if (window-system)
+      (cond
+       ((= 1050 (display-pixel-height))
+        (set-frame-size (selected-frame) 170 60)
+        (set-frame-position (selected-frame) 50 0))
+       ((= 800 (display-pixel-height))
+        (set-frame-size (selected-frame) 170 50)
+        (set-frame-position (selected-frame) 20 0))
+       (t
+        (set-frame-size (selected-frame) 170 45)
+        (set-frame-position (selected-frame) 20 0))
+       ))
+  (split-window-horizontally))
+
 ;; switch font setting from default to YaHei
 (defun enter-my-chinese-writing-mode ()
   "Set font in current buffer"
