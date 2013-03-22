@@ -112,6 +112,7 @@
 (autoload 'run-geiser "geiser" "Geiser" t)
 (autoload 'jedi:ac-setup "jedi" nil t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
+(autoload 'dash-at-point "dash-at-point" "Search with Dash" t nil)
 
 ;; auto-complete
 (require 'auto-complete-config)
