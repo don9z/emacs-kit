@@ -233,12 +233,9 @@
   (delete-other-windows)
   (if (window-system)
       (cond
-       ((= 1050 (display-pixel-height))
+       ((<= 1050 (display-pixel-height)) ;; for large screen
         (set-frame-size (selected-frame) 170 60)
         (set-frame-position (selected-frame) 50 0))
-       ((= 800 (display-pixel-height))
-        (set-frame-size (selected-frame) 170 50)
-        (set-frame-position (selected-frame) 20 0))
        (t
         (set-frame-size (selected-frame) 170 45)
         (set-frame-position (selected-frame) 20 0))
