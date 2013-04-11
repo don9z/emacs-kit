@@ -63,7 +63,7 @@
     (perl-mode . "perl")
     (cperl-mode . "perl")
     (php-mode . "php")
-    (python-mode . "python3")
+    (python-mode . "python2")
     (ruby-mode . "ruby")
     (scala-mode . "scala")
     (vim-mode . "vim")
@@ -78,10 +78,10 @@
 (defun dash-at-point ()
   "Call Dash the word at point."
   (interactive)
-  (start-process 
-   "Dash" nil "open" 
-   (concat 
-    "dash://" 
+  (start-process
+   "Dash" nil "open"
+   (concat
+    "dash://"
     (read-from-minibuffer
      "Dash search: "
      (if (dash-at-point-guess-docset)
