@@ -57,6 +57,8 @@
 (setq ring-bell-function 'ignore)
 ;; remove trailing whitespaces before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; enable to support navigate in camelCase words
+(global-subword-mode t)
 
 ;; shell-mode settings
 (setq explicit-shell-file-name "/bin/bash")
