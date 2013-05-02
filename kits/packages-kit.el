@@ -69,6 +69,7 @@
     powerline
     protobuf-mode
     rainbow-mode
+    rvm
     scss-mode
     shell-here
     sicp
