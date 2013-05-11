@@ -86,7 +86,7 @@
             (highlight-indentation-mode)
             (flymake-python-pyflakes-load)
             (fci-mode t)
-            (jedi:ac-setup)
+            (jedi:setup)
             ))
 
 ;; ruby mode

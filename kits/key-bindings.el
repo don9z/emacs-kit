@@ -112,5 +112,11 @@
 (global-set-key "\C-ch" 'highlight-symbol-at-point)
 ;; magit
 (global-set-key "\C-xg" 'magit-status)
+;; jedi
+(add-hook 'python-mode-hook
+          (lambda ()
+            (define-key python-mode-map (kbd "M-.") 'jedi:key-goto-definition)
+            (define-key python-mode-map (kbd "M-/") 'jedi:dot-complete)
+            ))
 
 (provide 'key-bindings)

@@ -112,7 +112,7 @@
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
 (autoload 'run-scheme "xscheme" "Run mit-scheme" t)
 (autoload 'run-geiser "geiser" "Geiser" t)
-(autoload 'jedi:ac-setup "jedi" nil t)
+(autoload 'jedi:setup "jedi" nil t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
 (autoload 'dash-at-point "dash-at-point" "Search with Dash" t nil)
 
