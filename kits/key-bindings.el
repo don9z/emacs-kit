@@ -63,6 +63,9 @@
 (global-set-key "\M-~" 'kit-prev-use-buffer)
 (global-set-key "\M-u" 'kit-flip-word-case)
 (global-set-key (kbd "<C-return>") 'kit-insert-empty-line-above)
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'kit-smarter-move-beginning-of-line)
 
 ;; compilation
 (global-set-key "\M-6" 'compile)
