@@ -51,6 +51,7 @@
     dummy-h-mode
     ecb
     ess
+    exec-path-from-shell
     expand-region
     fill-column-indicator
     flymake-python-pyflakes
