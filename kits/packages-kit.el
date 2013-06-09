@@ -62,6 +62,7 @@
     highlight-symbol
     ido-ubiquitous
     jedi
+    lua-mode
     magit
     markdown-mode
     multiple-cursors
