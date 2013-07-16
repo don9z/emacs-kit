@@ -63,6 +63,7 @@
     ido-ubiquitous
     jedi
     lua-mode
+    lusty-explorer
     magit
     markdown-mode
     multiple-cursors
