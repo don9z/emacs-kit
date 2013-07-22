@@ -59,6 +59,8 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; enable to support navigate in camelCase words
 (global-subword-mode t)
+;; hide startup splash screen
+(setq inhibit-startup-screen t)
 
 ;; shell-mode settings
 (setq explicit-shell-file-name "/bin/bash")
