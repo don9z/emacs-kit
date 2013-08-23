@@ -45,6 +45,7 @@
     auto-complete
     autopair
     clojure-mode
+    csharp-mode
     csv-mode
     cyberpunk-theme
     dropdown-list
