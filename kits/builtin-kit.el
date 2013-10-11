@@ -32,6 +32,8 @@
 
 ;;; Code:
 
+;; set find-file default path
+(setq default-directory "~/")
 ;; set environment coding system
 (set-language-environment "UTF-8")
 ;; auto revert buffer globally
