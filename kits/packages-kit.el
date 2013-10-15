@@ -78,6 +78,7 @@
     scss-mode
     shell-here
     sicp
+    sml-mode
     web-mode
     yaml-mode
     yasnippet
