@@ -72,6 +72,7 @@
     nav
     php-mode
     powerline
+    projectile
     protobuf-mode
     rainbow-mode
     rvm
