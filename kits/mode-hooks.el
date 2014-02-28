@@ -106,9 +106,4 @@
           (lambda ()
             (linum-mode -1)))
 
-(add-hook 'markdown-mode-hook
-          (lambda ()
-            (visual-line-mode)
-            ))
-
 (provide 'mode-hooks)
