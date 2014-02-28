@@ -1,6 +1,6 @@
 ;;; core-utilities.el --- Emacs kit core utilities
 ;;
-;; Copyright (c) 2012 Chris Zheng
+;; Copyright (c) 2014 Chris Zheng
 ;;
 ;; Author: Chris Zheng <chrisdcheng@gmail.com>
 ;; URL: https://github.com/don9z/emacs-kit

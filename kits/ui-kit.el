@@ -1,6 +1,6 @@
 ;;; ui-kit.el --- Emacs kit user interface settings
 ;;
-;; Copyright (c) 2012 Chris Zheng
+;; Copyright (c) 2014 Chris Zheng
 ;;
 ;; Author: Chris Zheng <chrisdcheng@gmail.com>
 ;; URL: https://github.com/don9z/emacs-kit
@@ -42,7 +42,7 @@
 (setq frame-title-format
       '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-;; set frame size, cursor color and font
+;; set frame size, cursor color
 (setq default-frame-alist
       (append
        '(
