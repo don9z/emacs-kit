@@ -38,15 +38,20 @@
 
 (defvar emacs-kit-dir (file-name-directory load-file-name)
   "The root directory of the Emacs kit")
+
 (defvar kit-modules-dir (expand-file-name "kits" emacs-kit-dir)
   "Directory of official kits files")
 (add-to-list 'load-path kit-modules-dir)
+
 (defvar kit-extensions-dir (expand-file-name "extensions" emacs-kit-dir)
   "Directory of extensions that are not available in ELPA or MELPA")
 (add-to-list 'load-path kit-extensions-dir)
+
 (let ((default-directory kit-extensions-dir))
   (normal-top-level-add-subdirs-to-load-path))
-(defvar kit-snippets-dir (expand-file-name "snippets" emacs-kit-dir)
+
+(defvar kit-snippets-dir
+  (expand-file-name "extensions/yasnippet-snippets" emacs-kit-dir)
   "Directory of snippets used by yasnippets")
 
 (defvar kit-org-dir "/Users/chris/Dropbox/Documents/org"

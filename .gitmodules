@@ -4,3 +4,6 @@
 [submodule "extensions/geiser"]
 	path = extensions/geiser
 	url = git://git.sv.gnu.org/geiser.git
+[submodule "extensions/yasnippet-snippets"]
+	path = extensions/yasnippet-snippets
+	url = git@github.com:don9z/yasnippet-snippets.git
