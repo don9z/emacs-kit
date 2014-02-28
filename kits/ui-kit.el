@@ -51,9 +51,18 @@
          (width . 100)
          (height . 40)
          (cursor-color . "LawnGreen")
-         (font . "-apple-Inconsolata-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1")
          )
        default-frame-alist))
+
+;; set font per language
+;; default
+(set-face-attribute
+  'default nil :font "Inconsolata 14")
+;; chinese
+(dolist (charset '(han))
+    (set-fontset-font (frame-parameter nil 'font)
+                      charset
+                      (font-spec :family "Microsoft Yahei" :size 14)))
 
 ;; hide the toolbar
 (tool-bar-mode -1)

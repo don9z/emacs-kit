@@ -61,8 +61,6 @@
             (enable-cscope)
             ;; set compile command
             (setq compile-command "make -C ")
-            ;; do not use italic font on comments
-            (make-face-unitalic 'font-lock-comment-face)
             ;; line width indication
             (fci-mode t)
             ))
