@@ -54,8 +54,11 @@
   (expand-file-name "extensions/yasnippet-snippets" emacs-kit-dir)
   "Directory of snippets used by yasnippets")
 
-(defvar kit-org-dir "/Users/chris/Dropbox/Documents/org"
+(defvar kit-org-dir (expand-file-name "org" emacs-kit-dir)
   "Directory of org agenda files")
+(when (not (file-exists-p kit-org-dir))
+  (message "Make directory to store org files: %s" kit-org-dir)
+  (make-directory kit-org-dir))
 
 (require 'builtin-kit)
 (require 'packages-kit)
