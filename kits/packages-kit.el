@@ -74,12 +74,14 @@
     powerline
     projectile
     protobuf-mode
+    racket-mode
     rainbow-mode
     rvm
     scss-mode
     shell-here
     sicp
-    sml-mode
+    slime
+    scala-mode2
     web-mode
     yaml-mode
     yasnippet
@@ -154,5 +156,7 @@
      (setq stack-trace-on-error t)
      (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
 
+;; slime
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
 
 (provide 'packages-kit)
