@@ -68,7 +68,6 @@
     magit
     markdown-mode
     multiple-cursors
-    melpa
     nav
     php-mode
     powerline
@@ -77,11 +76,12 @@
     racket-mode
     rainbow-mode
     rvm
+    scala-mode2
     scss-mode
     shell-here
     sicp
     slime
-    scala-mode2
+    swift-mode
     web-mode
     yaml-mode
     yasnippet
