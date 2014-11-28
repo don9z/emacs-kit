@@ -59,6 +59,7 @@
     git-blame
     go-mode
     golden-ratio
+    gradle-mode
     highlight-indentation
     highlight-symbol
     ido-ubiquitous
@@ -82,6 +83,7 @@
     sicp
     slime
     swift-mode
+    web-beautify
     web-mode
     yaml-mode
     yasnippet
