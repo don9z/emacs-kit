@@ -56,6 +56,7 @@
     expand-region
     fill-column-indicator
     flymake-python-pyflakes
+    format-sql
     git-blame
     go-mode
     golden-ratio
