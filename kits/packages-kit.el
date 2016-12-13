@@ -56,6 +56,7 @@
     expand-region
     fill-column-indicator
     flymake-python-pyflakes
+    flymd
     format-sql
     git-blamed
     go-mode
@@ -161,5 +162,8 @@
 
 ;; slime
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
+
+;;
+(setq flymd-output-directory "/tmp")
 
 (provide 'packages-kit)
