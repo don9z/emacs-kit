@@ -71,7 +71,7 @@
 (toggle-scroll-bar -1)
 
 ;; always show linum fringe
-(global-linum-mode +1)
+(global-nlinum-mode +1)
 
 ;; make the fringe thinner (default is 8 in pixels)
 (fringe-mode 4)

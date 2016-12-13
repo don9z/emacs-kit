@@ -72,6 +72,8 @@
     markdown-mode
     multiple-cursors
     nav
+    nlinum
+    olivetti
     php-mode
     powerline
     projectile
