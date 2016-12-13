@@ -57,7 +57,7 @@
     fill-column-indicator
     flymake-python-pyflakes
     format-sql
-    git-blame
+    git-blamed
     go-mode
     golden-ratio
     gradle-mode
@@ -78,7 +78,7 @@
     racket-mode
     rainbow-mode
     rvm
-    scala-mode2
+    scala-mode
     scss-mode
     shell-here
     sicp
