@@ -74,7 +74,7 @@
 (global-nlinum-mode +1)
 
 ;; make the fringe thinner (default is 8 in pixels)
-(fringe-mode 4)
+(fringe-mode 8)
 
 ;; make the cursor thinner (as modern editors do)
 (setq default-cursor-type 'bar)
