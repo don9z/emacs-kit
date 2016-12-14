@@ -60,8 +60,8 @@
   (message "Make directory to store org files: %s" kit-org-dir)
   (make-directory kit-org-dir))
 
-(require 'builtin-kit)
 (require 'packages-kit)
+(require 'builtin-kit)
 (require 'core-utilities)
 (require 'ui-kit)
 (require 'key-bindings)

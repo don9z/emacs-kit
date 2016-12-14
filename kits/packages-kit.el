@@ -37,8 +37,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
-
-(defvar packages-list
+(setq package-selected-packages
   '(
     auctex
     ascii
@@ -91,22 +90,19 @@
     web-mode
     yaml-mode
     yasnippet
-    )
-  "List of packages needs to be installed at launch")
-
+    ))
+;; Install above packages at launch
 (defun install-packages ()
   (defun has-package-not-installed ()
-    (loop for p in packages-list
+    (loop for p in package-selected-packages
           when (not (package-installed-p p)) do (return t)
           finally (return nil)))
   (when (has-package-not-installed)
-    (message "%s" "Refreshing packages database...")
+   (message "%s" "Refreshing packages database...")
     (package-refresh-contents)
     (message "%s" "Done refreshing")
     ;; install the missing packages
-    (dolist (p packages-list)
-      (when (not (package-installed-p p))
-        (package-install p)))))
+    (package-install-selected-packages)))
 (install-packages)
 
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
