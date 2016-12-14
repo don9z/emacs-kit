@@ -33,7 +33,9 @@
 ;;; Code:
 
 ;; on osx, Emacs doesn't use the $PATH if it is not started from the shell
-(exec-path-from-shell-initialize)
+(progn
+  (setq exec-path-from-shell-check-startup-files nil)
+  (exec-path-from-shell-initialize))
 
 (setq mac-command-modifier 'meta)
 ;;(setq ns-function-modifier 'hyper)
