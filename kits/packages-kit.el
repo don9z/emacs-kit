@@ -49,7 +49,6 @@
     cyberpunk-theme
     dropdown-list
     dummy-h-mode
-    ecb
     ess
     exec-path-from-shell
     expand-region
@@ -150,18 +149,10 @@
      (setq fci-rule-color "#303030")
      (setq fci-rule-use-dashes t)))
 
-;; ecb
-(eval-after-load "ecb"
-  '(progn
-     (setq ecb-tip-of-the-day nil)
-     ;; Too fix the error, kinda workaround
-     (setq stack-trace-on-error t)
-     (defun ecb-enable-own-temp-buffer-show-futition (switch) switch)))
-
 ;; slime
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
 
-;;
+;; flymd
 (setq flymd-output-directory "/tmp")
 
 (provide 'packages-kit)
