@@ -42,17 +42,12 @@
 (setq frame-title-format
       '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-;; set frame size, cursor color
-(setq default-frame-alist
-      (append
-       '(
-         (left . 50)
-         (top . 0)
-         (width . 100)
-         (height . 40)
-         (cursor-color . "LawnGreen")
-         )
-       default-frame-alist))
+;; enable auto save the desktop
+;; (variables, buffers, frame and window configuration)
+(desktop-save-mode)
+
+;; set cursor color to green
+(set-cursor-color "LawnGreen")
 
 ;; set font per language
 ;; default
