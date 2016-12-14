@@ -32,10 +32,6 @@
 
 ;;; Code:
 
-(add-hook 'linum-mode-hook
-          (lambda ()
-            (require 'hlinum)))
-
 ;; c/c++ mode
 (defun enable-cscope ()
   (when (file-exists-p "/usr/local/bin/cscope-indexer")
