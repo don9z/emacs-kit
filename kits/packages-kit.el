@@ -72,6 +72,7 @@
     nav
     nlinum
     olivetti
+    package-lint
     php-mode
     powerline
     projectile
