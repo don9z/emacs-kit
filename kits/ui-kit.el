@@ -33,8 +33,6 @@
 ;;; Code:
 
 ;; set theme
-(add-to-list 'custom-theme-load-path
-             (expand-file-name "blackboard-theme" kit-extensions-dir))
 (when (window-system)
  (load-theme 'blackboard t))
 

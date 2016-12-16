@@ -46,6 +46,7 @@
     ascii
     auto-complete
     autopair
+    blackboard-theme
     clojure-mode
     csharp-mode
     csv-mode
