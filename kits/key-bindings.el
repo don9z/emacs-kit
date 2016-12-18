@@ -93,12 +93,6 @@
             (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)
             (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)
             (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally)))
-(add-hook 'geiser-repl-mode-hook
-          (lambda ()
-            (define-key geiser-repl-mode-map (kbd "M-`") 'next-use-buffer)))
-(add-hook 'geiser-mode-hook
-          (lambda ()
-            (define-key geiser-mode-map (kbd "M-`") 'next-use-buffer)))
 
 ;; expand-region
 (global-set-key (kbd "C-M-m") 'er/expand-region)
