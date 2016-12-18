@@ -124,8 +124,6 @@
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'dummy-h-mode "dummy-h-mode" "Dummy H mode" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
-(autoload 'run-scheme "xscheme" "Run mit-scheme" t)
-(autoload 'run-geiser "geiser" "Geiser" t)
 (autoload 'jedi:setup "jedi" nil t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
 (autoload 'dash-at-point "dash-at-point" "Search with Dash" t nil)
