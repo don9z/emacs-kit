@@ -56,6 +56,7 @@
     ess
     exec-path-from-shell
     expand-region
+    dracula-theme
     fill-column-indicator
     flymake-python-pyflakes
     flymd

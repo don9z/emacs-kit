@@ -34,7 +34,10 @@
 
 ;; set theme
 (when (window-system)
- (load-theme 'blackboard t))
+  ;;(load-theme 'blackboard t)
+  (load-theme 'dracula t)
+  )
+
 
 ;; display current buffer file path on frame title
 (setq frame-title-format
