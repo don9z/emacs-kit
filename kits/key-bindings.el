@@ -72,8 +72,8 @@
 (global-set-key "\M-^" 'next-error)
 (global-set-key (kbd "C-6") 'kill-compilation)
 
-;; shell-here
-(global-set-key "\M-7" 'shell-here)
+;; multi-term
+(global-set-key "\M-7" 'multi-term)
 
 ;; grep-find
 (global-set-key "\M-8" 'grep-find)

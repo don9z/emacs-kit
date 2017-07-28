@@ -73,6 +73,7 @@
     lusty-explorer
     magit
     markdown-mode
+    multi-term
     multiple-cursors
     nav
     nlinum
