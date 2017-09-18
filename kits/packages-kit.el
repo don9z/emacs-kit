@@ -48,6 +48,7 @@
     autopair
     blackboard-theme
     clojure-mode
+    coffee-mode
     csharp-mode
     csv-mode
     cyberpunk-theme
