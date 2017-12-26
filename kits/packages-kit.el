@@ -77,6 +77,7 @@
     multi-term
     multiple-cursors
     nav
+    neotree
     nlinum
     olivetti
     package-lint
