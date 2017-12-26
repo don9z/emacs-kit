@@ -44,16 +44,17 @@
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-%" 'query-replace-regexp)
 
-(global-set-key (kbd "C--") 'undo)
+;;(global-set-key (kbd "C--") 'undo)
 (global-set-key "\M-l" 'goto-line)
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
-(add-hook 'org-agenda-mode-hook
-          (lambda ()
-            (define-key org-agenda-mode-map "\M-s" 'org-save-all-org-buffers)))
 (global-set-key "\M-k" 'kill-this-buffer)
 (global-set-key "\M-r" 'revert-buffer)
+
+;; goto definition
+(global-set-key "\M-." 'xref-find-definitions)
+(global-set-key "\M-," 'xref-pop-marker-stack)
 
 ;; core utilities keybindings
 (global-set-key "\C-\M-j" 'kit-join-line-above)
@@ -87,6 +88,28 @@
 (global-set-key (kbd "C-M-0") 'delete-window)
 (global-set-key (kbd "M-0") 'other-window)
 
+;; expand-region
+(global-set-key (kbd "C-M-m") 'er/expand-region)
+
+;; multiple-cursors
+(global-set-key (kbd "C-,") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-.") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-.") 'mc/mark-all-like-this)
+
+;; org
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (define-key org-agenda-mode-map "\M-s" 'org-save-all-org-buffers)))
+
+;; highlight-symbol
+(global-set-key "\C-ch" 'highlight-symbol-at-point)
+
+;; magit
+(global-set-key "\C-xg" 'magit-status)
 ;; fix conflicted key bindings
 (add-hook 'magit-mode-hook
           (lambda ()
@@ -94,21 +117,6 @@
             (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)
             (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally)))
 
-;; expand-region
-(global-set-key (kbd "C-M-m") 'er/expand-region)
-;; multiple-cursors
-(global-set-key (kbd "C-,") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-.") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-.") 'mc/mark-all-like-this)
-;; org
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-cc" 'org-capture)
-;; highlight-symbol
-(global-set-key "\C-ch" 'highlight-symbol-at-point)
-;; magit
-(global-set-key "\C-xg" 'magit-status)
 ;; jedi
 (add-hook 'python-mode-hook
           (lambda ()
