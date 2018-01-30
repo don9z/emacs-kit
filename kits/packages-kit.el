@@ -54,6 +54,7 @@
     cyberpunk-theme
     dropdown-list
     dummy-h-mode
+    ein
     ess
     exec-path-from-shell
     expand-region
