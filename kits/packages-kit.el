@@ -149,7 +149,8 @@
                              yas-completing-prompt))
 
 ;; enable ido-ubiquitous
-(ido-ubiquitous-mode)
+;; disable @20180205, seems there are some bugs might halt emacs
+;; (ido-ubiquitous-mode)
 
 ;; fill-column-indicator
 (eval-after-load "fill-column-indicator"
