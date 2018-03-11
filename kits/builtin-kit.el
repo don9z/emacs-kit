@@ -79,6 +79,8 @@
 (setenv "PAGER" "cat")
 ;; set lang to enable Chinese display in shell-mode
 (setenv "LANG" "en_US.UTF-8")
+;; fix easypg error "Inappropriate ioctl for device" when open .gpg file
+(setq epa-pinentry-mode 'loopback)
 
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
