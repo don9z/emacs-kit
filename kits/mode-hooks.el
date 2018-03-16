@@ -102,4 +102,10 @@
           (lambda ()
             (linum-mode -1)))
 
+;; olivetti mode
+;; disable word-wrap to fix chinese character line truncate problem
+(add-hook 'olivetti-mode-hook
+          (lambda ()
+            (setq word-wrap nil)))
+
 (provide 'mode-hooks)
