@@ -68,9 +68,13 @@
 
 ;; always show linum fringe
 (global-nlinum-mode +1)
+;; enlarge linum width to fix number being cut off problem
+(setq nlinum-format "%d ")
 
-;; make the fringe thinner (default is 8 in pixels)
-(fringe-mode 8)
+;; set the fringe width left 8 right 1
+(fringe-mode '(8 . 1))
+;; set fringe color same as background color
+(set-face-attribute 'fringe nil :background nil)
 
 ;; make the cursor thinner (as modern editors do)
 (setq default-cursor-type 'bar)
