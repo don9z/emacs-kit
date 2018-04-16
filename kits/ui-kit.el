@@ -49,6 +49,8 @@
 
 ;; set cursor color to green
 (set-cursor-color "LawnGreen")
+;; make the cursor thinner (as modern editors do)
+(setq default-cursor-type 'bar)
 
 ;; set font per language
 ;; default
@@ -75,9 +77,6 @@
 (fringe-mode '(8 . 1))
 ;; set fringe color same as background color
 (set-face-attribute 'fringe nil :background nil)
-
-;; make the cursor thinner (as modern editors do)
-(setq default-cursor-type 'bar)
 
 ;; set column to 80
 (setq-default fill-column 80)
