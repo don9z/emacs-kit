@@ -50,7 +50,7 @@
 ;; set cursor color to green
 (set-cursor-color "LawnGreen")
 ;; make the cursor thinner (as modern editors do)
-(setq default-cursor-type 'bar)
+(setq-default cursor-type 'bar)
 
 ;; set font per language
 ;; default
