@@ -36,14 +36,10 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (setq package-selected-packages
   '(
     auctex
-    ascii
     auto-complete
     autopair
     blackboard-theme
@@ -52,8 +48,6 @@
     csharp-mode
     csv-mode
     cyberpunk-theme
-    dropdown-list
-    dummy-h-mode
     ein
     ess
     exec-path-from-shell
@@ -69,7 +63,6 @@
     gradle-mode
     highlight-indentation
     highlight-symbol
-    ido-ubiquitous
     jedi
     lua-mode
     lusty-explorer
@@ -117,7 +110,6 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.h$" . dummy-h-mode))
 (add-to-list 'auto-mode-alist '("\\.phtml$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
@@ -127,7 +119,6 @@
 (add-to-list 'auto-mode-alist '("\\.thrift$" . thrift-mode))
 
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
-(autoload 'dummy-h-mode "dummy-h-mode" "Dummy H mode" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
 (autoload 'jedi:setup "jedi" nil t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
@@ -143,14 +134,9 @@
 (require 'yasnippet)
 (setq yas-snippet-dirs (list kit-snippets-dir))
 (yas-global-mode 1)
-(require 'dropdown-list)
 (setq yas-prompt-functions '(yas-dropdown-prompt
                              yas-ido-prompt
                              yas-completing-prompt))
-
-;; enable ido-ubiquitous
-;; disable @20180205, seems there are some bugs might halt emacs
-;; (ido-ubiquitous-mode)
 
 ;; fill-column-indicator
 (eval-after-load "fill-column-indicator"
