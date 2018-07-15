@@ -1,7 +1,7 @@
 Emacs-Kit
 ---
 
-Emacs is the best text editor, but configuring it takes time.
+Emacs is the best text editor, but it takes time to configure it.
 
 This kit aims to make it easy, with efficient and readable scripts.
 
@@ -13,4 +13,4 @@ There are still some packages missing in MELPA are stored in the `extensions` fo
 
 Please run `git submodule init` and `git submodule update` after you've cloned it.
 
-Please use Emacs 24, and load `init.el` in your `.emacs` file.
+Please use Emacs 24+, and load `init.el` in your `.emacs` file.
