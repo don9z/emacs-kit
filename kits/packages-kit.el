@@ -54,6 +54,7 @@
     expand-region
     dracula-theme
     fill-column-indicator
+    flatui-dark-theme
     flymake-python-pyflakes
     flymd
     format-sql
