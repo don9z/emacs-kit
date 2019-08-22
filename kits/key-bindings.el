@@ -117,11 +117,4 @@
             (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)
             (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally)))
 
-;; jedi
-(add-hook 'python-mode-hook
-          (lambda ()
-            (define-key python-mode-map (kbd "M-.") 'jedi:key-goto-definition)
-            (define-key python-mode-map (kbd "M-/") 'jedi:dot-complete)
-            ))
-
 (provide 'key-bindings)

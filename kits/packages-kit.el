@@ -64,7 +64,6 @@
     gradle-mode
     highlight-indentation
     highlight-symbol
-    jedi
     lua-mode
     lusty-explorer
     magit
@@ -121,7 +120,6 @@
 
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
-(autoload 'jedi:setup "jedi" nil t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
 (autoload 'dash-at-point "dash-at-point" "Search with Dash" t nil)
 
