@@ -41,7 +41,7 @@
   '(
     auctex
     auto-complete
-    autopair
+    ;;autopair
     blackboard-theme
     clojure-mode
     coffee-mode
@@ -88,6 +88,7 @@
     shell-here
     sicp
     slime
+    stylus-mode
     swift-mode
     web-beautify
     web-mode
