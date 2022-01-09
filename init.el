@@ -73,6 +73,10 @@
 
 (server-start)
 
+;; Fix listing packages error
+(custom-set-variables
+ '(gnutls-algorithm-priority "normal:-vers-tls1.3"))
+
 (message
  "Emacs kit is equipped. May the force be with you, Master %s!"
  (getenv "USER"))
