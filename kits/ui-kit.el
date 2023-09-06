@@ -46,7 +46,6 @@
 ;;                    (abbreviate-file-name (buffer-file-name))
 ;;                  "%b"))))
 
-
 ;; enable auto save the desktop
 ;; (variables, buffers, frame and window configuration)
 (desktop-save-mode)

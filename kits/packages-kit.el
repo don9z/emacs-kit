@@ -32,8 +32,6 @@
 
 ;;; Code:
 
-;;(require 'cl)
-;;(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -41,7 +39,6 @@
   '(
     auctex
     auto-complete
-    ;;autopair
     blackboard-theme
     clojure-mode
     coffee-mode
