@@ -51,7 +51,7 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 (defvar kit-snippets-dir
-  (expand-file-name "extensions/yasnippet-snippets" emacs-kit-dir)
+  (expand-file-name "extensions/yasnippet-snippets/snippets" emacs-kit-dir)
   "Directory of snippets used by yasnippets")
 
 (defvar kit-org-dir (expand-file-name "org" emacs-kit-dir)
