@@ -41,4 +41,7 @@
 ;;(setq ns-function-modifier 'hyper)
 ;;(setq mac-option-modifier 'super)
 
+;; ls doesn't support the --dired option while on Linux it is supported.
+(setq dired-use-ls-dired nil)
+
 (provide 'osx-kit)

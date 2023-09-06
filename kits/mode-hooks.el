@@ -96,11 +96,6 @@
             (autopair-mode)
             ))
 
-;; shell mode
-(add-hook 'shell-mode-hook
-          (lambda ()
-            (linum-mode -1)))
-
 ;; olivetti mode
 ;; disable word-wrap to fix chinese character line truncate problem
 (add-hook 'olivetti-mode-hook

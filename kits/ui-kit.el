@@ -37,9 +37,15 @@
   ;;(load-theme 'blackboard t)
   )
 
-;; display current buffer file path on frame title
-(setq frame-title-format
-      '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; ;; comments to fix freeze problem on emacs v29 (Mac M2)
+;; ;; display current buffer file path on frame title
+;; (setq frame-title-format
+;;       '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; (setq frame-title-format
+;;       '((:eval (if (buffer-file-name)
+;;                    (abbreviate-file-name (buffer-file-name))
+;;                  "%b"))))
+
 
 ;; enable auto save the desktop
 ;; (variables, buffers, frame and window configuration)
@@ -67,14 +73,15 @@
 (toggle-scroll-bar -1)
 
 ;; always show linum fringe
-(global-nlinum-mode +1)
+;;(global-nlinum-mode +1)
+(global-display-line-numbers-mode)
 ;; enlarge linum width to fix number being cut off problem
 (setq nlinum-format "%d ")
 
 ;; set the fringe width left 8 right 1
 (fringe-mode '(8 . 1))
 ;; set fringe color same as background color
-(set-face-attribute 'fringe nil :background nil)
+(set-face-attribute 'fringe nil :background 'unspecified)
 
 ;; set column to 80
 (setq-default fill-column 80)

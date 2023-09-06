@@ -32,8 +32,8 @@
 
 ;;; Code:
 
-(require 'cl)
-(require 'package)
+;;(require 'cl)
+;;(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -97,8 +97,8 @@
 ;; Install above packages at launch
 (defun install-packages ()
   (defun has-package-not-installed ()
-    (loop for p in package-selected-packages
-          when (not (package-installed-p p)) do (return t)
+    (cl-loop for p in package-selected-packages
+          when (not (package-installed-p p)) do (cl-return t)
           finally (return nil)))
   (when (has-package-not-installed)
    (message "%s" "Refreshing packages database...")
