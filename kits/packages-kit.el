@@ -89,6 +89,7 @@
     slime
     stylus-mode
     swift-mode
+    thrift
     web-beautify
     web-mode
     yaml-mode
@@ -121,7 +122,6 @@
 
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
-(autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
 
 ;; auto-complete
 (require 'auto-complete-config)
