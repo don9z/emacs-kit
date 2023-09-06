@@ -122,7 +122,6 @@
 (autoload 'csv-mode "csv-mode" "Major mode for CSV files" t)
 (autoload 'fci-mode "fill-column-indicator" "Show column indicator" t)
 (autoload 'thrift-mode "thrift-mode" "Thrift mode" t)
-(autoload 'dash-at-point "dash-at-point" "Search with Dash" t nil)
 
 ;; auto-complete
 (require 'auto-complete-config)
