@@ -37,10 +37,9 @@
   ;;(load-theme 'blackboard t)
   )
 
-;; ;; comments to fix freeze problem on emacs v29 (Mac M2)
-;; ;; display current buffer file path on frame title
-;; (setq frame-title-format
-;;       '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;; display current buffer file path on frame title
+(setq frame-title-format
+      '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 ;; (setq frame-title-format
 ;;       '((:eval (if (buffer-file-name)
 ;;                    (abbreviate-file-name (buffer-file-name))
