@@ -49,7 +49,7 @@
 
 (global-set-key "\C-x\C-b" 'ibuffer)
 (global-set-key "\M-s" 'save-buffer)
-(global-set-key "\M-k" 'kill-this-buffer)
+(global-set-key "\M-k" 'kill-current-buffer)
 (global-set-key "\M-r" 'revert-buffer)
 
 ;; goto definition

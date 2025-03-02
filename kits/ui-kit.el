@@ -38,9 +38,9 @@
   )
 
 ;; comments to fix freeze problem on emacs v29 (Mac M2)
-;; display current buffer file path on frame title
-;; (setq frame-title-format
-;;       '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+;;display current buffer file path on frame title
+(setq frame-title-format
+      '("%S" (buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 ;; enable auto save the desktop
 ;; (variables, buffers, frame and window configuration)
