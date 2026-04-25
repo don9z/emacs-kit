@@ -41,6 +41,10 @@
 ;;(setq ns-function-modifier 'hyper)
 ;;(setq mac-option-modifier 'super)
 
+;; Prevent creating new frames (windows) on macOS
+;;(setq pop-up-frames nil)
+(setq ns-pop-up-frames nil)
+
 ;; ls doesn't support the --dired option while on Linux it is supported.
 (setq dired-use-ls-dired nil)
 
