@@ -128,6 +128,7 @@
 
 ;; yasnippet
 (require 'yasnippet)
+(require 'yasnippet-snippets)
 (setq yas-snippet-dirs (list kit-snippets-dir))
 (yas-global-mode 1)
 (setq yas-prompt-functions '(yas-dropdown-prompt
