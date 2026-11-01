@@ -1,4 +1,4 @@
-;;; init.el --- Emacs kit for GNU Emacs
+;;; init.el --- Emacs kit for GNU Emacs -*- lexical-binding: nil; -*-
 ;;
 ;; Copyright (c) 2012 Chris Zheng
 ;;
@@ -31,6 +31,11 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
+
+;; Share startup compatibility settings through the existing .emacs entry.
+(unless (featurep 'emacs-kit-early-init)
+  (load (expand-file-name "early-init.el"
+                          (file-name-directory load-file-name)) nil t))
 
 (message
  "Emacs kit is starting up... Be patient, Master %s!"
